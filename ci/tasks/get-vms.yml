@@ -33,7 +33,6 @@ run:
     az cloud set -n AzureStackUser
     az cloud update --profile ${PROFILE}
     az cloud list --output table
-    echo ${AZURE_CLIENT_ID}
     az login --service-principal \
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
