@@ -1,8 +1,8 @@
 ---
 platform: linux
 
-#inputs:
-#- name: env # contains the env file with target OpsMan Information
+inputs:
+ - name: root_ca # contains the env file with target OpsMan Information
 
 params:
   CA_CERT: 
@@ -15,8 +15,7 @@ run:
   args:
   - "-c"
   - |
-    echo ${CA_CERT}
-    echo ${CA_CERT} >> /tmp/root.cer
+    cat  root_ca/${CA_CERT}>> /tmp/root.cer
     cat /tmp/root.cer
     export REQUEST_CA_BUNDLE=/tmp/root.cer
     export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
