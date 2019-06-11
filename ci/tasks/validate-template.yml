@@ -17,6 +17,7 @@ params:
   TEMPLATE_URI:
   PARAMETER_FILE:
   RESOURCE_GROUP:
+  LOCATION:
 
 
 run:
