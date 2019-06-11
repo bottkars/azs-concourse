@@ -4,8 +4,8 @@ platform: linux
 #inputs:
 #- name: env # contains the env file with target OpsMan Information
 
-#params:
-#  ENV_FILE: env.yml
+params:
+  CA_CERT: 
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
