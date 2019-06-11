@@ -6,7 +6,7 @@ inputs:
  - name: config
 
 params:
-  PROFILE="2019-03-01-hybrid"
+  PROFILE: "2019-03-01-hybrid"
   CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
