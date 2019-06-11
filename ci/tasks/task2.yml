@@ -17,6 +17,7 @@ run:
   - |
     find .
     ls -lisa
+    pwd
     # cat  root_ca/${CA_CERT}>> /tmp/root.cer
     # cat /tmp/root.cer
     # export REQUEST_CA_BUNDLE=/tmp/root.cer
