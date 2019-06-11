@@ -43,9 +43,9 @@ run:
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az storage blob copy start  \
+    az storage blob copy start \
     --destination-blob ${DESTINATION_BLOB} \
-    --destination-container $[DESTINATION_CONTAINER] \
+    --destination-container ${DESTINATION_CONTAINER} \
     --source-uri ${SOURCE_URI} \
     --account-key ${ACCOUNT_KEY} \
     --account-name ${ACCOUNT_NAME}
