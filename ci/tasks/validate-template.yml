@@ -45,7 +45,7 @@ run:
     az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
     az group deployment validate \
     --resource-group ${RESOURCE_GROUP} \
-    --parameters config/${PARAMETER_FILE}
+    --parameters config/${PARAMETER_FILE} \
     --template-uri ${TEMPLATE_URI}
     
 
