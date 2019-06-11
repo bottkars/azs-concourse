@@ -19,16 +19,16 @@ run:
     ls -lisa
     pwd
     ls -lisa /
-    # cat  root_ca/${CA_CERT}>> /tmp/root.cer
+    ./root_ca/cert/root.pem
     # cat /tmp/root.cer
-    # export REQUEST_CA_BUNDLE=/tmp/root.cer
-    # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
-    # export ADAL_PYTHON_SSL_NO_VERIFY=1
-    # az cloud register -n AzureStackUser \
-    #--endpoint-resource-manager "https://management.local.azurestack.external" \
-    #--suffix-storage-endpoint "local.azurestack.external" \
-    #--suffix-keyvault-dns ".vault.local.azurestack.external"
-    #az cloud set -n AzureStackUser
-    #az cloud update --profile 2019-03-01-hybrid
-    #az cloud list --output table
+    export REQUEST_CA_BUNDLE=$(pwd)/root_ca/cert/root.pem
+    export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
+    export ADAL_PYTHON_SSL_NO_VERIFY=1
+    az cloud register -n AzureStackUser \
+    --endpoint-resource-manager "https://management.local.azurestack.external" \
+    --suffix-storage-endpoint "local.azurestack.external" \
+    --suffix-keyvault-dns ".vault.local.azurestack.external"
+    az cloud set -n AzureStackUser
+    az cloud update --profile 2019-03-01-hybrid
+    az cloud list --output table
 
