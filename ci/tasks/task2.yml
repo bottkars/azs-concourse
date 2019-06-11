@@ -6,7 +6,6 @@ inputs:
 
 params:
   root_ca: cert/root.pem
-
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
   SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
@@ -33,9 +32,10 @@ run:
     az cloud set -n AzureStackUser
     az cloud update --profile 2019-03-01-hybrid
     az cloud list --output table
+    echo ${AZURE_CLIENT_ID}
     az login --service-principal \
-     -u $AZURE_CLIENT_ID \
-     -p $AZURE_CLIENT_SECRET \
-     --tenant $AZURE_TENANT_ID
+     -u ${AZURE_CLIENT_ID} \
+     -p ${AZURE_CLIENT_SECRET} \
+     --{tenant $AZURE_TENANT_ID}
     
 
