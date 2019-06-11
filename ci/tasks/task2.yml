@@ -5,7 +5,7 @@ inputs:
  - name: root_ca # contains the env file with target OpsMan Information
 
 params:
-  root_ca: cert/root.pem
+  CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
   SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
@@ -22,7 +22,7 @@ run:
   args:
   - "-c"
   - |
-    cat $(pwd)/root_ca/${root_ca} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    cat $(pwd)/root_ca/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \
