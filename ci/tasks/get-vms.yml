@@ -3,7 +3,7 @@
 platform: linux
 
 inputs:
- - name: root_ca # contains the env file with target OpsMan Information
+ - name: config # contains the env file with target OpsMan Information
 
 params:
   CA_CERT: cert/root.pem
@@ -22,7 +22,7 @@ run:
   - "-c"
   - |
     set -eux
-    cat $(pwd)/root_ca/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \
