@@ -18,6 +18,8 @@ params:
   DESTINATION_CONTAINER:
   DESTINATION_BLOB:
   SOURCE_URI:
+  ACCOUNT_NAME:
+  ACCOUNT_KEY:
 
 run:
   path: bash
@@ -44,4 +46,6 @@ run:
     az storage blob copy start  \
     --destination-blob ${DESTINATION_BLOB} \
     --destination-container $[DESTINATION_CONTAINER] \
-    --source-uri ${SOURCE_URI}
+    --source-uri ${SOURCE_URI} \
+    --account-key ${ACCOUNT_KEY} \
+    --account-name ${ACCOUNT_NAME}
