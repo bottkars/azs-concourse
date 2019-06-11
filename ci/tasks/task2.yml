@@ -4,8 +4,8 @@ platform: linux
 inputs:
  - name: root_ca # contains the env file with target OpsMan Information
 
-#params:
-  #CA_CERT: 
+params:
+  root_ca: cert/root.pem
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
@@ -20,7 +20,7 @@ run:
     pwd
     ls -lisa /
     # cat /tmp/root.cer
-    cat $(pwd)/root_ca/cert/root.pem >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    cat $(pwd)/root_ca/$(root_ca) >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \
