@@ -38,6 +38,6 @@ run:
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az vm list
+    az vm list --output table
     
 
