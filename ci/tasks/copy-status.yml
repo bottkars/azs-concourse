@@ -47,6 +47,6 @@ run:
     --name $DESTINATION_BLOB \
     --output json 2>/dev/null 
     do 
-      echo "copy operation in progress  retrying in 60 seconds"
+      echo "copy operation in progress, retrying in 60 seconds"
       sleep 60
     done
