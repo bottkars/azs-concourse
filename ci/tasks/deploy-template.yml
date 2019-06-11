@@ -1,0 +1,50 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: root_ca # contains the env file with target OpsMan Information
+
+params:
+  CA_CERT: cert/root.pem
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  TEMPLATE_URI:
+  PARAMETER_FILE:
+  RESOURCE_GROUP:
+
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    set -eux
+    cat $(pwd)/root_ca/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
+    # export ADAL_PYTHON_SSL_NO_VERIFY=1
+    az cloud register -n AzureStackUser \
+    --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
+    --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
+    --suffix-keyvault-dns ${VAULT_DNS}
+    az cloud set -n AzureStackUser
+    az cloud update --profile 2019-03-01-hybrid
+    az cloud list --output table
+    echo ${AZURE_CLIENT_ID}
+    az login --service-principal \
+     -u ${AZURE_CLIENT_ID} \
+     -p ${AZURE_CLIENT_SECRET} \
+     --tenant ${AZURE_TENANT_ID}
+    az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+    az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
+    az group deployment create \
+    --resource-group ${RESOURCE_GROUP} \
+    --parameters ${PARAMETER_FILE}
+    --template-uri ${TEMPLATE_URI}
+    
+
