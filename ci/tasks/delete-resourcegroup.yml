@@ -15,7 +15,6 @@ params:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
   RESOURCE_GROUP:
-  LOCATION: local
 
 
 run:
@@ -40,5 +39,5 @@ run:
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az group delete --name ${RESOURCE_GROUP} --location ${LOCATION}
+    az group delete --name ${RESOURCE_GROUP} --yes
 
