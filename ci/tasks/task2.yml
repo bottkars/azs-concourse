@@ -6,11 +6,14 @@ inputs:
 
 params:
   root_ca: cert/root.pem
-  AZURE_CLIENT_SECRET:
-  AZURE_CLIENT_ID:
+
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
   SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
@@ -20,12 +23,6 @@ run:
   args:
   - "-c"
   - |
-    find .
-    ls -lisa
-    pwd
-    ls -lisa /
-    echo ${root_ca}
-    # cat /tmp/root.cer
     cat $(pwd)/root_ca/${root_ca} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     export ADAL_PYTHON_SSL_NO_VERIFY=1
@@ -36,5 +33,9 @@ run:
     az cloud set -n AzureStackUser
     az cloud update --profile 2019-03-01-hybrid
     az cloud list --output table
+    az login --service-principal \
+     -u $AZURE_CLIENT_ID \
+     -p $AZURE_CLIENT_SECRET \
+     --tenant $AZURE_TENANT_ID
     
 
