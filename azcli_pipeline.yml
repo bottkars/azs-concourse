@@ -1,0 +1,166 @@
+---
+resources:
+- name: azs-concourse
+  type: git
+  source: 
+    uri: https://github.com/bottkars/azs-concourse
+    branch: master
+    private_key: ((azs-resource-key.private_key))
+
+
+- name: az-cli-image
+  type: docker-image
+  source: 
+    repository: microsoft/azure-cli
+
+- name: config
+  type: git
+  source:
+    uri: git@github.com:bottkars/platform-automation.git
+    private_key: ((plat-auto-pipes-deploy-key.private_key))
+    branch: master
+
+jobs:
+- name: test-azcli 
+  plan:
+  - get: azs-concourse
+    trigger: true
+  - get: az-cli-image
+    trigger: true
+  - task: test-azcli
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/test-task.yml
+
+- name: run-azcli-get-vms
+  plan:
+  - get: config
+  - get: azs-concourse
+  - get: az-cli-image
+  - task: get-vms
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/get-vms.yml  
+    input_mapping:
+      root_ca: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+
+- name: deploy-opsman-from-arm
+  plan:
+  - aggregate:
+    - get: config
+    - get: azs-concourse
+    - get: az-cli-image
+  - task: validate-template
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/validate-template.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      TEMPLATE_URI: "https://raw.githubusercontent.com/bottkars/azure-pcf-opsman-powershell/testing/azuredeploy.json"
+      PARAMETER_FILE: armtemplates/parameters_opsman.json
+      RESOURCE_GROUP: concoursedemo
+      LOCATION: local
+  - task: deploy-template 
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/deploy-template.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      TEMPLATE_URI: "https://raw.githubusercontent.com/bottkars/azure-pcf-opsman-powershell/testing/azuredeploy.json"
+      PARAMETER_FILE: armtemplates/parameters_opsman.json
+      RESOURCE_GROUP: concoursedemo
+      LOCATION: local
+
+
+- name: delete-resourcegroup
+  plan:
+  - get: config
+  - get: azs-concourse
+  - get: az-cli-image
+  - task: delete-resource-group
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/delete-resourcegroup.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      RESOURCE_GROUP: concoursedemo
+
+- name: copy-opsman-image
+  plan:
+  - get: config
+  - get: azs-concourse
+  - get: az-cli-image
+  - task: copy-opsman-image
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/copy-blob.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      ACCOUNT_NAME: opsmanagerimage
+      ACCOUNT_KEY: "5Kq7DgYHBCexLKrXtjfhnSUpG+VzNtCONdA03CDUyrBbbLL9B7+OfheF7n+iuACfdzNzWmjAg7/5i8jQHpZ6Zw=="
+      DESTINATION_CONTAINER: images
+      DESTINATION_BLOB: ops-manager-2.5.6-build.198.vhd
+      SOURCE_URI: "https://opsmanagerwesteurope.blob.core.windows.net/images/ops-manager-2.5.6-build.198.vhd"
+  - task: check-copy-status
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/copy-status.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      ACCOUNT_NAME: opsmanagerimage
+      DESTINATION_CONTAINER: images
+      DESTINATION_BLOB: ops-manager-2.5.6-build.198.vhd
+- name: check-opsman-copy-status
+  plan:
+  - get: config
+  - get: azs-concourse
+  - get: az-cli-image
+  - task: check-copy-status
+    image: az-cli-image
+    file: azs-concourse/ci/tasks/copy-status.yml  
+    input_mapping:
+      root_ca: config
+      config: config
+    params:
+      CA_CERT: cert/root.pem
+      AZURE_TENANT_ID: ((tenant-id))
+      AZURE_CLIENT_ID: ((client-id))
+      AZURE_CLIENT_SECRET: ((client-secret))
+      AZURE_SUBSCRIPTION_ID: ((subscription-id))
+      ACCOUNT_NAME: opsmanagerimage
+      DESTINATION_CONTAINER: images
+      DESTINATION_BLOB: ops-manager-2.5.6-build.198.vhd
