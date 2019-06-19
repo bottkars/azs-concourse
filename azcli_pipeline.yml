@@ -1,4 +1,5 @@
 ---
+# example tasks
 resources:
 - name: azs-concourse
   type: git
@@ -125,7 +126,7 @@ jobs:
       AZURE_CLIENT_SECRET: ((client-secret))
       AZURE_SUBSCRIPTION_ID: ((subscription-id))
       ACCOUNT_NAME: opsmanagerimage
-      ACCOUNT_KEY: "5Kq7DgYHBCexLKrXtjfhnSUpG+VzNtCONdA03CDUyrBbbLL9B7+OfheF7n+iuACfdzNzWmjAg7/5i8jQHpZ6Zw=="
+      ACCOUNT_KEY: ((account_key))
       DESTINATION_CONTAINER: images
       DESTINATION_BLOB: ops-manager-2.5.6-build.198.vhd
       SOURCE_URI: "https://opsmanagerwesteurope.blob.core.windows.net/images/ops-manager-2.5.6-build.198.vhd"
