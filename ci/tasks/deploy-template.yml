@@ -19,14 +19,14 @@ params:
   PARAMETER_FILE:
   RESOURCE_GROUP:
   LOCATION:
-
+  ADDITIONAL_PARAMETERS:
 
 run:
   path: bash
   args:
   - "-c"
   - |
-    set -eu
+    set -eux
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
@@ -47,4 +47,5 @@ run:
     --mode incremental \
     --resource-group ${RESOURCE_GROUP} \
     --parameters config/${PARAMETER_FILE} \
+    --parameters "{${ADDITIONAL_PARAMETERS}}"
     --template-uri ${TEMPLATE_URI}
