@@ -15,4 +15,5 @@ run:
   args:
   - "-c"
   - |
-  ls -lisa 
+    ls -lisa .
+    pwd
