@@ -19,7 +19,7 @@ params:
   PARAMETER_FILE:
   RESOURCE_GROUP:
   LOCATION:
-  ADDITIONAL_PARAMETERS:
+  ADDITIONAL_PARAMETERS: "{}"
 
 run:
   path: bash
@@ -47,5 +47,5 @@ run:
     --mode incremental \
     --resource-group ${RESOURCE_GROUP} \
     --parameters @config/${PARAMETER_FILE} \
-    --parameters "{${ADDITIONAL_PARAMETERS}}" \
+    --parameters "${ADDITIONAL_PARAMETERS}" \
     --template-uri ${TEMPLATE_URI}

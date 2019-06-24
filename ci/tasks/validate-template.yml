@@ -17,7 +17,7 @@ params:
   AZURE_SUBSCRIPTION_ID:
   TEMPLATE_URI:
   PARAMETER_FILE:
-  ADDITIONAL_PARAMETERS:
+  ADDITIONAL_PARAMETERS: "{}"
   RESOURCE_GROUP:
   LOCATION:
 
@@ -47,7 +47,7 @@ run:
     az group deployment validate \
     --resource-group ${RESOURCE_GROUP} \
     --parameters config/${PARAMETER_FILE} \
-    --parameters "{${ADDITIONAL_PARAMETERS}}" \
+    --parameters "${ADDITIONAL_PARAMETERS}" \
     --template-uri ${TEMPLATE_URI}
     
 
