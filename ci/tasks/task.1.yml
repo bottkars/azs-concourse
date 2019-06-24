@@ -1,0 +1,18 @@
+---
+platform: linux
+
+inputs:
+ - name: image
+
+#params:
+#  ENV_FILE: env.yml
+  # - Required
+  # - Filepath of the env config YAML
+  # - The path is relative to root of the `env` input
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+  ls -lisa 
