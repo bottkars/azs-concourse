@@ -18,6 +18,10 @@ params:
   AZURE_SUBSCRIPTION_ID:
   VM_NAME: pcf
   RG_NAME: pcf
+  STATE_FILE: state.yml
+
+outputs:
+- name: generated-state #contains the updated state file
 
 
 run:
@@ -41,5 +45,10 @@ run:
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az vm show --name ${VM_NAME} --resource-group ${RG_NAME} --output json --query provisioningState    
+    generated_state_path="generated-state/$(basename "$STATE_FILE")"
+    STATE=$(az vm show --name ${VM_NAME} \
+      --resource-group ${RG_NAME} \
+      --output json \
+      --query provisioningState) 
+    echo $STATE > ${generated_state_path}
 
