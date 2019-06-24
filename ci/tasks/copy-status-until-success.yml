@@ -24,7 +24,7 @@ run:
   args:
   - "-c"
   - |
-    set -eux
+    set -eu
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
@@ -41,8 +41,11 @@ run:
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 
-    az storage blob show --account-name ${ACCOUNT_NAME} \              ✔  10832
+    until az storage blob show --account-name ${ACCOUNT_NAME} \              ✔  10832
     --container-name ${DESTINATION_CONTAINER} \
     --name $DESTINATION_BLOB \
-    --output json --query properties.copy.status
-
+    --output json --query "[properties.copy.status=='success']"
+    do 
+      echo "copy operation in progress, retrying in 60 seconds"
+      sleep 60
+    done
