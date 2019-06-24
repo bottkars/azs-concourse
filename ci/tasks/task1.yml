@@ -18,6 +18,5 @@ run:
     ls -lisaR .
     pwd
     ls -lisa image/
-    grep -A0 'west_europe:' image/opsman.yml  | tail -n1 | awk '{ print $2 }'
     set
-    grep -A0 "${OPSMAN_LOCATION}:" *.yml  | tail -n1 | awk '{ print $2 }'
+    grep -A0 "${OPSMAN_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }'
