@@ -4,8 +4,8 @@ platform: linux
 inputs:
  - name: image
 
-#params:
-#  ENV_FILE: env.yml
+params:
+ OPSMAN_LOCATION: west_europe
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
@@ -15,5 +15,9 @@ run:
   args:
   - "-c"
   - |
-    ls -lisa .
+    ls -lisaR .
     pwd
+    ls -lisa image/
+    grep -A0 'west_europe:' image/opsman.yml  | tail -n1 | awk '{ print $2 }'
+    set
+    grep -A0 "${OPSMAN_LOCATION}:" *.yml  | tail -n1 | awk '{ print $2 }'
