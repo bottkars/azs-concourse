@@ -19,4 +19,5 @@ run:
     pwd
     ls -lisa image/
     set
-    grep -A0 "${OPSMAN_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }'
+    SOURCE_URI=$(grep -A0 "${OPSMAN_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
+    DESTINATION_BLOB=$(basename $SOURCE_URI)

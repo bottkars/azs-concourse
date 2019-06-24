@@ -1,0 +1,52 @@
+---
+platform: linux
+
+inputs:
+ - name: config # contains the env file with target OpsMan Information
+ - name: image
+
+params:
+  OPSMAN_IMAGE_LOCATION: west_europe
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: cert/root.pem
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  DESTINATION_CONTAINER:
+  ACCOUNT_NAME:
+  ACCOUNT_KEY:
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    set -eu
+    cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
+    # export ADAL_PYTHON_SSL_NO_VERIFY=1
+    az cloud register -n AzureStackUser \
+    --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
+    --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
+    --suffix-keyvault-dns ${VAULT_DNS}
+    az cloud set -n AzureStackUser
+    az cloud update --profile ${PROFILE}
+    az cloud list --output table
+    az login --service-principal \
+     -u ${AZURE_CLIENT_ID} \
+     -p ${AZURE_CLIENT_SECRET} \
+     --tenant ${AZURE_TENANT_ID}
+    az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+    SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
+    DESTINATION_BLOB=$(basename $SOURCE_URI)
+    az storage blob copy start \
+    --destination-blob ${DESTINATION_BLOB} \
+    --destination-container ${DESTINATION_CONTAINER} \
+    --source-uri ${SOURCE_URI} \
+    --account-key ${ACCOUNT_KEY} \
+    --account-name ${ACCOUNT_NAME}
+
