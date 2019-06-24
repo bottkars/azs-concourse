@@ -49,6 +49,6 @@ run:
     STATE=$(az vm show --name ${VM_NAME} \
       --resource-group ${RG_NAME} \
       --output json \
-      --query provisioningState) 
-    echo $STATE > ${generated_state_path}
+      --query '{VM_ID:name}')
+    echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
 
