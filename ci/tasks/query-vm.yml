@@ -51,4 +51,6 @@ run:
       --output json \
       --query '{VM_ID:name}')
     echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
+    ls -al
+    ls -al generated-state
 
