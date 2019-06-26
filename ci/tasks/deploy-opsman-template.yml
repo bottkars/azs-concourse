@@ -55,6 +55,5 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --parameters opsManVHD=${OPSMAN_VHD} \
     --parameters OpsManImageURI=${IMAGE_URI} \
-    --template-uri ${TEMPLATE_URI} \
-    --debug
+    --template-uri ${TEMPLATE_URI}
 
