@@ -1,12 +1,12 @@
 ---
+# this simple tasksm get´s running vm´s of an azurestack subscription
 platform: linux
 
 inputs:
- - name: config # contains the env file with target OpsMan Information
- - name: image # conatins the latest image to deploy
+ - name: config
+ - name: image
 
 params:
-  OPSMAN_IMAGE_LOCATION: west_europe
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
@@ -16,16 +16,21 @@ params:
   AZURE_CLIENT_ID:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
-  DESTINATION_CONTAINER:
-  ACCOUNT_NAME:
-  ACCOUNT_KEY:
+  TEMPLATE_URI:
+  OPSMAN_IMAGE_LOCATION: west_europe
+  PARAMETER_FILE:
+  RESOURCE_GROUP:
+  LOCATION:
+  ADDITIONAL_PARAMETERS: "{}"
+  DESTINATION_CONTAINER: images
+  ACCOUNT_NAME: opsmanagerimage
 
 run:
   path: bash
   args:
   - "-c"
   - |
-    set -eu
+    set -eux
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -33,28 +38,23 @@ run:
     --suffix-keyvault-dns ${VAULT_DNS}
     az cloud set -n AzureStackUser
     az cloud update --profile ${PROFILE}
-    az cloud list --output table
     az login --service-principal \
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
-    DESTINATION_BLOB=$(basename $SOURCE_URI)
-    az storage blob copy start \
-    --destination-blob ${DESTINATION_BLOB} \
-    --destination-container ${DESTINATION_CONTAINER} \
-    --source-uri ${SOURCE_URI} \
-    --account-key ${ACCOUNT_KEY} \
-    --account-name ${ACCOUNT_NAME}
-
-    until az storage blob show --account-name ${ACCOUNT_NAME} \
-    --container-name ${DESTINATION_CONTAINER} \
-    --name $DESTINATION_BLOB \
-    --output json --query "[properties.copy.status=='success']" \
-    2>/dev/null 
-    do 
-      echo "copy operation in progress, retrying in 60 seconds"
-      sleep 60
-    done
+    OPSMAN_VHD=$(basename $SOURCE_URI)
+    IMAGE_URI=https://${ACCOUNT_NAME}/blob/${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
+    # opsManVHD will be overwritten to the actual source
+    az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
+    az group deployment create \
+    --mode incremental \
+    --resource-group ${RESOURCE_GROUP} \
+    --parameters config/${PARAMETER_FILE} \
+    --parameters ${ADDITIONAL_PARAMETERS} \
+    --parameters opsManVHD=${OPSMAN_VHD}
+    --parameters OpsManImageURI=
+    --template-uri ${TEMPLATE_URI} \
+    --debug
 
