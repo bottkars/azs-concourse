@@ -53,8 +53,8 @@ run:
     --resource-group ${RESOURCE_GROUP} \
     --parameters config/${PARAMETER_FILE} \
     --parameters ${ADDITIONAL_PARAMETERS} \
-    --parameters opsManVHD=${OPSMAN_VHD}
-    --parameters OpsManImageURI=
+    --parameters opsManVHD=${OPSMAN_VHD} \
+    --parameters OpsManImageURI=${IMAGE_URI} \
     --template-uri ${TEMPLATE_URI} \
     --debug
 
