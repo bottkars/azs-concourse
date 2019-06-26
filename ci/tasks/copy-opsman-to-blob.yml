@@ -57,4 +57,3 @@ run:
       echo "copy operation in progress, retrying in 60 seconds"
       sleep 60
     done
-
