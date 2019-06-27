@@ -3,7 +3,7 @@
 platform: linux
 
 inputs:
- - name: config # contains the env file with target OpsMan Information
+ - name: configuration # contains the env file with target OpsMan Information
 
 params:
   PROFILE: "2019-03-01-hybrid"
@@ -22,7 +22,9 @@ run:
   args:
   - "-c"
   - |
-    set -eu
+    set -eux
+    pwd
+    ls -lisa
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
