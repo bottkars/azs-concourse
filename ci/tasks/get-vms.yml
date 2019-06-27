@@ -22,7 +22,7 @@ run:
   args:
   - "-c"
   - |
-    set -eux
+    set -eu
     pwd
     ls -lisa
     cat configuration/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
@@ -35,10 +35,12 @@ run:
     az cloud set -n AzureStackUser
     az cloud update --profile ${PROFILE}
     az cloud list --output table
+    set -eu
     az login --service-principal \
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az vm list --output table
     
