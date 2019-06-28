@@ -1,0 +1,69 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: config
+ - name: image
+
+params:
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: cert/root.pem
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  TEMPLATE_URI:
+  OPSMAN_IMAGE_LOCATION: west_europe
+  PARAMETER_FILE:
+  RESOURCE_GROUP:
+  BOSHSTORAGEACCOUNT: 
+  LOCATION:
+  ADDITIONAL_PARAMETERS: "{}"
+  DESTINATION_CONTAINER: images
+  ACCOUNT_NAME: opsmanagerimage
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    set -eux
+    cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    az cloud register -n AzureStackUser \
+    --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
+    --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
+    --suffix-keyvault-dns ${VAULT_DNS}
+    az cloud set -n AzureStackUser
+    az cloud update --profile ${PROFILE}
+    az login --service-principal \
+     -u ${AZURE_CLIENT_ID} \
+     -p ${AZURE_CLIENT_SECRET} \
+     --tenant ${AZURE_TENANT_ID}
+    az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+    SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
+    OPSMAN_VHD=$(basename $SOURCE_URI)
+    IMAGE_URI=https://${ACCOUNT_NAME}.blob.${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
+    # opsManVHD will be overwritten to the actual source
+    az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
+    az group deployment create \
+    --mode incremental \
+    --resource-group ${RESOURCE_GROUP} \
+    --parameters config/${PARAMETER_FILE} \
+    --parameters ${ADDITIONAL_PARAMETERS} \
+    --parameters opsManVHD=${OPSMAN_VHD} \
+    --parameters OpsManImageURI=${IMAGE_URI} \
+    --parameters boshstorageaccountname=${BOSHSTORAGEACCOUNT} 
+    --template-uri ${TEMPLATE_URI}
+
+    ## create storage containers for bosh
+    az storage container create --name bosh --account-name ${BOSHSTORAGE}
+    az storage container create --name stemcell --account-name ${BOSHSTORAGE}
+    ## cerate deploymewnt storage accounts
+    ACCOUNTS=$(az storage account list --resource-group ${RESOURCE_GROUP} --query "[?contains(name,'xtra')].name" --output tsv)   
+    echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name bosh --account-name
+    echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name stemcell --account-name
+    echo ${ACCOUNTS} |  xargs -n 1 az storage table create --name stemcells --account-name
