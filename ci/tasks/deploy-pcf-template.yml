@@ -65,8 +65,8 @@ run:
     --template-uri ${TEMPLATE_URI}
 
     ## create storage containers for bosh
-    az storage container create --name bosh --account-name ${BOSHSTORAGE}
-    az storage container create --name stemcell --account-name ${BOSHSTORAGE}
+    az storage container create --name bosh --account-name ${BOSHSTORAGEACCOUNT}
+    az storage container create --name stemcell --account-name ${BOSHSTORAGEACCOUNT}
     ## cerate deploymewnt storage accounts
     ACCOUNTS=$(az storage account list --resource-group ${RESOURCE_GROUP} --query "[?contains(name,'xtra')].name" --output tsv)   
     echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name bosh --account-name
@@ -75,5 +75,5 @@ run:
 
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     echo "deployments_storage_account_name: ${$(echo $ACCOUNTS | head -n 1):0:-1}*" > generated_state_path
-    echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNTNAME}" >> generated_state_path
+    echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> generated_state_path
 
