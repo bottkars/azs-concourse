@@ -56,7 +56,7 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --parameters opsManVHD=${OPSMAN_VHD} \
     --parameters OpsManImageURI=${IMAGE_URI} \
-    --parameters boshstorageaccountname=${BOSHSTORAGEACCOUNT} 
+    --parameters boshstorageaccountname=${BOSHSTORAGEACCOUNT} \
     --template-uri ${TEMPLATE_URI}
 
     ## create storage containers for bosh
