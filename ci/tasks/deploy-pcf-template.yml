@@ -25,6 +25,10 @@ params:
   ADDITIONAL_PARAMETERS: "{}"
   DESTINATION_CONTAINER: images
   ACCOUNT_NAME: opsmanagerimage
+  STATE_FILE: deployed_opsman_vars.yml
+
+outputs:
+- name: generated-state #contains the updated state file
 
 run:
   path: bash
@@ -32,6 +36,7 @@ run:
   - "-c"
   - |
     set -eux
+    
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -67,3 +72,8 @@ run:
     echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name bosh --account-name
     echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name stemcell --account-name
     echo ${ACCOUNTS} |  xargs -n 1 az storage table create --name stemcells --account-name
+
+    generated_state_path="generated-state/$(basename "$STATE_FILE")"
+    echo "deployments_storage_account_name: ${$(echo $ACCOUNTS | head -n 1):0:-1}" > generated_state_path
+    echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNTNAME}" >> generated_state_path
+
