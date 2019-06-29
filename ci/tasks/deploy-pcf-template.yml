@@ -74,6 +74,6 @@ run:
 
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     DEPLOYMENT_ACCOUNTS=$(echo $ACCOUNTS | awk '{print $1;}')
-    echo "deployments_storage_account_name: ${DEPLOYMENT_ACCOUNTS:0:-1}*" > ${generated_state_path}
+    echo "deployments_storage_account_name: ${DEPLOYMENT_ACCOUNTS:0:-1}" > ${generated_state_path}
     echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> ${generated_state_path}
 
