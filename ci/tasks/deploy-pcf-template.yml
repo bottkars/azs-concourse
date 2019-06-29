@@ -66,6 +66,7 @@ run:
     ## create storage containers for bosh
     az storage container create --name bosh --account-name ${BOSHSTORAGEACCOUNT}
     az storage container create --name stemcell --account-name ${BOSHSTORAGEACCOUNT}
+    az storage table create --name stemcells --account-name ${BOSHSTORAGEACCOUNT}
     ## cerate deploymewnt storage accounts
     ACCOUNTS=$(az storage account list --resource-group ${RESOURCE_GROUP} --query "[?contains(name,'xtra')].name" --output tsv)   
     echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name bosh --account-name
