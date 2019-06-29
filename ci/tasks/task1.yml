@@ -18,6 +18,6 @@ run:
     ls -lisaR .
     pwd
     ls -lisa image/
-    set
+    set -eux
     SOURCE_URI=$(grep -A0 "${OPSMAN_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
     DESTINATION_BLOB=$(basename $SOURCE_URI)

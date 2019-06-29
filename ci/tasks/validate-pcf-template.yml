@@ -31,7 +31,7 @@ run:
   args:
   - "-c"
   - |
-    set -eux
+    set -eu
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -43,6 +43,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
     OPSMAN_VHD=$(basename $SOURCE_URI)

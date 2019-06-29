@@ -38,6 +38,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
     DESTINATION_BLOB=$(basename $SOURCE_URI)

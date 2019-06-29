@@ -41,6 +41,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az storage blob incremental-copy start \
     --destination-blob ${DESTINATION_BLOB} \

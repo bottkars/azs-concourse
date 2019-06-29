@@ -34,8 +34,7 @@ run:
   args:
   - "-c"
   - |
-    set -eux
-    
+    set -eu
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -47,6 +46,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
     OPSMAN_VHD=$(basename $SOURCE_URI)
@@ -76,4 +76,4 @@ run:
     DEPLOYMENT_ACCOUNTS=$(echo $ACCOUNTS | awk '{print $1;}')
     echo "deployments_storage_account_name: ${DEPLOYMENT_ACCOUNTS:0:-1}*" > ${generated_state_path}
     echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> ${generated_state_path}
-    ls -lisaR
+

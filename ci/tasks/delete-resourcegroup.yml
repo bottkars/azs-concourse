@@ -25,8 +25,6 @@ run:
   - |
     set -eu
     cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
-    # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
-    # export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
     --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
@@ -38,6 +36,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az group delete --name ${RESOURCE_GROUP} --yes
 

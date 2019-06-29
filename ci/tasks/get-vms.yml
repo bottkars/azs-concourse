@@ -22,7 +22,7 @@ run:
   args:
   - "-c"
   - |
-    set -eux
+    set -eu
     pwd
     ls -lisa
     cat configuration/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem

@@ -44,6 +44,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
+    set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     STATE=$(az vm show --name ${VM_NAME} \
