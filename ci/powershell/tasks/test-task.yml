@@ -9,6 +9,12 @@ platform: windows
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
+image_resource:
+  type: docker-image 
+  source: 
+    repository: bottkars/azs-powershell
+    username: bottkars
+    password: Breda1208
 
 run:
   path: powershell
