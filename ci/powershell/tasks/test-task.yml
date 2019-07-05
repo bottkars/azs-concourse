@@ -1,0 +1,15 @@
+---
+platform: windows
+
+#inputs:
+#- name: env # contains the env file with target OpsMan Information
+
+#params:
+#  ENV_FILE: env.yml
+  # - Required
+  # - Filepath of the env config YAML
+  # - The path is relative to root of the `env` input
+
+run:
+  path: powershell
+  args: [get-comuterinfo]
