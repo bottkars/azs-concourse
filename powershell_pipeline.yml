@@ -1,0 +1,27 @@
+---
+# example tasks
+resources:
+- name: azs-concourse
+  type: git
+  source: 
+    uri: https://github.com/bottkars/azs-concourse
+    branch: master
+    private_key: ((azs-resource-key.private_key))
+
+
+- name: az-powershell-image
+  type: docker-image
+  source: 
+    repository: mcr.microsoft.com/windows/servercore
+    tag: 1903-KB4505057
+
+jobs:
+- name: test-powershell 
+  plan:
+  - get: azs-concourse
+    trigger: true
+  - get: az-powershell-image
+    trigger: true
+  - task: test-azcli
+    image: az-powershell-image
+    file: azs-concourse/ci/powershell/tasks/test-task.yml
