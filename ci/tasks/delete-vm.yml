@@ -43,7 +43,6 @@ run:
     az account set --subscription ${AZURE_SUBSCRIPTION_ID} 
     az vm delete --name ${VM_NAME} \
       --resource-group ${RESOURCE_GROUP} \
-      --yes \
-      --debug
+      --yes 
 
 
