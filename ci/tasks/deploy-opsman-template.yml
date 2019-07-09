@@ -26,6 +26,7 @@ params:
   ACCOUNT_NAME: opsmanagerimage
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
+  RG_NAME: pcf
 outputs:
 - name: generated-state #contains the updated state file
 
