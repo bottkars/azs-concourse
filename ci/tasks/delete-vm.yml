@@ -39,8 +39,9 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
-    set -eux
-    az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+    set -x
+    az account set --subscription ${AZURE_SUBSCRIPTION_ID} 
     az vm delete --name ${VM_NAME} \
       --resource-group ${RESOURCE_GROUP} --yes
+      
 

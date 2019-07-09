@@ -39,7 +39,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
-    set -eux 
+    set -x 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az storage blob show --account-name ${ACCOUNT_NAME} \
     --container-name ${DESTINATION_CONTAINER} \
