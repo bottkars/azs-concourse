@@ -24,6 +24,9 @@ params:
   ADDITIONAL_PARAMETERS: "{}"
   DESTINATION_CONTAINER: images
   ACCOUNT_NAME: opsmanagerimage
+  STATE_FILE: deployed_opsman_vars.yml
+outputs:
+- name: generated-state #contains the updated state file
 
 run:
   path: bash
@@ -59,9 +62,5 @@ run:
     --template-uri ${TEMPLATE_URI} `
     --debug
 
-    generated_state_path="generated-state/$(basename "$STATE_FILE")"
-    DEPLOYMENT_ACCOUNTS=$(echo $ACCOUNTS | awk '{print $1;}')
-    echo "deployments_storage_account_name: ${DEPLOYMENT_ACCOUNTS:0:-1}" > ${generated_state_path}
-    echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> ${generated_state_path}
-
+    generated_state_path="generated-state/$(basename ${STATE_FILE})"
 
