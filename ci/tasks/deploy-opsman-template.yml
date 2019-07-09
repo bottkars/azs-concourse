@@ -61,8 +61,7 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --parameters opsManVHD=${OPSMAN_VHD} \
     --parameters OpsManImageURI=${IMAGE_URI} \
-    --template-uri ${TEMPLATE_URI} \
-    --debug
+    --template-uri ${TEMPLATE_URI} 
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     STATE=$(az vm show --name ${VM_NAME} \
       --resource-group ${RG_NAME} \
