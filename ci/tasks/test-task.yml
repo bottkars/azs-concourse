@@ -11,5 +11,12 @@ platform: linux
   # - The path is relative to root of the `env` input
 
 run:
-  path: az
-  args: [-v]
+  path: bash
+  args:
+  - "-c"
+  - |
+    set -eux
+    echo "Azure Stack Automation for PCF"
+    az 
+    pwd
+    ls -lisa
