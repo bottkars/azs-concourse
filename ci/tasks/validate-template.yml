@@ -15,6 +15,7 @@ params:
   AZURE_CLIENT_ID:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
+  AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
   TEMPLATE_URI:
   PARAMETER_FILE:
   ADDITIONAL_PARAMETERS: "{}"
@@ -28,7 +29,7 @@ run:
   - "-c"
   - |
     set -eu
-    cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \

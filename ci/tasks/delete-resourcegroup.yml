@@ -15,6 +15,7 @@ params:
   AZURE_CLIENT_ID:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
+  AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
   RESOURCE_GROUP:
 
 
@@ -24,7 +25,7 @@ run:
   - "-c"
   - |
     set -eu
-    cat $(pwd)/config/${CA_CERT} >> /usr/local/lib/python3.6/site-packages/certifi/cacert.pem
+    cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
     --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
