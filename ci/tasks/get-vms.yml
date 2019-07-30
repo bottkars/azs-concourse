@@ -25,7 +25,7 @@ run:
     set -eu
     pwd
     ls -lisa
-    cat configuration/${CA_CERT} >> /opt/az/lib/python3.6/site-packages/certifi/cacert.pem
+    cat config/${CA_CERT} >> /opt/az/lib/python3.6/site-packages/certifi/cacert.pem
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
     az cloud register -n AzureStackUser \
