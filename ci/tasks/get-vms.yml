@@ -22,9 +22,10 @@ run:
   args:
   - "-c"
   - |
-    set -eu
+    set -eux
     pwd
     ls -lisa
+    ls -lisaR
     cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
