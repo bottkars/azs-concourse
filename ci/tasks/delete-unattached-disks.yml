@@ -45,7 +45,7 @@ run:
     IDS=$(az disk list --resource-group ${RESOURCE_GROUP} --query '[?managedBy==`null`].[id]' --output tsv)
     if [ -z ${IDS} ]
     then
-          echo "no orphan images found"
+          echo "no unattached disks found"
     else
               az disk delete --ids ${IDS} --yes
     fi
