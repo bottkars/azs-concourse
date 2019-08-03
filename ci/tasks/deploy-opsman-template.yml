@@ -68,6 +68,8 @@ run:
       --resource-group ${RG_NAME} \
       --output json \
       --query '{VM_ID:name}')
+      echo $STATE > ${generated_state_path} 
+  
     # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
     # ls -al
     # ls -al generated-state
