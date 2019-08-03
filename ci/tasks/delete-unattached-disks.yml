@@ -43,7 +43,7 @@ run:
     set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     IDS=$(az disk list --resource-group ${RESOURCE_GROUP} --query '[?managedBy==`null`].[id]' --output tsv)
-    if [ -z ${IDS} ]
+    if [ -z "${IDS}" ]
     then
           echo "no unattached disks found"
     else
