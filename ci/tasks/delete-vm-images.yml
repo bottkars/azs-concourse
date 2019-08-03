@@ -43,7 +43,7 @@ run:
     set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     IDS=$(az image list --resource-group ${RESOURCE_GROUP} --query '[].id' --output tsv)
-    if [ -z ${IDS} ]
+    if [ -z "${IDS}" ]
     then
           echo "no orphan images found"
     else
