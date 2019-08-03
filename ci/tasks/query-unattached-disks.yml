@@ -26,6 +26,7 @@ run:
   - "-c"
   - |
     set -eu
+    pip uninstall azure-cli-eventhubs
     cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     # export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
     # export ADAL_PYTHON_SSL_NO_VERIFY=1
