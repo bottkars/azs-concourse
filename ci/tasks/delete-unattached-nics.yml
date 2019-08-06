@@ -43,7 +43,7 @@ run:
      --tenant ${AZURE_TENANT_ID}
     set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    IDS=$(az network nic list --resource-group ${RESOURCE_GROUP} --query "[?virtualMachine==null && name!='$OPS_MAN_NIC']" -o tsv)
+    IDS=$(az network nic list --resource-group ${RESOURCE_GROUP} --query "[?virtualMachine==null && name!='$OPS_MAN_NIC'].[id]" -o tsv)
     if [ -z "${IDS}" ]
     then
           echo "no unattached nics found"
