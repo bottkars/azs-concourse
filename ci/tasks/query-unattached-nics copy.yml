@@ -17,6 +17,7 @@ params:
   AZURE_SUBSCRIPTION_ID:
   AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
   RESOURCE_GROUP:
+  OPS_MAN_NIC: OPSMANNIC
 
 
 
@@ -42,4 +43,4 @@ run:
      --tenant ${AZURE_TENANT_ID}
     set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az network nic list --resource-group ${RESOURCE_GROUP} --query '[?virtualMachine==`null`].[id]' -o tsv
+    az network nic list --resource-group ${RESOURCE_GROUP} --query "[?virtualMachine==null && name!='$OPS_MAN_NIC']" -o tsv
