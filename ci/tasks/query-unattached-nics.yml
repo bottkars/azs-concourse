@@ -41,6 +41,5 @@ run:
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
     set -eux
-    deleteUnattachedNics=0
-
+    az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az network nic list --resource-group ${RESOURCE_GROUP} --query '[?virtualMachine==`null`].[id]' -o tsv
