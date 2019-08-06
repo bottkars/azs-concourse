@@ -48,5 +48,5 @@ run:
     then
           echo "no unattached nics found"
     else
-              az network nic delete --ids ${IDS} --yes
+              az network nic delete --ids ${IDS}
     fi
