@@ -45,6 +45,7 @@ run:
     DESTINATION_BLOB=$(basename $SOURCE_URI)
     if [[ $(az storage blob exists \
       --account-name ${ACCOUNT_NAME} \
+      --account-key ${ACCOUNT_KEY} \
       --container-name ${DESTINATION_CONTAINER} \
       --name ${DESTINATION_BLOB} \
       --query exists) ==  "true" ]]; then 
