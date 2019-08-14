@@ -59,4 +59,5 @@ run:
     --parameters opsManVHD=${OPSMAN_VHD} \
     --parameters OpsManImageURI=${IMAGE_URI} \
     --parameters boshstorageaccountname=${BOSHSTORAGEACCOUNT} \
-    --template-uri ${TEMPLATE_URI}
+    --template-uri ${TEMPLATE_URI} \
+    --parameter location=${LOCATION}
