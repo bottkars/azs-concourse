@@ -24,7 +24,7 @@ params:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
   DESTINATION_CONTAINER: images
-  ACCOUNT_NAME: opsmanagerimage
+  ACCOUNT_NAME: 
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
   RG_NAME: pcf
