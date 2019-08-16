@@ -92,4 +92,4 @@ run:
     echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> ${generated_state_path}
     echo "azure_storage_access_key: ${MYSQLSTORAGEACCOUNTKEY}" >> ${generated_state_path}
     echo "azure_account: ${MYSQLSTORAGEACCOUNT}" >> ${generated_state_path}
-    echo "blobstore_base_url: ${SUFFIX_STORAGE_ENDPOINT}" >> ${generated_state_path}
+    echo "blob_store_base_url: ${SUFFIX_STORAGE_ENDPOINT}" >> ${generated_state_path}
