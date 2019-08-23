@@ -27,14 +27,13 @@ run:
   - "-c"
   - |
     set -eu
-    az alias remove --name eventhubs
     cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
     --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
-    --suffix-keyvault-dns ${VAULT_DNS}
+    --suffix-keyvault-dns ${VAULT_DNS} \
+    --profile ${PROFILE}
     az cloud set -n AzureStackUser
-    az cloud update --profile ${PROFILE}
     az cloud list --output table
     az login --service-principal \
      -u ${AZURE_CLIENT_ID} \
