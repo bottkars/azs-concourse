@@ -17,8 +17,7 @@ run:
   - |
     set -eux
     echo "Azure Stack Automation for PCF"
-    ls -lisa $HOME
-    cat $HOME/.azure
+    find / name .azure
     az 
     az extension add --name alias
     az alias remove --name eventhubs
