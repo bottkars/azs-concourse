@@ -37,7 +37,7 @@ run:
   - "-c"
   - |
     set -eu
-    export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
+    az extension remove --name eventhub
     cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
