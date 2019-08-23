@@ -46,6 +46,7 @@ run:
     DESTINATION_BLOB=$(basename $SOURCE_URI)
     if [[ $(az storage blob exists \
       --account-name ${ACCOUNT_NAME} \
+      --account-key ${ACCOUNT_KEY} \
       --container-name ${DESTINATION_CONTAINER} \
       --name ${DESTINATION_BLOB} \
       --query exists) ==  "true" ]]; then 
@@ -59,7 +60,9 @@ run:
         --account-key ${ACCOUNT_KEY} \
         --account-name ${ACCOUNT_NAME}
 
-        until az storage blob show --account-name ${ACCOUNT_NAME} \
+        until az storage blob show \
+        --account-name ${ACCOUNT_NAME} \
+        --account-key ${ACCOUNT_KEY} \
         --container-name ${DESTINATION_CONTAINER} \
         --name $DESTINATION_BLOB \
         --output json --query "[properties.copy.status=='success']" \

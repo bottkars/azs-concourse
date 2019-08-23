@@ -24,7 +24,7 @@ params:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
   DESTINATION_CONTAINER: images
-  ACCOUNT_NAME: opsmanagerimage
+  ACCOUNT_NAME: 
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
   RG_NAME: pcf
@@ -63,7 +63,8 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --parameters opsManVHD=${OPSMAN_VHD} \
     --parameters OpsManImageURI=${IMAGE_URI} \
-    --template-uri ${TEMPLATE_URI} 
+    --template-uri ${TEMPLATE_URI} \
+    --parameter location=${LOCATION}
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     STATE=$(az vm show --name ${VM_NAME} \
       --resource-group ${RG_NAME} \
