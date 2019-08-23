@@ -18,5 +18,4 @@ run:
     set -eux
     echo "Azure Stack Automation for PCF"
     az 
-    pwd
-    ls -lisa
+    az extension list-available --output table
