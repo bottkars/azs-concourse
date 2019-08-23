@@ -33,6 +33,7 @@ run:
   - "-c"
   - |
     set -eu
+    az alias remove --name eventhubs
     cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
     az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
