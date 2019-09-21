@@ -53,25 +53,36 @@ run:
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
     OPSMAN_VHD=$(basename $SOURCE_URI)
-    IMAGE_URI=https://${ACCOUNT_NAME}.blob.${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
-    # opsManVHD will be overwritten to the actual source
-    az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
-    az group deployment create \
-    --mode incremental \
-    --resource-group ${RESOURCE_GROUP} \
-    --parameters config/${PARAMETER_FILE} \
-    --parameters ${ADDITIONAL_PARAMETERS} \
-    --parameters opsManVHD=${OPSMAN_VHD} \
-    --parameters OpsManImageURI=${IMAGE_URI} \
-    --template-uri ${TEMPLATE_URI} \
-    --parameter location=${LOCATION}
-    generated_state_path="generated-state/$(basename "$STATE_FILE")"
-    STATE=$(az vm show --name ${VM_NAME} \
+    OPSMAN_CURRENT=$(curl ${OPSMAN_URL}/api/v0/info -s -X GET -k -H "Authorization: Bearer" | jp.py info.version | tr -d '"')
+    OPSMAN_NEW=$(echo $OPSMAN_VHD | egrep -o '[0-9]+.*-build.[0-9]+')
+    echo "Found ${OPSMAN_NEW}, have ${OPSMAN_CURRENT}"
+    if [ $OPSMAN_NEW > $OPSMAN_CURRENT ]; then 
+      echo "deleting old VM"
+      az vm delete --name ${VM_NAME} \
       --resource-group ${RG_NAME} \
-      --output json \
-      --query '{VM_ID:name}')
-      echo $STATE > ${generated_state_path} 
-  
+      --yes 
+      echo "Starting update ofopsman from ${OPSMAN_CURRENT} to ${OPSMAN_NEW}"
+      IMAGE_URI=https://${ACCOUNT_NAME}.blob.${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
+      # opsManVHD will be overwritten to the actual source
+      az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
+      az group deployment create \
+      --mode incremental \
+      --resource-group ${RESOURCE_GROUP} \
+      --parameters config/${PARAMETER_FILE} \
+      --parameters ${ADDITIONAL_PARAMETERS} \
+      --parameters opsManVHD=${OPSMAN_VHD} \
+      --parameters OpsManImageURI=${IMAGE_URI} \
+      --template-uri ${TEMPLATE_URI} \
+      --parameter location=${LOCATION}
+      generated_state_path="generated-state/$(basename "$STATE_FILE")"
+      STATE=$(az vm show --name ${VM_NAME} \
+        --resource-group ${RG_NAME} \
+        --output json \
+        --query '{VM_ID:name}')
+        echo $STATE > ${generated_state_path} 
+    else
+      echo "Nothing to do for current opsman"
+    fi  
     # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
     # ls -al
     # ls -al generated-state
