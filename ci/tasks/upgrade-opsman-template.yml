@@ -74,15 +74,16 @@ run:
       --parameters OpsManImageURI=${IMAGE_URI} \
       --template-uri ${TEMPLATE_URI} \
       --parameter location=${LOCATION}
-      generated_state_path="generated-state/$(basename "$STATE_FILE")"
-      STATE=$(az vm show --name ${VM_NAME} \
-        --resource-group ${RG_NAME} \
-        --output json \
-        --query '{VM_ID:name}')
-        echo $STATE > ${generated_state_path} 
     else
       echo "Nothing to do for current opsman"
-    fi  
+    fi 
+    generated_state_path="generated-state/$(basename "$STATE_FILE")"
+    STATE=$(az vm show --name ${VM_NAME} \
+      --resource-group ${RG_NAME} \
+      --output json \
+      --query '{VM_ID:name}')
+      echo $STATE > ${generated_state_path} 
+
     # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
     # ls -al
     # ls -al generated-state
