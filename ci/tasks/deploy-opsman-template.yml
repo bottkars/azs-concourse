@@ -77,6 +77,6 @@ run:
       echo "OPSman with ${OPSMAN_URL} already deployed, nothing to do here"
     fi  
     # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
-    # ls -al
+    ls -al
     # ls -al generated-state
 
