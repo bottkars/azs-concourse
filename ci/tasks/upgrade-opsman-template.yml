@@ -56,7 +56,7 @@ run:
     OPSMAN_CURRENT=$(curl ${OPSMAN_URL}/api/v0/info -s -X GET -k -H 'Authorization: Bearer' | jp.py info.version | tr -d '"')
     OPSMAN_NEW=$(echo $OPSMAN_VHD | egrep -o '[0-9]+.*-build.[0-9]+')
     echo "Found ${OPSMAN_NEW}, have ${OPSMAN_CURRENT}"
-    if [[ "${OPSMAN_NEW}" = "${OPSMAN_CURRENT}" ]]; then 
+    if [[ "${OPSMAN_NEW}" > "${OPSMAN_CURRENT}" ]]; then 
       echo "deleting old VM"
       az vm delete --name ${VM_NAME} \
       --resource-group ${RG_NAME} \
