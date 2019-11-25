@@ -16,7 +16,7 @@ params:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
   VM_NAME: ops_man_vm
-  RESOURCE_GROUP: pcf
+  RESOURCE_GROUP:
   STATE_FILE: state.yml
 
 outputs:
@@ -45,7 +45,7 @@ run:
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     STATE=$(az vm show --name ${VM_NAME} \
-      --resource-group ${RG_NAME} \
+      --resource-group ${RESOURCE_GROUP} \
       --output json \
       --query '{VM_ID:name}') 
     echo $STATE > ${generated_state_path}   
