@@ -16,7 +16,7 @@ params:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
   VM_NAME: ops_man_vm
-  RG_NAME: pcf
+  RESOURCE_GROUP: pcf
   STATE_FILE: state.yml
 
 outputs:
