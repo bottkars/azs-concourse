@@ -27,7 +27,6 @@ params:
   ACCOUNT_NAME: 
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
-  RESOURCE_GROUP:
   OPSMAN_URL: 
 outputs:
 - name: generated-state #contains the updated state file

@@ -27,7 +27,6 @@ params:
   ACCOUNT_NAME: 
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
-  RG_NAME: pcf
   OPSMAN_URL: 
 outputs:
 - name: generated-state #contains the updated state file
@@ -59,7 +58,7 @@ run:
     if [[ "${OPSMAN_NEW}" > "${OPSMAN_CURRENT}" ]]; then 
       echo "deleting old VM"
       az vm delete --name ${VM_NAME} \
-      --resource-group ${RG_NAME} \
+      --resource-group ${RESOURCE_GROUP} \
       --yes 
       echo "Starting update ofopsman from ${OPSMAN_CURRENT} to ${OPSMAN_NEW}"
       IMAGE_URI=https://${ACCOUNT_NAME}.blob.${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
@@ -79,7 +78,7 @@ run:
     fi 
     generated_state_path="generated-state/$(basename "$STATE_FILE")"
     STATE=$(az vm show --name ${VM_NAME} \
-      --resource-group ${RG_NAME} \
+      --resource-group ${RESOURCE_GROUP} \
       --output json \
       --query '{VM_ID:name}')
       echo $STATE > ${generated_state_path} 
