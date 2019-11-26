@@ -27,7 +27,7 @@ params:
   ACCOUNT_NAME: 
   STATE_FILE: state.yml
   VM_NAME: ops_man_vm
-  RG_NAME: pcf
+  RESOURCE_GROUP:
   OPSMAN_URL: 
 outputs:
 - name: generated-state #contains the updated state file
@@ -69,7 +69,7 @@ run:
       --parameter location=${LOCATION}
       generated_state_path="generated-state/$(basename "$STATE_FILE")"
       STATE=$(az vm show --name ${VM_NAME} \
-        --resource-group ${RG_NAME} \
+        --resource-group ${RESOURCE_GROUP} \
         --output json \
         --query '{VM_ID:name}')
       echo $STATE > ${generated_state_path} 
