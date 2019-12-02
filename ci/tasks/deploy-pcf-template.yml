@@ -7,7 +7,6 @@ inputs:
  - name: image
 
 params:
-  PROFILE: "2019-03-01-hybrid"
   CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
@@ -17,6 +16,7 @@ params:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
   AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
+  VM_NAME:
   TEMPLATE_URI:
   OPSMAN_IMAGE_LOCATION: west_europe
   PARAMETER_FILE:
@@ -27,6 +27,7 @@ params:
   DESTINATION_CONTAINER: images
   ACCOUNT_NAME: opsmanagerimage
   STATE_FILE: deployed_opsman_vars.yml
+
 outputs:
 - name: generated-state #contains the updated state file
 
@@ -63,6 +64,7 @@ run:
     --parameters OpsManImageURI=${IMAGE_URI} \
     --parameters boshstorageaccountname=${BOSHSTORAGEACCOUNT} \
     --parameter location=${LOCATION} \
+    --parameters opsManVMName=${VM_NAME} \
     --template-uri ${TEMPLATE_URI}
 
     ## create storage containers for bosh

@@ -71,7 +71,7 @@ run:
       --parameters ${ADDITIONAL_PARAMETERS} \
       --parameters opsManVHD=${OPSMAN_VHD} \
       --parameters OpsManImageURI=${IMAGE_URI} \
-      --parameters opsManVMName ${VM_NAME} \
+      --parameters opsManVMName=${VM_NAME} \
       --template-uri ${TEMPLATE_URI} \
       --parameter location=${LOCATION}
     else
