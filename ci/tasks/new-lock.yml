@@ -1,0 +1,16 @@
+# code_snippet to create pks admin user
+# 02.09.2019 @azurestack_guy
+---
+platform: linux
+params:
+  LOCKNAME: lock-2
+  LOCKPOOL: 
+
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    mkdir n-v /tmp/build/put/${LOCKPOOL}
+    echo ${LOCKNAME} > /tmp/build/put/${LOCKPOOL}/name
