@@ -4,7 +4,7 @@
 platform: linux
 params:
   LOCKNAME: lock-2
-  LOCKPOOL: 
+  LOCKPOOL: pas
 
 
 run:
@@ -12,5 +12,6 @@ run:
   args:
   - "-c"
   - |
+    set -eux
     mkdir n-v /tmp/build/put/${LOCKPOOL}
     echo ${LOCKNAME} > /tmp/build/put/${LOCKPOOL}/name
