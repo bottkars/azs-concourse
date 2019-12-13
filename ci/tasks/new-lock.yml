@@ -13,5 +13,5 @@ run:
   - "-c"
   - |
     set -eux
-    mkdir n-v /tmp/build/put/${LOCKPOOL}
+    mkdir -p /tmp/build/put/${LOCKPOOL}
     echo ${LOCKNAME} > /tmp/build/put/${LOCKPOOL}/name
