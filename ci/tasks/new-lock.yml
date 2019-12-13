@@ -14,4 +14,4 @@ run:
   - |
     set -eux
     mkdir -p /tmp/build/put/${LOCKPOOL}
-    echo ${LOCKNAME} > /tmp/build/put/${LOCKPOOL}/name
+    echo "${LOCKNAME}" > /tmp/build/put/${LOCKPOOL}/name
