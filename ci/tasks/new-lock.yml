@@ -14,4 +14,7 @@ run:
   - |
     set -eux
     mkdir -p /tmp/build/put/${LOCKPOOL}
-    echo $LOCKNAME >> "/tmp/build/put/${LOCKPOOL}/name"
+    cat > "/tmp/build/put/${LOCKPOOL}/name" << EOF
+    ${LOCKFILE}
+    EOF
+    
