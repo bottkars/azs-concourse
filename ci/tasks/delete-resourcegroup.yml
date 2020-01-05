@@ -40,7 +40,7 @@ run:
     set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     IFS=', ' read -r -a array <<< "${RESOURCE_GROUPS}"
-    for GROUP_NAME in "${array[@]}"
+    for RESOURCE_GROUP in "${array[@]}"
     do
     echo
     echo "==> deleting ${RESOURCE_GROUP}"
