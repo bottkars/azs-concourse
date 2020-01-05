@@ -37,7 +37,7 @@ run:
      -u ${AZURE_CLIENT_ID} \
      -p ${AZURE_CLIENT_SECRET} \
      --tenant ${AZURE_TENANT_ID}
-    set -eux 
+    set -x+eu
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     IFS=', ' read -r -a array <<< "${RESOURCE_GROUPS}"
     for RESOURCE_GROUP in "${array[@]}"
