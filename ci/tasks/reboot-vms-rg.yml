@@ -42,6 +42,6 @@ run:
      --tenant ${AZURE_TENANT_ID}
     set -eux
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    az vm restart --ids $(az vm list -g ${RESOURCE_GROUP} --query "[].id" -o tsv)
+    az vm restart --ids $(az vm list -g ${RESOURCE_GROUP} --query "[].id" -o tsv) --no-wait
     
 
