@@ -16,7 +16,7 @@ params:
   AZURE_CLIENT_SECRET:
   AZURE_SUBSCRIPTION_ID:
   AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
-  RESOURCE_GROUPS:
+  RESOURCE_GROUP:
 
 
 run:
@@ -40,12 +40,12 @@ run:
     set -x
     set +eu
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-    IFS=', ' read -r -a array <<< "${RESOURCE_GROUPS}"
-    for RESOURCE_GROUP in "${array[@]}"
+    IFS=', ' read -r -a array <<< "${RESOURCE_GROUP}"
+    for GROUP_NAME in "${array[@]}"
     do
     echo
-    echo "==> deleting ${RESOURCE_GROUP}"
-    az group delete --name ${RESOURCE_GROUP} --yes
+    echo "==> deleting ${GROUP_NAME}"
+    az group delete --name ${GROUP_NAME} --yes
     done
     az group list 
 
