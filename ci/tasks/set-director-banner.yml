@@ -1,0 +1,25 @@
+---
+platform: linux
+
+inputs:
+- name: env # contains the env file with target OpsMan Information
+
+params:
+  ENV_FILE: env.yml
+  # - Required
+  # - Filepath of the env config YAML
+  # - The path is relative to root of the `env` input
+  UI_BANNER: 
+  SSH_BANNER: 
+
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    cat /var/version && echo ""
+    set -eux
+    om --env env/"${ENV_FILE}" curl \
+       --path /api/v0/settings/banner \
+       --request PUT \
+       '{"ui_banner_contents": "'$UI_BANNER'", "ssh_banner_contents": "'$SSH_BANNER'"}'
