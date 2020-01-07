@@ -22,4 +22,4 @@ run:
     om --env env/"${ENV_FILE}" curl \
        --path /api/v0/settings/banner \
        --request PUT \
-       --data '{"ui_banner_contents": "'$UI_BANNER'", "ssh_banner_contents": "'$SSH_BANNER'"}'
+       --data '{"ui_banner_contents": "'${UI_BANNER}'", "ssh_banner_contents": "'${SSH_BANNER}'"}'
