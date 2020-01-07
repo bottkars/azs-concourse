@@ -19,6 +19,9 @@ run:
   - |
     cat /var/version && echo ""
     set -eux
+    echo $UI_BANNER
+    echo $SSH_BANNER
+    
     om --env env/"${ENV_FILE}" curl \
        --path /api/v0/settings/banner \
        --request PUT \
