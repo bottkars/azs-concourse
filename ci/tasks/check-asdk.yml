@@ -6,6 +6,8 @@ platform: linux
 
 params:
  ASDK_VERSION: 1910
+ FROM: 57
+ TO: 58
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
@@ -19,7 +21,7 @@ run:
     set -eu
     ls -lisaR .
     pwd
-    for i in {57..99}
+    for i in {${FROM}..${TO}}
       do
         url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
