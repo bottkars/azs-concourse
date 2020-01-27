@@ -1,0 +1,23 @@
+---
+platform: linux
+
+#inputs:
+# - name: image
+
+# params:
+# ASDK_VERSION: 1910
+# FROM: 57
+# TO: 58
+  # - Required
+  # - Filepath of the env config YAML
+  # - The path is relative to root of the `env` input
+outputs:
+  - name: cloudbuilder
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    set -e
+    ls -lisaR .
+    pwd
