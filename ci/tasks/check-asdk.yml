@@ -6,8 +6,8 @@ platform: linux
 
 params:
  ASDK_VERSION: 1910
- FROM: 57
- TO: 58
+ FROM: 00
+ TO: 100
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input

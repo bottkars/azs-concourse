@@ -32,12 +32,11 @@ run:
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
     unset IFS
     URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
-    echo "Downloading $URI/AzureStackDevelopmentKit.exe"
-    curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
+    echo "Downloading AzureStackDevelopmentKit Files from $URI, this may take a wile"
+    curl "$URI/AzureStackDevelopmentKit.exe" --silent --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
-
     i=1
-    while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --fail --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
+    while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --fail --silent --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
       file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
       ((i++))
