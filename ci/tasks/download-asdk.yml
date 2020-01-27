@@ -25,3 +25,8 @@ run:
     echo
     cat asdk/version
     printenv
+    export ASDK_BUILD=$(\
+        cat "./${PIPELINE}/vars/pivotal-container-service-vars.yml" | \
+        grep -A 0 pks_api_hostname | \
+        cut -d ':' -f2 | \
+        tr -d ' "')  
