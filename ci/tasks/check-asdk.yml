@@ -9,8 +9,8 @@ params:
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
-outputs:
-  - name: asdk-release
+#outputs:
+#  - name: asdk-release
 run:
   path: bash
   args:
