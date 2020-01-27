@@ -29,7 +29,7 @@ run:
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
     echo $ASDK_VERSION
     echo $ASDK_BUILD
-    URI="${BASEURI}{ASDK_VERSION}-${ASDK_BUILD}"
+    URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
     echo "Downloading $URI/AzureStackDevelopmentKit.exe"
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
