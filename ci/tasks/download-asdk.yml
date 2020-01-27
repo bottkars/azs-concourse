@@ -32,6 +32,7 @@ run:
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
     echo $ASDK_VERSION
     echo $ASDK_BUILD
+    unset IFS
     URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
     echo "Downloading $URI/AzureStackDevelopmentKit.exe"
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
@@ -43,4 +44,4 @@ run:
     #  file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
     #  ((i++))
     # done
-    aws --endpoint-url ${endpoint} s3 cp ./cloudbuilder s3://${bucket}/${VERSION}-${BUILD} --recursive
+    aws --endpoint-url "${endpoint}"" s3 cp ./cloudbuilder s3://${bucket}/${VERSION}-${BUILD} --recursive
