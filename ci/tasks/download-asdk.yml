@@ -21,3 +21,5 @@ run:
     set -e
     ls -lisaR .
     pwd
+    cat asdk/url
+    cat asdk/version
