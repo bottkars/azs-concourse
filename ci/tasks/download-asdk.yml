@@ -25,6 +25,6 @@ run:
     echo
     cat asdk/version
     IFS='.'
-    read -r ASDK_VERSION ASDK_BUILD < asdk/version
+    read -r ASDK_VERSION ASDK_BUILD <<<< $(cat asdk/version)
     echo $ASDK_VERSION
     echo $ASDK_BUILD
