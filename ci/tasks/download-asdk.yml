@@ -37,9 +37,10 @@ run:
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
 
-    i=1
-    while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
-    do 
-     ((i++))
-    done
+    # i=1
+    # while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
+    # do 
+    #  file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
+    #  ((i++))
+    # done
     aws --endpoint-url ${endpoint} s3 cp ./cloudbuilder s3://${bucket}/${VERSION}-${BUILD} --recursive
