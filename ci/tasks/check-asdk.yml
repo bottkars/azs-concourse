@@ -19,3 +19,22 @@ run:
     set -eu
     ls -lisaR .
     pwd
+    for i in {00..99}
+      do
+        url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}/AzureStackDevelopmentKit.exe"
+        if curl --output /dev/null --silent --head --fail "$url"; then
+            echo "URL exists: $url"
+            RELEASE=https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}
+            break
+        else
+            echo "URL does not exist: $url"
+        fi
+      done
+    if [[ -z "${RELEASE}" ]]
+    then
+      echo "No new Release found"
+      exit 1
+    else
+      echo $RELEASE > asdk-release/asdk-${ASDK_VERSION}.yml
+    fi
+    ls -lisaR .
