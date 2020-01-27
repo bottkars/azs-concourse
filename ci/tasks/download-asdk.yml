@@ -22,4 +22,6 @@ run:
     ls -lisaR .
     pwd
     cat asdk/url
+    echo
     cat asdk/version
+    printenv
