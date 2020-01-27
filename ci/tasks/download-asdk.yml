@@ -6,6 +6,10 @@ inputs:
 
 params:
   BASEURI: https://azurestack.azureedge.net/asdk
+  access_key_id: 
+  endpoint:
+  region_name:
+  secret_access_key:
 # ASDK_VERSION: 1910
 # FROM: 57
 # TO: 58
@@ -20,11 +24,9 @@ run:
   - "-c"
   - |
     set -x
-    ls -lisaR .
-    pwd
-    cat asdk/url
-    echo
-    cat asdk/version
+    export AWS_SECRET_ACCESS_KEY=$secret_access_key
+    export AWS_DEFAULT_REGION=$region_name
+    export AWS_ACCESS_KEY_ID=$access_key_id
     IFS='.'
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
     echo $ASDK_VERSION
@@ -37,5 +39,6 @@ run:
     i=1
     while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
-     i++
-    done 
+     ((i++))
+    done
+    aws --endpoint-url ${endpoint} s3 cp ./cloudbuilder s3://asdk/$VERSION-$BUILD --recursive
