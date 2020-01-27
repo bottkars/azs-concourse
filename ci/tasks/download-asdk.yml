@@ -24,7 +24,6 @@ run:
     cat asdk/url
     echo
     cat asdk/version
-    printenv
-    IFS=".", read -r VERSION BUILD < asdk/version
+    while IFS="." read -r VERSION BUILD; done < asdk/version
     echo $VERSION
     echo $BUILD
