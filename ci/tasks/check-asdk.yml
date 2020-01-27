@@ -9,8 +9,8 @@ params:
   # - Required
   # - Filepath of the env config YAML
   # - The path is relative to root of the `env` input
-#outputs:
-#  - name: asdk-release
+outputs:
+  - name: asdk-release
 run:
   path: bash
   args:
@@ -19,7 +19,7 @@ run:
     set -eu
     ls -lisaR .
     pwd
-    for i in {00..99}
+    for i in {57..99}
       do
         url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
