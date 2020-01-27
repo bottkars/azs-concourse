@@ -24,24 +24,22 @@ run:
   args:
   - "-c"
   - |
-    set -x
+    set -e
     export AWS_SECRET_ACCESS_KEY=$secret_access_key
     export AWS_DEFAULT_REGION=$region_name
     export AWS_ACCESS_KEY_ID=$access_key_id
     IFS='.'
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
-    echo $ASDK_VERSION
-    echo $ASDK_BUILD
     unset IFS
     URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
     echo "Downloading $URI/AzureStackDevelopmentKit.exe"
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
 
-    # i=1
-    # while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
-    # do 
-    #  file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
-    #  ((i++))
-    # done
+    i=1
+    while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
+    do 
+      file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
+      ((i++))
+    done
     aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD} --recursive
