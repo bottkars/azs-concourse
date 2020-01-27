@@ -4,7 +4,8 @@ platform: linux
 inputs:
  - name: asdk
 
-# params:
+params:
+  BASEURI: https://azurestack.azureedge.net/asdk
 # ASDK_VERSION: 1910
 # FROM: 57
 # TO: 58
@@ -28,3 +29,7 @@ run:
     read -r ASDK_VERSION ASDK_BUILD <<< asdk/version
     echo $ASDK_VERSION
     echo $ASDK_BUILD
+    URI="${BASEURI}/asdk${ASDK_VERSION}-${ASDK_BUILD}"
+    echo "Downloading $URI/AzureStackDevelopmentKit.exe"
+    curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
+    file cloudbuilder/AzureStackDevelopmentKit.exe
