@@ -33,3 +33,9 @@ run:
     echo "Downloading $URI/AzureStackDevelopmentKit.exe"
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
+
+    i=1
+    while [[ curl "$URI/AzureStackDevelopmentKit-${i}.bin" --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" ]]
+    do 
+     i++
+    done 
