@@ -18,13 +18,13 @@ run:
   args:
   - "-c"
   - |
-    set -eu
+    set -e
     ls -lisaR .
     pwd
     cat asdk/url
     echo
     cat asdk/version
     printenv
-    IFS="." read -r VERSION BUILD < asdk/version
+    IFS=".", read -r VERSION BUILD < asdk/version
     echo $VERSION
     echo $BUILD
