@@ -36,7 +36,7 @@ run:
     curl "$URI/AzureStackDevelopmentKit.exe" --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
 
-    i=11
+    i=1
     while curl "$URI/AzureStackDevelopmentKit-${i}.bin" --fail --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
       file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
