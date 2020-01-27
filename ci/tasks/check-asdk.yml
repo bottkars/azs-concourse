@@ -1,8 +1,8 @@
 ---
 platform: linux
 
-#inputs:
-# - name: image
+inputs:
+ - name: image
 
 params:
  ASDK_VERSION: 1910
