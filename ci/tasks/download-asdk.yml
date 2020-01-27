@@ -44,4 +44,4 @@ run:
     #  file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
     #  ((i++))
     # done
-    aws --endpoint-url "${endpoint}"" s3 cp ./cloudbuilder s3://${bucket}/${VERSION}-${BUILD} --recursive
+    aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder s3://${bucket}/${VERSION}-${BUILD} --recursive
