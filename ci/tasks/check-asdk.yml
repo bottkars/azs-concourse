@@ -1,0 +1,39 @@
+---
+platform: linux
+
+#inputs:
+# - name: image
+
+params:
+ ASDK_VERSION: 1910
+  # - Required
+  # - Filepath of the env config YAML
+  # - The path is relative to root of the `env` input
+outputs:
+  - name: asdk-release
+run:
+  path: bash
+  args:
+  - "-c"
+  - |
+    ls -lisaR .
+    pwd
+    for i in {00..99}
+      do
+        url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}/AzureStackDevelopmentKit.exe"
+        if curl --output /dev/null --silent --head --fail "$url"; then
+            echo "URL exists: $url"
+            RELEASE=https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}
+            break
+        else
+            echo "URL does not exist: $url"
+        fi
+      done
+    if [[ -z "${RELEASE}" ]]
+    then
+      echo "No new Release found"
+      exit 1
+    else
+      echo $RELEASE > asdk-release/asdk-${RELEASE}.yml
+    fi
+    ls -lisaR .
