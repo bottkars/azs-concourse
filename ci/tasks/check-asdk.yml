@@ -18,7 +18,7 @@ run:
   args:
   - "-c"
   - |
-    set -eu
+    set -e
     ls -lisaR .
     pwd
     for i in {$FROM..$TO}
