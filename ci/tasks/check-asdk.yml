@@ -37,6 +37,9 @@ run:
       echo "No new Release found"
       exit 1
     else
-      echo $RELEASE > asdk-release/asdk-${ASDK_VERSION}.yml
+      cat << EOF > asdk-release/asdk-${ASDK_VERSION}.yml
+      RELEASE: $ASDK_VERSION
+      BUILD: $i
+      EOF
     fi
     ls -lisaR .
