@@ -24,6 +24,6 @@ run:
     cat asdk/url
     echo
     cat asdk/version
-    while IFS="." read -r VERSION BUILD < ./asdk/version
+    IFS='.' read -r VERSION BUILD < ./asdk/version
     echo $VERSION
     echo $BUILD
