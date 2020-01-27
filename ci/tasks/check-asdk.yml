@@ -16,6 +16,7 @@ run:
   args:
   - "-c"
   - |
+    set -eu
     ls -lisaR .
     pwd
     for i in {00..99}
@@ -34,6 +35,6 @@ run:
       echo "No new Release found"
       exit 1
     else
-      echo $RELEASE > asdk-release/asdk-${RELEASE}.yml
+      echo $RELEASE > asdk-release/asdk-${ASDK_VERSION}.yml
     fi
     ls -lisaR .
