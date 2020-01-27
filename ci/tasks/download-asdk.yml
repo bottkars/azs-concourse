@@ -18,7 +18,7 @@ run:
   args:
   - "-c"
   - |
-    set -e
+    set -eu
     ls -lisaR .
     pwd
     cat asdk/url
