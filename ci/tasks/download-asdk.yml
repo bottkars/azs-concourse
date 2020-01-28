@@ -38,7 +38,7 @@ run:
     i=1
     while curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
     --retry 5 --connect-timeout 5 --retry-delay 5 --retry-connrefused \
-    --fail --silent \
+    --fail \
     --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
       file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
