@@ -11,12 +11,6 @@ params:
   region_name:
   secret_access_key:
   bucket: 
-# ASDK_VERSION: 1910
-# FROM: 57
-# TO: 58
-  # - Required
-  # - Filepath of the env config YAML
-  # - The path is relative to root of the `env` input
 outputs:
   - name: cloudbuilder
 run:
