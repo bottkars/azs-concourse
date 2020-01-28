@@ -1,16 +1,10 @@
 ---
 platform: linux
 
-#inputs:
-# - name: image
-
 params:
  ASDK_VERSION: 1910
  FROM: 00
  TO: 100
-  # - Required
-  # - Filepath of the env config YAML
-  # - The path is relative to root of the `env` input
 outputs:
   - name: asdk-release
 run:
@@ -19,8 +13,6 @@ run:
   - "-c"
   - |
     set -e
-    ls -lisaR .
-    pwd
     for i in $( seq $FROM $TO )
       do
         url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${i}/AzureStackDevelopmentKit.exe"
@@ -35,11 +27,9 @@ run:
     if [[ -z "${RELEASE}" ]]
     then
       echo "No new Release found"
-      # exit 1
     else
       RELEASEFILE=asdk-release/asdk-${ASDK_VERSION}.${i}.yml
       echo "RELEASE: $ASDK_VERSION" >> ${RELEASEFILE}
       echo "BUILD: $i" >> ${RELEASEFILE}
       cat ${RELEASEFILE}
     fi
-    ls -lisaR .
