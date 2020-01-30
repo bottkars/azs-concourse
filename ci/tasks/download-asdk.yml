@@ -29,7 +29,7 @@ run:
     echo "Downloading AzureStackDevelopmentKit Files from $URI, this may take a wile"
     curl "$URI/AzureStackDevelopmentKit.exe" --silent --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
-    aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit.exe s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}
+    aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit.exe s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit.exe
     i=1
     while curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
     --connect-timeout 30 \
@@ -40,7 +40,7 @@ run:
     --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
       file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
-      aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}
+      aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
       rm -rf ./cloudbuilder/*
       ((i++))
     done
