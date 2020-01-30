@@ -39,3 +39,4 @@ run:
       ((i++))
     done
     aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD} --recursive
+    rm -rf ./cloudbuilder/*
