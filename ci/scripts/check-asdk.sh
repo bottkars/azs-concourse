@@ -14,8 +14,8 @@
       done
     if [[ -z "${RELEASE}" ]]
     then
-        echo "trying without build number"
         url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}/AzureStackDevelopmentKit.exe"
+        echo "trying without build number from $url"
         if curl --output /dev/null --silent --head --fail "$url"
         then
             echo "URL exists: $url"
