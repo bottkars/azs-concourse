@@ -25,8 +25,8 @@ do
         --compressed --retry-connrefused \
         --progress-bar -C - \
         --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
-        filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
-        if [[ "$filetype" == ""]]
+        filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type -E )
+        if [[ "$filetype" == *"ERROR"* ]] 
         then
             echo "file not Downloaded, retrying"
         else       
