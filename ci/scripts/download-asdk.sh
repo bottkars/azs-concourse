@@ -27,10 +27,11 @@ do
         --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
         filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
         if [[ "$filetype" == ""]]
-        echo "file not Downloaded, retrying"
+        then
+            echo "file not Downloaded, retrying"
         else       
-        aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
-        rm -rf ./cloudbuilder/*
+            aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
+            rm -rf ./cloudbuilder/*
         fi  
     fi    
     ((i++))

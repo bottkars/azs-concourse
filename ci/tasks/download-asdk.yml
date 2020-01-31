@@ -36,22 +36,23 @@ run:
     do
         if [[ $(aws --endpoint-url $AWS_ENDPOINT  s3 ls s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin) ]]
         then
-          echo "s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin already exists, not downloading"
+            echo "s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin already exists, not downloading"
         else  
-          curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
-          --connect-timeout 30 \
-          --retry 300 \
-          --retry-delay 5 \
-          --compressed --retry-connrefused \
-          --progress-bar -C - \
-          --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
-          filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
-          if [[ "$filetype" == ""]]
-            echo "file not Downloaded, retrying"
-          else       
-            aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
-            rm -rf ./cloudbuilder/*
-          fi  
-      fi    
-      ((i++))
+            curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
+            --connect-timeout 30 \
+            --retry 300 \
+            --retry-delay 5 \
+            --compressed --retry-connrefused \
+            --progress-bar -C - \
+            --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
+            filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
+            if [[ "$filetype" == ""]]
+            then
+                echo "file not Downloaded, retrying"
+            else       
+                aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
+                rm -rf ./cloudbuilder/*
+            fi  
+        fi    
+        ((i++))
     done
