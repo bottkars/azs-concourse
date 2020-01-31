@@ -15,5 +15,4 @@ params:
 outputs:
   - name: cloudbuilder
 run:
-run:
   path: azs-concourse/ci/scripts/download-asdk.sh
