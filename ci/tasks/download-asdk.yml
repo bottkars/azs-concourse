@@ -18,7 +18,7 @@ run:
   args:
   - "-c"
   - |
-    set -x
+    set -ex
     export AWS_SECRET_ACCESS_KEY=$secret_access_key
     export AWS_DEFAULT_REGION=$region_name
     export AWS_ACCESS_KEY_ID=$access_key_id
@@ -38,6 +38,7 @@ run:
         then
             echo "s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin already exists, not downloading"
         else
+            set +e
           	echo "now downloading ${URI}/AzureStackDevelopmentKit-${i}.bin"
             curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
             --connect-timeout 30 \
@@ -47,6 +48,7 @@ run:
             --progress-bar -C - \
             --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
             filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type -E )
+            set -e
             if [[ "$filetype" == *"ERROR"* ]] 
             then
                 echo "file not Downloaded, retrying"
