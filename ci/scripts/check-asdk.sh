@@ -1,17 +1,4 @@
----
-platform: linux
-
-params:
- ASDK_VERSION: 1910
- FROM: 00
- TO: 100
-outputs:
-  - name: asdk-release
-run:
-  path: bash
-  args:
-  - "-c"
-  - |
+#!/bin/bash
     set -e
     for i in $( seq $FROM $TO )
       do
