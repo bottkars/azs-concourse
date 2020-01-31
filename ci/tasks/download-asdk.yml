@@ -25,7 +25,12 @@ run:
     IFS='.'
     read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
     unset IFS
-    URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
+    if [[ "${ASDK_BUILD}" == "NONE" ]]
+    then
+      URI="${BASEURI}${ASDK_VERSION}"
+    else
+      URI="${BASEURI}${ASDK_VERSION}-${ASDK_BUILD}"
+    fi
     echo "Downloading AzureStackDevelopmentKit Files from $URI, this may take a wile"
     curl "$URI/AzureStackDevelopmentKit.exe" --silent --output cloudbuilder/AzureStackDevelopmentKit.exe
     file cloudbuilder/AzureStackDevelopmentKit.exe
