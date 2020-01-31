@@ -33,7 +33,7 @@ run:
     i=1
     filetype=""
     do 
-    until [[ "$filetype" == "text/xml"]]
+    until [[ "$filetype" == "text/xml" ]]
         if [[ $(aws --endpoint-url $AWS_ENDPOINT  s3 ls s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin) ]]
         then
           echo "s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin already exists, not downloading"
@@ -46,13 +46,12 @@ run:
           --progress-bar -C - \
           --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
           filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
-          if [[ "$filetype" == "text/xml"]]
-            then
-              "No more binary files recieved"
-            break;    
-          fi        
-          aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
-          rm -rf ./cloudbuilder/*
+          if [[ "$filetype" == ""]]
+            echo "file not Downloaded, retrying"
+          else       
+            aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
+            rm -rf ./cloudbuilder/*
+          fi  
       fi    
       ((i++))
     done
