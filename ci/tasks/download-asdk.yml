@@ -36,10 +36,15 @@ run:
     --retry 300 \
     --retry-delay 5 \
     --compressed --retry-connrefused \
-    --progress-bar --fail \
+    --progress-bar -C - \
     --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
     do 
-      file cloudbuilder/AzureStackDevelopmentKit-${i}.bin
+      filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type)
+      if [[ "$filetype" == "text/xml"]]
+      then
+        "No more binary files recieved"
+        break;    
+      fi        
       aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}-${ASDK_BUILD}/AzureStackDevelopmentKit-${i}.bin
       rm -rf ./cloudbuilder/*
       ((i++))
