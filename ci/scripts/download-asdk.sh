@@ -37,7 +37,8 @@ do
         if [[ "$filetype" == *"ERROR"* ]] 
         then
             echo "file not Downloaded, retrying"
-        else       
+        elif  [[ "$filetype" != "text/xml" ]] 
+        then    
             aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin
             rm -rf ./cloudbuilder/*
         fi  
