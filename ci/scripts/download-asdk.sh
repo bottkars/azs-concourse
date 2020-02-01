@@ -30,7 +30,7 @@ do
         --retry 300 \
         --retry-delay 5 \
         --compressed --retry-connrefused \
-        --progress-bar -C - \
+        --progress-bar -C - --fail \
         --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
         filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type -E )
         set -e
