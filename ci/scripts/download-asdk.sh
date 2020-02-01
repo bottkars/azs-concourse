@@ -44,5 +44,5 @@ do
         rm -rf ./cloudbuilder/*
     fi    
     ((i++))
-    response=$(curl --write-out %{http_code} --silent --head --output /dev/null https://azurestack.azureedge.net/asdk1907-20/AzureStackDevelopmentKit.exe)
+    response=$(curl --write-out %{http_code} --silent --head --output /dev/null  "$URI/AzureStackDevelopmentKit-${i}.bin")
 done
