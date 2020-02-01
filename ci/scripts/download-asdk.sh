@@ -36,6 +36,7 @@ do
             --compressed --retry-connrefused \
             --progress-bar -C - --fail \
             --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" )
+        done    
         set -e
         aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin
         rm -rf ./cloudbuilder/*
