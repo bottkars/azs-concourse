@@ -16,7 +16,7 @@ curl "$URI/AzureStackDevelopmentKit.exe" --silent --output cloudbuilder/AzureSta
 file cloudbuilder/AzureStackDevelopmentKit.exe
 aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit.exe s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit.exe
 i=1
-unset response
+response=200
 until [[ "$response" != "200" ]]
 do
     echo "checking for ${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin"
