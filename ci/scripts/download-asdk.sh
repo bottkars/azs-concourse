@@ -17,7 +17,7 @@ file cloudbuilder/AzureStackDevelopmentKit.exe
 aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit.exe s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit.exe
 i=1
 filetype=""
-until [[ "$filetype" == "text/xml" ]]
+until [[ "$response" != "200" ]]
 do
     if [[ $(aws --endpoint-url "${endpoint}"  s3 ls s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin) ]]
     then
@@ -25,23 +25,21 @@ do
     else
         set +e
         echo "now downloading ${URI}/AzureStackDevelopmentKit-${i}.bin"
-        curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
-        --connect-timeout 30 \
-        --retry 300 \
-        --retry-delay 5 \
-        --compressed --retry-connrefused \
-        --progress-bar -C - --fail \
-        --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" 
-        filetype=$(file cloudbuilder/AzureStackDevelopmentKit-${i}.bin -b --mime-type -E )
+        unset download
+        until [[ "$download" == "200" ]]
+        do 
+            download=$(curl "$URI/AzureStackDevelopmentKit-${i}.bin" \
+            --write-out %{http_code} \
+            --connect-timeout 30 \
+            --retry 300 \
+            --retry-delay 5 \
+            --compressed --retry-connrefused \
+            --progress-bar -C - --fail \
+            --output "cloudbuilder/AzureStackDevelopmentKit-${i}.bin" )
         set -e
-        if [[ "$filetype" == *"ERROR"* ]] 
-        then
-            echo "file not Downloaded, retrying"
-        elif  [[ "$filetype" != "text/xml" ]] 
-        then    
-            aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin
-            rm -rf ./cloudbuilder/*
-        fi  
+        aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit-${i}.bin s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin
+        rm -rf ./cloudbuilder/*
     fi    
     ((i++))
+    response=$(curl --write-out %{http_code} --silent --head --output /dev/null https://azurestack.azureedge.net/asdk1907-20/AzureStackDevelopmentKit.exe)
 done
