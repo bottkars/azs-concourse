@@ -19,8 +19,10 @@ i=1
 filetype=""
 until [[ "$response" != "200" ]]
 do
+    echo "checking for ${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin"
     if [[ $(aws --endpoint-url "${endpoint}"  s3 ls s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin) ]]
     then
+        echo $i
         echo "s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit-${i}.bin already exists, not downloading"
     else
         set +e
