@@ -6,7 +6,9 @@ export AWS_ACCESS_KEY_ID=$access_key_id
 IFS='.'
 read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
 unset IFS
-if [[ ${ASDK_BUILD} == "NONE" ]]
+echo $ASDK_BUILD
+echo $ASDK_VERSION
+if [[ "$ASDK_BUILD" == "NONE" ]]
 then
     echo "using non-build Version"	
     ASDK_VERSION="${ASDK_VERSION}"
