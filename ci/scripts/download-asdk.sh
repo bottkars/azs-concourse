@@ -8,7 +8,7 @@ read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
 unset IFS
 echo $ASDK_BUILD
 echo $ASDK_VERSION
-if [[ "$ASDK_BUILD" == "NONE" ]]
+if [[ -z $ASDK_BUILD ]]
 then
     echo "using non-build Version"	
     ASDK_VERSION="${ASDK_VERSION}"
