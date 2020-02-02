@@ -1,13 +1,11 @@
 #!/bin/bash
-set -ex
+set -e
 export AWS_SECRET_ACCESS_KEY=$secret_access_key
 export AWS_DEFAULT_REGION=$region_name
 export AWS_ACCESS_KEY_ID=$access_key_id
 IFS='.'
 read -r ASDK_VERSION ASDK_BUILD <<< $(cat asdk/version)
 unset IFS
-echo $ASDK_BUILD
-echo $ASDK_VERSION
 if [[ -z $ASDK_BUILD ]]
 then
     echo "using non-build Version"	
