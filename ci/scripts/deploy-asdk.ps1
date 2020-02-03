@@ -1,2 +1,1 @@
-Get-ComputerInfo
 Get-Variable
