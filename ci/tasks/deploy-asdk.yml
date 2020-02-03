@@ -13,4 +13,5 @@ inputs:
 params:
   ASDK_HOST: 192.168.1.93
 run:
-  path: /opt/microsoft/powershell/6/pwsh -f azs-concourse/ci/scripts/deploy-asdk.ps1
+  path: /opt/microsoft/powershell/6/pwsh 
+  #-f azs-concourse/ci/scripts/deploy-asdk.ps1
