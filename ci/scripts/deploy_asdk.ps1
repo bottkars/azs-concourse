@@ -1,0 +1,2 @@
+Get-ComputerInfo
+Get-Variable

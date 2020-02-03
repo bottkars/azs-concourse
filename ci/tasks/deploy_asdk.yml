@@ -2,24 +2,15 @@
 # this simple tasksm get´s running vm´s of an azurestack subscription
 platform: linux
 
+image_resource:
+  type: docker-image
+  source:
+    repository: mcr.microsoft.com/powershell
+
 inputs:
- - name: config
  - name: azs-conourse
 
 params:
-  PROFILE: "2019-03-01-hybrid"
-  CA_CERT: cert/root.pem
-  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
-  VAULT_DNS:  ".vault.local.azurestack.external"
-  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
-  AZURE_TENANT_ID:
-  AZURE_CLIENT_ID:
-  AZURE_CLIENT_SECRET:
-  AZURE_SUBSCRIPTION_ID:
-  AZURE_CLI_CA_PATH: "/usr/local/lib/python3.6/site-packages/certifi/cacert.pem"
-  RESOURCE_GROUP:
-  VM_NAME:
-
-
+  ASDK_HOST: 192.168.1.93
 run:
-  path: azs-concourse/ci/scripts/delete-vm.sh
+  path: azs-concourse/ci/scripts/deploy_asdk.ps1
