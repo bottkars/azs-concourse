@@ -5,8 +5,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-#    repository: mcr.microsoft.com/powershell
-    repository: quickbreach/powershell-ntlm
+    repository: mcr.microsoft.com/powershell:latest
+#    repository: quickbreach/powershell-ntlm
 
 inputs:
   - name: azs-concourse 
