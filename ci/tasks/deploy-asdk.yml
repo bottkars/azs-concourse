@@ -8,7 +8,7 @@ image_resource:
     repository: mcr.microsoft.com/powershell
 
 inputs:
- - name: azs-conourse
+  - name: azs-concourse 
 
 params:
   ASDK_HOST: 192.168.1.93
