@@ -7,8 +7,8 @@ image_resource:
   source:
     repository: mcr.microsoft.com/powershell
 
-#inputs:
-# - name: azs-conourse
+inputs:
+ - name: azs-conourse
 
 params:
   ASDK_HOST: 192.168.1.93
