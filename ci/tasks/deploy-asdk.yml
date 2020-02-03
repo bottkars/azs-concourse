@@ -11,7 +11,9 @@ inputs:
   - name: azs-concourse 
 
 params:
-  ASDK_HOST: 192.168.1.93
+  ASDK_HOST: 192.168.1.193
+  ASDK_USERNAME: "Azuerstack\AzureStackAdmin"
+  ASDK_PASSWORD: 
 run:
   path: /opt/microsoft/powershell/6/pwsh 
   args: 
