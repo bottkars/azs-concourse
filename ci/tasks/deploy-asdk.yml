@@ -13,4 +13,4 @@ inputs:
 params:
   ASDK_HOST: 192.168.1.93
 run:
-  path: azs-concourse/ci/scripts/deploy_asdk.ps1
+  path: azs-concourse/ci/scripts/deploy-asdk.ps1
