@@ -15,4 +15,5 @@ params:
 run:
   path: /opt/microsoft/powershell/6/pwsh 
   args: 
-  - "-f azs-concourse/ci/scripts/deploy-asdk.ps1"
+  - -f
+  - azs-concourse/ci/scripts/deploy-asdk.ps1
