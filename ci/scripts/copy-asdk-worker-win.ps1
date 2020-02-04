@@ -11,4 +11,5 @@ $env:MC_HOST_TARGET = "$($protocol)//$($env:access_key_id):$($env:secret_access_
 ./mc.exe ls TARGET
 
 ./mc.exe cp --recursive "TARGET/$($env:bucket)/1910-58/" ./cloudbuilder
+
 Get-ChildItem -path cloudbuilder -Recurse
