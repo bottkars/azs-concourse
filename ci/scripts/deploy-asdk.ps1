@@ -3,7 +3,7 @@ $password = $env:ASDK_PASSWORD | ConvertTo-SecureString -AsPlainText -Force
 get-item  env:ASDK*
 Get-Item WSMan:\localhost\Client\TrustedHosts
 
-set-item WSman:\localhost\Client\TrustedHosts -value $env:ASDK_HOST
+set-item WSman:\localhost\Client\TrustedHosts -value $env:ASDK_HOST -Force
 
 Get-Item WSMan:\localhost\Client\TrustedHosts
 
