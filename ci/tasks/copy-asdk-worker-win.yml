@@ -1,0 +1,30 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: windows
+
+#image_resource:
+#  type: docker-image
+#  source:
+#    repository: mcr.microsoft.com/powershell
+#    tag: 7.0.0-rc.2-ubuntu-bionic
+#    repository: quickbreach/powershell-ntlm
+
+inputs:
+  - name: azs-concourse 
+
+params:
+  ASDK_HOST: 192.168.1.93
+  ASDK_USERNAME: 
+  ASDK_PASSWORD: 
+  access_key_id: 
+  endpoint:
+  region_name:
+  secret_access_key:
+  bucket:
+run:
+#  path: /opt/microsoft/powershell/6/pwsh 
+# -f azs-concourse/ci/scripts/deploy-asdk.ps1
+  path: powershell.exe
+  args: 
+  - -f
+  - azs-concourse/ci/scripts/copy-asdk-worker-win.ps1
