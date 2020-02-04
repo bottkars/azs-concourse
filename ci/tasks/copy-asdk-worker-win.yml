@@ -21,6 +21,8 @@ params:
   region_name:
   secret_access_key:
   bucket:
+outputs:
+  - name: cloudbuilder  
 run:
 #  path: /opt/microsoft/powershell/6/pwsh 
 # -f azs-concourse/ci/scripts/deploy-asdk.ps1
