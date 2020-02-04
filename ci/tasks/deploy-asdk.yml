@@ -18,6 +18,6 @@ params:
   ASDK_PASSWORD: 
 run:
   path: /opt/microsoft/powershell/6/pwsh -f azs-concourse/ci/scripts/deploy-asdk.ps1
- # args: 
- # - -f
- # - azs-concourse/ci/scripts/deploy-asdk.ps1
+  args: 
+  - -f
+  - azs-concourse/ci/scripts/deploy-asdk.ps1
