@@ -11,6 +11,6 @@ $credential = New-Object System.Management.Automation.PSCredential -ArgumentList
 $Session = New-PSSession -ComputerName $env:ASDK_HOST -Authentication Negotiate -Credential $credential
 $Session
 Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { Get-ComputerInfo } -credential $credential
-
+Get-ChildItem -Path ./ -Recurse
 Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path C:\Test -Force  } -Credential  $credential
-Copy-Item ./cloudbilder/* -Recurse -Destination c:\test -ToSession $Session
+Copy-Item ./cloudbuilder/* -Recurse -Destination c:\test -ToSession $Session
