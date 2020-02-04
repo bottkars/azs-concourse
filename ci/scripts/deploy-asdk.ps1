@@ -1,6 +1,6 @@
 $password = $env:ASDK_PASSWORD | ConvertTo-SecureString -AsPlainText -Force
 
-write-host "$($env:ASDK_HOST) $($env:ASDK_PASSWORD)"
+get-item  env:ASDK*
 Get-Item WSMan:\localhost\Client\TrustedHosts
 Set-Item WSMan:\localhost\Client\TrustedHosts -value "$($env:ASDK_HOST)"
 Get-Item WSMan:\localhost\Client\TrustedHosts
