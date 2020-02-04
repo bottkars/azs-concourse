@@ -13,7 +13,7 @@ inputs:
   - name: azs-concourse 
 
 params:
-  ASDK_HOST: 192.168.1.193
+  ASDK_HOST: 192.168.1.93
   ASDK_USERNAME: 
   ASDK_PASSWORD: 
 run:
