@@ -12,5 +12,6 @@ $Session = New-PSSession -ComputerName $env:ASDK_HOST -Authentication Negotiate 
 $Session
 Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { Get-ComputerInfo } -credential $credential
 Get-ChildItem -Path ./ -Recurse
-Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path C:\Test -Force  } -Credential  $credential
+write-host "Now copying ASDK"
+Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path e:\1910 -Force  } -Credential  $credential 
 Copy-Item ./cloudbuilder/* -Recurse -Destination c:\test -ToSession $Session
