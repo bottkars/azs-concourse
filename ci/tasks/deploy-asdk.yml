@@ -1,12 +1,12 @@
 ---
 # this simple tasksm get´s running vm´s of an azurestack subscription
-platform: linux
+platform: windows
 
-image_resource:
-  type: docker-image
-  source:
-    repository: mcr.microsoft.com/powershell
-    tag: preview
+#image_resource:
+#  type: docker-image
+#  source:
+#    repository: mcr.microsoft.com/powershell
+#    tag: 7.0.0-rc.2-ubuntu-bionic
 #    repository: quickbreach/powershell-ntlm
 
 inputs:
