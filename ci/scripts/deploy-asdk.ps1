@@ -12,5 +12,5 @@ $Session = New-PSSession -ComputerName $env:ASDK_HOST -Authentication Negotiate 
 $Session
 Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { Get-ComputerInfo } -credential $credential
 
-Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path C:\Test -Force  } -Session $Session
+Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path C:\Test -Force  } -Credential  $credential
 copy-item * -Recurse -Destination c:\test -ToSession $Session
