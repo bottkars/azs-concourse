@@ -26,6 +26,6 @@ $parameters = @{
 }
 
 Write-Host ( $parameters | Out-String )
-#$result = Invoke-Command @parameters
-# Write-Host ( $result | Out-String )
+$result = Invoke-Command @parameters
+Write-Host ( $result | Out-String )
 
