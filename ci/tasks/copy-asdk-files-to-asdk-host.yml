@@ -24,4 +24,4 @@ run:
   path: powershell.exe
   args: 
   - -f
-  - azs-concourse/ci/scripts/deploy-asdk.ps1
+  - azs-concourse/ci/scripts/copy-asdk-files-to-asdk-host.ps1
