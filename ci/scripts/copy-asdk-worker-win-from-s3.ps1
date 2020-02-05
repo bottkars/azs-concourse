@@ -1,5 +1,5 @@
 # get mccli
-Write-Host "Retrieving mc mcl"
+Write-Host "Retrieving mc cli"
 $result=Invoke-WebRequest https://dl.min.io/client/mc/release/windows-amd64/mc.exe -OutFile mc.exe
 Write-Host ( $result | Out-String )
 
@@ -11,9 +11,9 @@ Write-Host "Using S3 Host $($env:MC_HOST_TARGET)"
 write-host "Evaluating Required Build and Release"
 
 $content = Get-Content ./asdk-release/asdk-*.yml
-$RELEASE = ($content | Where-Object { $_ -match "RELEASE:" }).Split(": ")[1]
-$BUILD = ($content | Where-Object { $_ -match "BUILD:" }).Split(": ")[1]
-If ($BUILD -ne "NONE") {
+$RELEASE = ($content | Where-Object { $_ -match "RELEASE:" }).Split(":")[1]
+$BUILD = ($content | Where-Object { $_ -match "BUILD:" }).Split(":")[1]
+If ($BUILD -eq "NONE") {
     $VERSION = $RELEASE
 }
 else {
