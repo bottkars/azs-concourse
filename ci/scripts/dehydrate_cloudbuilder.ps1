@@ -19,7 +19,7 @@ Write-Host "Now dehydrating Cloudbuilder"
 $parameters = @{
     ComputerName = $env:ASDK_HOST
     ScriptBlock  = { 
-        $($args[0])\AzureStackDevelopmentKit.exe /VERYSILENT /SUPPRESSMESGBOXES /DIR="$($args[0])" 
+        invoke-expression -command "$($args[0])\AzureStackDevelopmentKit.exe /VERYSILENT /SUPPRESSMESGBOXES /DIR=`"$($args[0])`""
     }  
     ArgumentList = "$env:ASDK_FILE_DESTINATION" 
     Session = $Session   
