@@ -21,7 +21,8 @@ $parameters = @{
     ScriptBlock = { 
     Remove-Item $args[0] -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType Directory -Path $args[0] -Force }  
-    ArgumentList = "$env:ASDK_FILE_DESTINATION"   
+    ArgumentList = "$env:ASDK_FILE_DESTINATION"
+    Session = $Session   
 }
 
 Write-Host ( $parameters | Out-String )
