@@ -23,7 +23,7 @@ $parameters = @{
         write-host $args[0]
         invoke-expression -command $args[0]
     }  
-    ArgumentList = $expression 
+    ArgumentList = "$expression"
     Session = $Session   
 }
 
