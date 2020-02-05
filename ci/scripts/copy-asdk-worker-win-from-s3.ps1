@@ -1,8 +1,6 @@
 # get mccli
 Write-Host "Retrieving mc cli"
-$result=Invoke-WebRequest https://dl.min.io/client/mc/release/windows-amd64/mc.exe -OutFile mc.exe
-Write-Host ( $result | Out-String )
-
+Invoke-WebRequest https://dl.min.io/client/mc/release/windows-amd64/mc.exe -OutFile mc.exe # -ErrorAction Stop
 Write-Host "Generating Endpoints"
 $protocol = Split-Path -Qualifier $env:endpoint
 $target = $env:endpoint.Replace('//', '').split(':')[1]
@@ -19,6 +17,7 @@ If ($BUILD -eq "NONE") {
 else {
     $VERSION = "$($RELEASE)-$($BUILD)"
 }
+
 Write-Host "Using ASDK $VERSION"
 
 Write-Host "Copying files from TARGET/$($env:bucket)/$($VERSION)/"
