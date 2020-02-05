@@ -17,7 +17,6 @@ $Session = New-PSSession -ComputerName $env:ASDK_HOST -Authentication Negotiate 
 Write-Host ( $Session | Out-String )
 
 $parameters = @{
-    ComputerName = $env:ASDK_HOST
     ScriptBlock = { 
     Remove-Item $args[0] -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType Directory -Path $args[0] -Force }  
