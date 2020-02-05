@@ -1,15 +1,37 @@
 $password = $env:ASDK_PASSWORD | ConvertTo-SecureString -AsPlainText -Force
 
-get-item  env:ASDK*
-Get-Item WSMan:\localhost\Client\TrustedHosts
+$result=get-item  env:ASDK*
+Write-Host ( $result | Out-String )
 
-set-item WSman:\localhost\Client\TrustedHosts -value $env:ASDK_HOST -Force
+$result=Get-Item WSMan:\localhost\Client\TrustedHosts
+Write-Host ( $result | Out-String )
 
-Get-Item WSMan:\localhost\Client\TrustedHosts
+$result=set-item WSman:\localhost\Client\TrustedHosts -value $env:ASDK_HOST -Force
+Write-Host ( $result | Out-String )
+
+$result=Get-Item WSMan:\localhost\Client\TrustedHosts
+Write-Host ( $result | Out-String )
 
 $credential = New-Object System.Management.Automation.PSCredential -ArgumentList "Azurestack\Azurestackadmin", $password
 $Session = New-PSSession -ComputerName $env:ASDK_HOST -Authentication Negotiate -Credential $credential
-$Session
-Invoke-Command -ComputerName $env:ASDK_HOST -ScriptBlock { new-item -ItemType Directory -Path e:\1910 -Force } -Credential  $credential 
+Write-Host ( $Session | Out-String )
+
+$parameters = @{
+    ComputerName = $env:ASDK_HOST
+    ScriptBlock = { 
+    Remove-Item $args[0] -Recurse -Force -ErrorAction SilentlyContinue
+    New-Item -ItemType Directory -Path $args[0] -Force }  
+    ArgumentList = "$env:ASDK_FILE_DESTINATION"   
+}
+
+Write-Host ( $parameters | Out-String )
+$result = Invoke-Command @parameters
+Write-Host ( $result | Out-String )
+
+# $BitsTarget = $env:ASDK_FILE_DESTINATION -replace ":\","$"
 write-host "Now copying ASDK"
-Copy-Item ./cloudbuilder/* -Recurse -Destination e:\1910 -ToSession $Session -PassThru
+# Start-BitsTransfer -Source /cloudbuilder/* -Destination "\\$($env:ASDK_HOST)\$BITS_TARGET" -TransferType      -Credential $credCopy-Item ./cloudbuilder/* -Recurse -Destination $env:ASDK_FILE_DESTINATION -ToSession $Session
+$result = Copy-Item ./cloudbuilder/* -Recurse -Destination $env:ASDK_FILE_DESTINATION -ToSession $Session
+
+Write-Host ( $result | Out-String )
+Write-Host "Now dehydrating Cloudbuilder"

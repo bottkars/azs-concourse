@@ -10,8 +10,8 @@ platform: windows
 #    repository: quickbreach/powershell-ntlm
 
 inputs:
-  - name: azs-concourse 
-
+  - name: azs-concourse
+  - name: asdk-release
 params:
   ASDK_HOST: 192.168.1.93
   ASDK_USERNAME: 
@@ -29,4 +29,4 @@ run:
   path: powershell.exe
   args: 
   - -f
-  - azs-concourse/ci/scripts/copy-asdk-worker-win.ps1
+  - azs-concourse/ci/scripts/copy-asdk-worker-win-from-s3.ps1

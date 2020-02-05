@@ -17,6 +17,7 @@ params:
   ASDK_HOST: 192.168.1.93
   ASDK_USERNAME: 
   ASDK_PASSWORD: 
+  ASDK_FILE_DESTINATION: "E:\ASDK"
 run:
 #  path: /opt/microsoft/powershell/6/pwsh 
 # -f azs-concourse/ci/scripts/deploy-asdk.ps1
