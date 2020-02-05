@@ -11,8 +11,8 @@ Write-Host "Using S3 Host $($env:MC_HOST_TARGET)"
 write-host "Evaluating Required Build and Release"
 
 $content = Get-Content ./asdk-release/asdk-*.yml
-$RELEASE = ($content | Where-Object { $_ -match "RELEASE:" }).Split(":")[1]
-$BUILD = ($content | Where-Object { $_ -match "BUILD:" }).Split(":")[1]
+$RELEASE = ($content | Where-Object { $_ -match "RELEASE:" }).Split(":")[1] -replace (' ')
+$BUILD = ($content | Where-Object { $_ -match "BUILD:" }).Split(":")[1] -replace (' ')
 If ($BUILD -eq "NONE") {
     $VERSION = $RELEASE
 }
