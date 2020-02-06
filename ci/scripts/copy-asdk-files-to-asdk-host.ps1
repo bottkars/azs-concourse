@@ -1,6 +1,6 @@
 $password = $env:ASDK_PASSWORD | ConvertTo-SecureString -AsPlainText -Force
 
-$result=get-item  env:ASDK*
+$result=get-item env:ASDK*
 Write-Host ( $result | Out-String )
 
 $result=Get-Item WSMan:\localhost\Client\TrustedHosts
@@ -18,6 +18,8 @@ Write-Host ( $Session | Out-String )
 
 $parameters = @{
     ScriptBlock = { 
+    set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000 
+    set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 00000000 
     Remove-Item $args[0] -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType Directory -Path $args[0] -Force }  
     ArgumentList = "$env:ASDK_FILE_DESTINATION"
