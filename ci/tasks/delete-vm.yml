@@ -4,7 +4,7 @@ platform: linux
 
 inputs:
  - name: config
- - name: azs-conourse
+ - name: azs-concourse
 
 params:
   PROFILE: "2019-03-01-hybrid"
