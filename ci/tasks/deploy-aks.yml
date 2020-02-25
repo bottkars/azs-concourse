@@ -1,0 +1,26 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: config
+ - name: azs-concourse
+
+params:
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: cert/root.pem
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  TEMPLATE_URI:
+  PARAMETER_FILE:
+  RESOURCE_GROUP:
+  LOCATION:
+  ADDITIONAL_PARAMETERS: "{}"
+
+run:
+  path: azs-concourse/ci/scripts/deploy-aks.sh
