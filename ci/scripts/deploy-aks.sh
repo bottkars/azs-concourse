@@ -15,3 +15,5 @@ az login --service-principal \
 set -eux
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 ls -lisaR
+find / -name aks-engine -print
+printenv
