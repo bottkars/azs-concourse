@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eux
-cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
+cat ${CA_CERT} >> ${AZURE_CLI_CA_PATH}
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
 --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \

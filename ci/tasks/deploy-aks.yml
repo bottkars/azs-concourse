@@ -14,7 +14,7 @@ outputs:
 
 params:
   PROFILE: "2019-03-01-hybrid"
-  CA_CERT: cert/root.pem
+  CA_CERT: 
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
   VAULT_DNS:  ".vault.local.azurestack.external"
   SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
