@@ -12,6 +12,7 @@ outputs:
  - name: aks-installation
 
 params:
+  INSTALLATION_FILE: installation-$timestamp.zip
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: 
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"

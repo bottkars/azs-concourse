@@ -43,5 +43,8 @@ servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} \
 
 cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel
 cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig
-tar -czvf aks-installation/installation-${AKS_RESOURCE_GROUP}.tar.gz ./${AKS_RESOURCE_GROUP}
+timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
+export timestamp
+OUTPUT_FILE_NAME="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')"
+zip -r aks-installation/"${OUTPUT_FILE_NAME}" ${AKS_RESOURCE_GROUP}
 
