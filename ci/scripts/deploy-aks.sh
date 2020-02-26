@@ -40,11 +40,15 @@ agentPoolProfiles[0].distro=${AKS_AGENT_DISTRO},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
 servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} \
 --debug
-
-cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel
-cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
-OUTPUT_FILE_NAME="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')"
+
+OUTPUT_FILE_NAME="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
+cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"${APIMODEL_FILE}"
+
+OUTPUT_FILE_NAME="$(echo "$KUBECONFIG_FILE" | envsubst '$timestamp')"
+cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig/"${KUBECONFIG_FILE}"
+
+OUTPUT_FILE_NAME="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
 zip -r aks-installation/"${OUTPUT_FILE_NAME}" ${AKS_RESOURCE_GROUP}
 
