@@ -21,7 +21,7 @@ export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
 --azure-env AzureStackCloud \
 --location ${LOCATION} \
 --resource-group ${AKS_RESOURCE_GROUP} \
---api-model ./kubernetes-azurestack.json \
+--api-model apimodel-json/kubernetes-azurestack.json \
 --output-directory ${AKS_RESOURCE_GROUP} \
 --client-id ${AZURE_CLIENT_ID} \
 --client-secret ${AZURE_CLIENT_SECRET} \

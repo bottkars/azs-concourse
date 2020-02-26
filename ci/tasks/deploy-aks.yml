@@ -6,6 +6,7 @@ inputs:
  - name: config
  - name: azs-concourse
  - name: aks-engine
+ - name: apimodel-json
 outputs:
  - name: apimodel
  - name: kubeconfig
