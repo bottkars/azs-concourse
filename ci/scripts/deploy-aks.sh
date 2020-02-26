@@ -33,16 +33,16 @@ linuxProfile.ssh.publicKeys[0].keyData="${SSH_PUBLIC_KEY}",\
 masterProfile.dnsPrefix=${AKS_MASTER_DNS_PREFIX},\
 masterProfile.vmSize=${AKS_MASTER_VMSIZE},\
 masterProfile.count=${AKS_MASTER_COUNT},\
-masterProfile.distro=${AKS_DISTRO},\
+masterProfile.distro=${AKS_MASTER_DISTRO},\
 agentPoolProfiles[0].vmSize=${AKS_AGENT_VMSIZE},\
 agentPoolProfiles[0].count=${AKS_AGENT_COUNT},\
-agentPoolProfiles[0].distro=${AKS_DISTRO},\
+agentPoolProfiles[0].distro=${AKS_AGENT_DISTRO},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
 servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} \
 --debug
 
-cp ${AKS_RESOURCE_GROUP}/apimodel.json /apimodel
-cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json /kubeconfig
+cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel
+cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig
 tar -czvf installation/installation-${AKS_RESOURCE_GROUP}.tar.gz ./${AKS_RESOURCE_GROUP}
 
 ls -lisaR
