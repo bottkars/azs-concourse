@@ -47,7 +47,7 @@ OUTPUT_FILE_NAME="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
 cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"${APIMODEL_FILE}"
 
 OUTPUT_FILE_NAME="$(echo "$KUBECONFIG_FILE" | envsubst '$timestamp')"
-cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig/"${KUBECONFIG_FILE}"
+cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.*.json kubeconfig/"${KUBECONFIG_FILE}"
 
 OUTPUT_FILE_NAME="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
 zip -r aks-installation/"${OUTPUT_FILE_NAME}" ${AKS_RESOURCE_GROUP}
