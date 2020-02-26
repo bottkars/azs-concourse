@@ -5,11 +5,11 @@ platform: linux
 inputs:
  - name: azs-concourse
  - name: aks-engine
- - name: installation
+ - name: current-installation
 outputs:
  - name: apimodel
  - name: kubeconfig
- - name: upgrade-installation
+ - name: installation
 
 params:
   KUBECONFIG_FILE: kubeconfig-$timestamp.json
