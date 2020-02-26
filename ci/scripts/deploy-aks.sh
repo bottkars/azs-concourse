@@ -43,7 +43,6 @@ servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} \
 
 cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel
 cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.local.json kubeconfig
-tar -czvf installation/installation-${AKS_RESOURCE_GROUP}.tar.gz ./${AKS_RESOURCE_GROUP}
+tar -czvf aks-installation/installation-${AKS_RESOURCE_GROUP}.tar.gz ./${AKS_RESOURCE_GROUP}
 
-ls -lisaR
-printenv
+pause
