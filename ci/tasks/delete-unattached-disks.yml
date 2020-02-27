@@ -3,7 +3,6 @@
 platform: linux
 
 inputs:
- - name: config
  - name: azs-concourse
 
 params:

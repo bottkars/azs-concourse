@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eu
-cat $(pwd)/config/${CA_CERT} >> ${AZURE_CLI_CA_PATH}
-# export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
+echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH}# export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1 
 # export ADAL_PYTHON_SSL_NO_VERIFY=1
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \

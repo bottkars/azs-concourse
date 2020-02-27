@@ -2,7 +2,6 @@
 platform: linux
 
 inputs:
- - name: config # contains the env file with target OpsMan Information
  - name: azs-concourse
 
 
