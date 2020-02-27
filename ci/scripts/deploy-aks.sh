@@ -16,9 +16,8 @@ set -eux
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat aks-engine/tag)
 tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
-alias aks-engine=$(pwd)/aks-engine-${TAG}-linux-amd64/aks-engine
 export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
-aks-engine deploy \
+aks-engine-${TAG}-linux-amd64/aks-engine deploy \
 --azure-env AzureStackCloud \
 --location ${LOCATION} \
 --resource-group ${AKS_RESOURCE_GROUP} \
