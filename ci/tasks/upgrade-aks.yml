@@ -9,7 +9,7 @@ inputs:
 outputs:
  - name: apimodel
  - name: kubeconfig
- - name: installation
+ - name: aks-installation
 
 params:
   KUBECONFIG_FILE: kubeconfig-$timestamp.json
