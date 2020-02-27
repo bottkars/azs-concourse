@@ -23,8 +23,7 @@ aks-engine-${TAG}-linux-amd64/aks-engine upgrade \
     --upgrade-version ${AKS_ORCHESTRATOR_VERSION_UPDATE} --client-id ${AZURE_CLIENT_ID} \
     --client-secret ${AZURE_CLIENT_SECRET} \
     --subscription-id ${AZURE_SUBSCRIPTION_ID} \
-    --azure-env AzureStackCloud --force
-
+    --azure-env AzureStackCloud
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
 # ls -lisaR /    
