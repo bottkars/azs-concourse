@@ -43,14 +43,22 @@ export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
 
-ls -lisaR /
 
-#APIMODEL_OUTPUT_FILE="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
-#cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
+ ./aks-engine-v0.43.3-linux-amd64/aks-engine upgrade \
+    --api-model current-installation/${AKS_RESOURCE_GROUP}/apimodel.json \
+    --resource-group $AKS_RESOURCE_GROUP --location ${LOCATION}\
+    --upgrade-version 16.1 --client-id ${AZURE_CLIENT_ID} \
+    --client-secret ${AZURE_CLIENT_SECRET} \
+    --subscription-id ${AZURE_SUBSCRIPTION_ID} \
+    --azure-env AzureStackCloud
 
-#KUBECONFIG_OUTPUT_FILE="$(echo "$KUBECONFIG_FILE" | envsubst '$timestamp')"
-#cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.*.json kubeconfig/"${KUBECONFIG_OUTPUT_FILE}"
+# ls -lisaR /    
+APIMODEL_OUTPUT_FILE="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
+cp ${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
 
-#INSTALLATION_OUTPUT_FILE="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
-#zip -r aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
+KUBECONFIG_OUTPUT_FILE="$(echo "$KUBECONFIG_FILE" | envsubst '$timestamp')"
+cp ${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.*.json kubeconfig/"${KUBECONFIG_OUTPUT_FILE}"
+
+INSTALLATION_OUTPUT_FILE="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
+zip -r aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
 
