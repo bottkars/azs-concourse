@@ -34,5 +34,5 @@ cp current-installation/${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.*.json kubec
 
 INSTALLATION_OUTPUT_FILE="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
 pushd current-installation
-zip -r aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
+zip -r $OLDPWD/aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
 popd
