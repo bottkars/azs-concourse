@@ -23,10 +23,9 @@ aks-engine-${TAG}-linux-amd64/aks-engine upgrade \
     --upgrade-version ${AKS_ORCHESTRATOR_VERSION_UPDATE} --client-id ${AZURE_CLIENT_ID} \
     --client-secret ${AZURE_CLIENT_SECRET} \
     --subscription-id ${AZURE_SUBSCRIPTION_ID} \
-    --azure-env AzureStackCloud
+    --azure-env AzureStackCloud --force
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
-# ls -lisaR /    
 APIMODEL_OUTPUT_FILE="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
 cp current-installation/${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
 
@@ -34,5 +33,6 @@ KUBECONFIG_OUTPUT_FILE="$(echo "$KUBECONFIG_FILE" | envsubst '$timestamp')"
 cp current-installation/${AKS_RESOURCE_GROUP}/kubeconfig/kubeconfig.*.json kubeconfig/"${KUBECONFIG_OUTPUT_FILE}"
 
 INSTALLATION_OUTPUT_FILE="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
-zip -r aks-installation/"${INSTALLATION_OUTPUT_FILE}" current-installation/${AKS_RESOURCE_GROUP}
-
+pushd current-installation
+zip -r aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
+popd
