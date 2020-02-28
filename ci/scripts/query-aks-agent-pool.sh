@@ -15,7 +15,7 @@ echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single lite
 #az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat aks-engine/tag)
 tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
-export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
+#export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
 #aks-engine-${TAG}-linux-amd64/aks-engine upgrade \
 #    --api-model current-installation/${AKS_RESOURCE_GROUP}/apimodel.json \
 #    --resource-group $AKS_RESOURCE_GROUP --location ${LOCATION}\
