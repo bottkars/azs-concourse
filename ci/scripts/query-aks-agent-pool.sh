@@ -32,7 +32,7 @@ AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AGENT_POOL}'] |
 
 
 
-echo "we have ${AGENT_NODE_COUNT} noded in ${POOL}"
+echo "we have ${AGENT_NODE_COUNT} noded in ${AGENT_POOL}"
 
 #cp current-installation/${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
 
