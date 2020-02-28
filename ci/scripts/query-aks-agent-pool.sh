@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 # echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 #az cloud register -n AzureStackUser \
 #--endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -28,11 +28,11 @@ tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
 #APIMODEL_OUTPUT_FILE="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
 
 
-AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AGENT_POOL}'] | [0]".name -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
+AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AGENT_POOL}'] | [0]".count -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 
 
 
-echo "we have ${AGENT_NODE_COUNT} noded in ${AGENT_POOL}"
+echo "we have ${AGENT_NODE_COUNT} nodes in ${AGENT_POOL}"
 
 #cp current-installation/${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
 
