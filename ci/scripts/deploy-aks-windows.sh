@@ -38,7 +38,7 @@ masterProfile.count=${AKS_MASTER_NODE_COUNT},\
 masterProfile.distro=${AKS_MASTER_DISTRO},\
 agentPoolProfiles[0].vmSize=${AKS_AGENT_VMSIZE},\
 agentPoolProfiles[0].count=${AKS_AGENT_NODE_COUNT},\
-agentPoolProfiles[0].osType=windows,\
+agentPoolProfiles[0].osType=${AKS_AGENT_DISTRO},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
 servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
 
