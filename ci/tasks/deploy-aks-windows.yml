@@ -34,6 +34,7 @@ params:
   AKS_MASTER_DISTRO: aks-ubuntu-16.04
   AKS_AGENT_VMSIZE_0: Standard_D2_v2
   AKS_AGENT_NODE_COUNT_0: 1
+  AKS_AGENT_OS_TYPE_0: Windows
   AKS_AGENT_DISTRO_0: windows
   AKS_AGENT_POOL_NAME_0: windowspool
   AKS_RESOURCE_GROUP: aks-1
