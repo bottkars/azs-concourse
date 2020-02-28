@@ -42,7 +42,7 @@ agentPoolProfiles[0].windowsOffer=WindowsServer,\
 agentPoolProfiles[0].windowsSku=2019-Datacenter-Core-with-Containers,\
 agentPoolProfiles[0].imageVersion=2019.127.20200204,\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
-servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
+servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} --debug
 
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
