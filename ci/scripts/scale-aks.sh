@@ -25,7 +25,7 @@ aks-engine-${TAG}-linux-amd64/aks-engine scale \
     --client-id ${AZURE_CLIENT_ID} \
     --client-secret ${AZURE_CLIENT_SECRET} \
     --api-model current-installation/${AKS_RESOURCE_GROUP}/apimodel.json \
-    --new-node-count ${AKS_AGENT_NEW_NODE_COUNT}  
+    --new-node-count ${AKS_AGENT_NEW_NODE_COUNT} --debug
 
 
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
