@@ -28,13 +28,13 @@ tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
 #APIMODEL_OUTPUT_FILE="$(echo "$APIMODEL_FILE" | envsubst '$timestamp')"
 
 
-AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AGENT_POOL}'] | [0]".count -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
+AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AKS_AGENT_POOL_NAME_0}'] | [0]".count -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 AKS_KUBERNETES_VERSION=$(jp.py "properties.orchestratorProfile.orchestratorVersion" -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 MASTER_NODE_COUNT=$(jp.py "properties.masterProfile.count" -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 
 
 
-echo "DESIRED STATE CONFIG HAS ${AGENT_NODE_COUNT} nodes in ${AGENT_POOL}"
+echo "DESIRED STATE CONFIG HAS ${AGENT_NODE_COUNT} nodes in ${AKS_AGENT_POOL_NAME_0}"
 echo "DESIRED STATE CONFIG HAS ${MASTER_NODE_COUNT} master nodes"
 echo "DESIRED STATE K8S VERSION IS ${AKS_KUBERNETES_VERSION}"
 #cp current-installation/${AKS_RESOURCE_GROUP}/apimodel.json apimodel/"$APIMODEL_OUTPUT_FILE"
