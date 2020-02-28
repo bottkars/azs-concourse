@@ -37,6 +37,10 @@ agentPoolProfiles[0].vmSize=${AKS_AGENT_VMSIZE_0},\
 agentPoolProfiles[0].count=${AKS_AGENT_NODE_COUNT_0},\
 agentPoolProfiles[0].distro=${AKS_AGENT_DISTRO_0},\
 agentPoolProfiles[0].name=${AKS_AGENT_POOL_NAME_0},\
+agentPoolProfiles[0].windowsPublisher=MicrosoftWindowsServer,\
+agentPoolProfiles[0].windowsOffer=WindowsServer,\
+agentPoolProfiles[0].windowsSku=2019-Datacenter-Core-with-Containers,\
+agentPoolProfiles[0].imageVersion=2019.127.20200204,\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
 servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
 

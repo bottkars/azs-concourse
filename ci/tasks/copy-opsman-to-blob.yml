@@ -4,6 +4,7 @@ platform: linux
 inputs:
  - name: image # conatins the latest image to deploy ..
  - name: azs-concourse
+ - name: config
 
 params:
   OPSMAN_IMAGE_LOCATION: west_europe
