@@ -1,0 +1,49 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: azs-concourse
+ - name: aks-engine
+ - name: current-installation
+outputs:
+ - name: apimodel
+ - name: kubeconfig
+ - name: aks-installation
+
+params:
+  KUBECONFIG_FILE: kubeconfig-$timestamp.json
+  APIMODEL_FILE: apimodel-$timestamp.json
+  INSTALLATION_FILE: installation-$timestamp.zip
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: 
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  RESOURCE_GROUP:
+  LOCATION:
+  #AKS_ORCHESTRTAOR_RELEASE: 1.15
+  #AKS_ORCHESTRATOR_VERSION_UPDATE: 1.16.1
+  ADDITIONAL_PARAMETERS: "{}"
+  AKS_MASTER_DNS_PREFIX: master
+  #AKS_MASTER_VMSIZE: Standard_D2_v2
+  #AKS_MASTER_COUNT: 1
+  #AKS_MASTER_DISTRO: aks-ubuntu-16.04
+  #AKS_AGENT_VMSIZE: Standard_D2_v2
+  AKS_AGENT_COUNT: 3
+  #AKS_AGENT_DISTRO: aks-ubuntu-16.04
+  AKS_RESOURCE_GROUP: aks-1
+  #SSH_PUBLIC_KEY:
+  
+
+run:
+  path: azs-concourse/ci/scripts/scale-aks.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
