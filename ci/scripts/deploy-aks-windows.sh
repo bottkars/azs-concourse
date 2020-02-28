@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -31,7 +31,7 @@ customCloudProfile.portalURL=https://portal.${SUFFIX_STORAGE_ENDPOINT},\
 linuxProfile.ssh.publicKeys[0].keyData="${SSH_PUBLIC_KEY}",\
 windowsProfile.adminUsername="azureuser",\
 windowsProfile.adminPassword="${AKS_WINDOWS_ADMIN_PASSWORD}",\
-windowsProfile.sshEnabled=true \
+windowsProfile.sshEnabled="true",\
 masterProfile.dnsPrefix=${AKS_MASTER_DNS_PREFIX},\
 masterProfile.vmSize=${AKS_MASTER_VMSIZE},\
 masterProfile.count=${AKS_MASTER_NODE_COUNT},\
@@ -41,7 +41,7 @@ agentPoolProfiles[0].count=${AKS_AGENT_NODE_COUNT_0},\
 agentPoolProfiles[0].osType=${AKS_AGENT_DISTRO_0},\
 agentPoolProfiles[0].name=${AKS_AGENT_POOL_NAME_0},
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
-servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
+servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} --debug
 
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
