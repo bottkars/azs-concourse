@@ -30,7 +30,7 @@ tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
 
 AGENT_NODE_COUNT=$(jp.py "properties.agentPoolProfiles[?name=='${AGENT_POOL}'] | [0]".count -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 AKS_KUBERNETES_VERSION=$(jp.py "properties.orchestratorProfile.orchestratorVersion" -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
-MASTER_NODE_COUNT=$(jp.py "properties.masterProfile.count" -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"'
+MASTER_NODE_COUNT=$(jp.py "properties.masterProfile.count" -f current-installation/${AKS_RESOURCE_GROUP}/apimodel.json | tr -d '"')
 
 
 
