@@ -10,7 +10,7 @@ inputs:
 # - name: apimodel
 # - name: kubeconfig
 # - name: aks-installation
-  - name: state
+#  - name: state
 
 params:
   AGENT_POOL: linuxpool
