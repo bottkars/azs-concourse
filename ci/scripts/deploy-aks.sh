@@ -12,7 +12,6 @@ az login --service-principal \
     -u ${AZURE_CLIENT_ID} \
     -p ${AZURE_CLIENT_SECRET} \
     --tenant ${AZURE_TENANT_ID}
-set -eux
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat aks-engine/tag)
 tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
