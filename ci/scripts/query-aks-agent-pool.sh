@@ -44,5 +44,5 @@ echo "DESIRED STATE K8S VERSION IS ${AKS_KUBERNETES_VERSION}"
 
 #INSTALLATION_OUTPUT_FILE="$(echo "$INSTALLATION_FILE" | envsubst '$timestamp')" 
 #pushd current-installation
-#tar -qq -r $OLDPWD/aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
+#zip -qq -r $OLDPWD/aks-installation/"${INSTALLATION_OUTPUT_FILE}" ${AKS_RESOURCE_GROUP}
 #popd
