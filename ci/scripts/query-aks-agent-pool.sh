@@ -14,7 +14,7 @@ set -eu
 #    --tenant ${AZURE_TENANT_ID}
 #az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat aks-engine/tag)
-tar xzfv aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
+tar xzf aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
 #export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
 #aks-engine-${TAG}-linux-amd64/aks-engine upgrade \
 #    --api-model current-installation/${AKS_RESOURCE_GROUP}/apimodel.json \
