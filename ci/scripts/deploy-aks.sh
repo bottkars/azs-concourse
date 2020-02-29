@@ -33,10 +33,10 @@ masterProfile.dnsPrefix=${AKS_MASTER_DNS_PREFIX},\
 masterProfile.vmSize=${AKS_MASTER_VMSIZE},\
 masterProfile.count=${AKS_MASTER_NODE_COUNT},\
 masterProfile.distro=${AKS_MASTER_DISTRO},\
-agentPoolProfiles[0].vmSize=${AKS_AGENT_VMSIZE_0},\
-agentPoolProfiles[0].count=${AKS_AGENT_NODE_COUNT_0},\
-agentPoolProfiles[0].distro=${AKS_AGENT_DISTRO_0},\
-agentPoolProfiles[0].name=${AKS_AGENT_POOL_NAME_0},\
+agentPoolProfiles[0].vmSize=${AKS_AGENT_0_VMSIZE},\
+agentPoolProfiles[0].count=${AKS_AGENT_0_NODE_COUNT},\
+agentPoolProfiles[0].distro=${AKS_AGENT_0_DISTRO},\
+agentPoolProfiles[0].name=${AKS_AGENT_0_POOL_NAME},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
 servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
 

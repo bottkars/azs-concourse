@@ -13,7 +13,7 @@ inputs:
 #  - name: state
 
 params:
-  AKS_AGENT_POOL_NAME_0: linuxpool
+  AKS_AGENT_0_POOL_NAME: linuxpool
   #KUBECONFIG_FILE: kubeconfig-$timestamp.json
   # APIMODEL_FILE: apimodel-$timestamp.json
   # INSTALLATION_FILE: installation-$timestamp.zip
@@ -35,9 +35,9 @@ params:
   #AKS_MASTER_VMSIZE: Standard_D2_v2
   #AKS_MASTER_NODE_COUNT: 1
   #AKS_MASTER_DISTRO: aks-ubuntu-16.04
-  #AKS_AGENT_VMSIZE_0: Standard_D2_v2
-  #AKS_AGENT_NODE_COUNT_0: 1
-  #AKS_AGENT_DISTRO_0: aks-ubuntu-16.04
+  #AKS_AGENT_0_VMSIZE: Standard_D2_v2
+  #AKS_AGENT_0_NODE_COUNT: 1
+  #AKS_AGENT_0_DISTRO: aks-ubuntu-16.04
   #AKS_RESOURCE_GROUP: aks-1
   #SSH_PUBLIC_KEY:
   
