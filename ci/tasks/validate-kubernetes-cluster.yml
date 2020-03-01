@@ -9,6 +9,7 @@ inputs:
 outputs:
  - name: validation-report
 params:
+  SONOBUOY_MODE: quick
   
 
 run:
