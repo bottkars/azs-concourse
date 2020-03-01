@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euy
+set -eux
 
 
 SONOBUOY_VERSION=$(cat sonobuoy-release/version)
