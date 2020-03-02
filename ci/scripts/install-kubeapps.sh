@@ -23,7 +23,7 @@ chmod 700 get_helm.sh
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 kubectl create namespace kubeapps
-helm install kubeapps --namespace kubeapps bitnami/kubeapps
+helm install kubeapps --namespace kubeapps bitnami/kubeapps --set useHelm3=true
 kubectl create serviceaccount kubeapps-operator
 kubectl create clusterrolebinding kubeapps-operator --clusterrole=cluster-admin --serviceaccount=default:kubeapps-operator
 # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
