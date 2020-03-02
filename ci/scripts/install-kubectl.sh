@@ -11,7 +11,7 @@ chmod +x ./kubectl
 
 export KUBECONFIG=kubeconfig/kubeconfig*.json
 
-kubectl cluster-info
+./kubectl cluster-info
 
 # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
 # ls -al
