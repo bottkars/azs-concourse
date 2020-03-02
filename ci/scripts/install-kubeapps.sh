@@ -26,6 +26,7 @@ kubectl create namespace kubeapps
 helm install kubeapps --namespace kubeapps bitnami/kubeapps --set useHelm3=true
 kubectl create serviceaccount kubeapps-operator
 kubectl create clusterrolebinding kubeapps-operator --clusterrole=cluster-admin --serviceaccount=default:kubeapps-operator
+kubectl rollout status deployment.v1.apps/kubeapps --namespace kubeapps
 # echo $STATE | jq --arg iaas azurestack '. + {IAAS: $iaas}' > ${generated_state_path} 
 # ls -al
 # ls -al generated-state
