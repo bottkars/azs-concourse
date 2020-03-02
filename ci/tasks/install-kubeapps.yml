@@ -10,7 +10,7 @@ inputs:
   
 
 run:
-  path: azs-concourse/ci/scripts/install-kubectl.sh
+  path: azs-concourse/ci/scripts/install-kubeapps.sh
 
 
 # test with 
