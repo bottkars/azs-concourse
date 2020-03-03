@@ -25,7 +25,7 @@ aks-engine-${TAG}-linux-amd64/aks-engine deploy \
 --client-id ${AZURE_CLIENT_ID} \
 --client-secret ${AZURE_CLIENT_SECRET} \
 --subscription-id ${AZURE_SUBSCRIPTION_ID} \
---set \
+--set ${AKS_ADDITIONAL_APIMODEL} \
 orchestratorProfile.orchestratorRelease=${AKS_ORCHESTRATOR_RELEASE},\
 customCloudProfile.portalURL=https://portal.${SUFFIX_STORAGE_ENDPOINT},\
 linuxProfile.ssh.publicKeys[0].keyData="${SSH_PUBLIC_KEY}",\
@@ -38,7 +38,7 @@ agentPoolProfiles[0].count=${AKS_AGENT_0_NODE_COUNT},\
 agentPoolProfiles[0].distro=${AKS_AGENT_0_DISTRO},\
 agentPoolProfiles[0].name=${AKS_AGENT_0_POOL_NAME},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
-servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} ${AKS_ADDITIONAL_APIMODEL} --debug
+servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} --debug
 
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
