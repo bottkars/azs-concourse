@@ -37,7 +37,7 @@ agentPoolProfiles[0].count=${AKS_AGENT_0_NODE_COUNT},\
 agentPoolProfiles[0].distro=${AKS_AGENT_0_DISTRO},\
 agentPoolProfiles[0].name=${AKS_AGENT_0_POOL_NAME},\
 servicePrincipalProfile.clientId=${AZURE_CLIENT_ID},\
-servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} --debug
+servicePrincipalProfile.secret=${AZURE_CLIENT_SECRET} 
 
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
