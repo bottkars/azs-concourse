@@ -13,8 +13,8 @@ az login --service-principal \
     -p ${AZURE_CLIENT_SECRET} \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-TAG=$(cat bosh-cli-release/tag)
-sudo cp bosh-cli-release/bosh-cli-${TAG}-linux-amd64 /usr/local/bin/bosh
+# TAG=$(cat bosh-cli-release/version)
+#cp bosh-cli-release/bosh-cli-${TAG}-linux-amd64 /usr/local/bin/bosh
 bosh --version
 # KUBECTL_VERSION=$(cat kubectl-release/version)
 KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -30,7 +30,7 @@ kubectl get nodes
 kubectl get componentstatuses
 
 echo "installing K14s"
-curl -L https://k14s.io/install.sh | sudo bash
+curl -L https://k14s.io/install.sh | bash
 
 cf-for-k8s-master/hack/generate-values.sh "${DNS_DOMAIN}" > cf-values/cf-values.yml
 echo "Installing CF..."
