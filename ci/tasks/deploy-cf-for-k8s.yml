@@ -6,6 +6,7 @@ inputs:
  - name: azs-concourse
  - name: kubeconfig
  - name: bosh-cli-release
+ - name: cf-for-k8s-master
 outputs:
  - name: cf-values
 params:
