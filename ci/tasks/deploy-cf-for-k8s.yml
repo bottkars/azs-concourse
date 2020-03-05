@@ -5,7 +5,7 @@ platform: linux
 inputs:
  - name: azs-concourse
  - name: kubeconfig
-# - name: kubectl-release
+ - name: bosh-cli-release
 outputs:
  - name: cf-values
 params:
