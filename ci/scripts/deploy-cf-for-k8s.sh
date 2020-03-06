@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -39,6 +39,7 @@ cf-for-k8s-master/bin/install-cf.sh cf-values/cf-values.yml  || :
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
 SERVICE_IP=""
+echo "Waiting for Loadbalancer Service IP"
 until [[ ! -z ${SERVICE_IP} ]]
 do
     SERVICE_IP=$(kubectl get svc -n istio-system istio-ingressgateway --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
@@ -46,8 +47,7 @@ do
     printf "."
 done 
 printf "\n"
-echo $SERVICE_IP
-echo "${DNS_DOMAIN}" 
+echo $SERVICE_IP 
 echo "Configuring DNS for ${DNS_DOMAIN} and *.${DNS_DOMAIN} with ${SERVICE_IP} ..."
 az network dns zone create \
     --resource-group aks-3 \
