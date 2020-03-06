@@ -10,7 +10,7 @@ inputs:
 outputs:
  - name: cf-values
 params:
-  CF_CONFIG_FILE: kubeconfig-$timestamp.json
+  CF_CONFIG_FILE: cf-values-$timestamp.yml
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: 
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"

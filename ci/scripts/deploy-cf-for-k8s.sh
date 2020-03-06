@@ -60,8 +60,7 @@ az network dns record-set a add-record \
     
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
-
-CF_CONFIG_OUTPUT_FILE="$(echo "$CF_CONFIG_FILE:" | envsubst '$timestamp')"
+CF_CONFIG_OUTPUT_FILE="$(echo "$CF_CONFIG_FILE" | envsubst '$timestamp')"
 cp cf-values/cf-values.yml cf-values/"$CF_CONFIG_OUTPUT_FILE"
 
 
