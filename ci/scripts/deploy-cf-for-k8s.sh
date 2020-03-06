@@ -38,7 +38,26 @@ cf-for-k8s-master/bin/install-cf.sh cf-values/cf-values.yml
 # " get cf_admin_password from cf-values/cf-values.yml "
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
-
+SERVICE_IP=""
+until [[ ! -z ${SERVICE_IP} ]]
+do
+    SERVICE_IP=$(kubectl get svc -n istio-system istio-ingressgateway --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+    sleep 5
+    printf "."
+done 
+printf "\n"
+echo $SERVICE_IP
+echo "${DNS_DOMAIN}" 
+echo "Configuring DNS for ${DNS_DOMAIN} and *.${DNS_DOMAIN} with ${SERVICE_IP} ..."
+az network dns zone create \
+    --resource-group aks-3 \
+    --name ${DNS_DOMAIN}
+az network dns record-set a add-record \
+    --resource-group aks-3 \
+    --zone-name ${DNS_DOMAIN} \
+    --record-set-name "*" \
+    --ipv4-address ${SERVICE_IP}
+    
 timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
 export timestamp
 
