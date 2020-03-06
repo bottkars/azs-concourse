@@ -34,7 +34,7 @@ curl -L https://k14s.io/install.sh | bash
 
 cf-for-k8s-master/hack/generate-values.sh "${DNS_DOMAIN}" > cf-values/cf-values.yml
 echo "Installing CF..."
-cf-for-k8s-master/bin/install-cf.sh cf-values/cf-values.yml
+cf-for-k8s-master/bin/install-cf.sh cf-values/cf-values.yml  || :
 # " get cf_admin_password from cf-values/cf-values.yml "
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
