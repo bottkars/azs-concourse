@@ -11,7 +11,6 @@ az login --service-principal \
   -u ${AZURE_CLIENT_ID} \
   -p ${AZURE_CLIENT_SECRET} \
   --tenant ${AZURE_TENANT_ID}
-set -eux 
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 SOURCE_URI=$(grep -A0 "${OPSMAN_IMAGE_LOCATION}:" image/*.yml  | tail -n1 | awk '{ print $2 }')
 OPSMAN_VHD=$(basename $SOURCE_URI)
