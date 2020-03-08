@@ -4,6 +4,7 @@ platform: linux
 
 inputs:
  - name: image
+ - name: config
 
 params:
   CA_CERT: cert/root.pem
