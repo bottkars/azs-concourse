@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH}    
 az cloud register -n AzureStackUser \
   --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
