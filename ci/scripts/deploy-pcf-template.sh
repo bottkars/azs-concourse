@@ -29,7 +29,7 @@ az group deployment create \
   --parameter location=${LOCATION} \
   --parameters opsManVMName=${VM_NAME} \
   --template-uri ${TEMPLATE_URI}
-
+echo "Now Creating Storage Containers"
 ## create storage containers for bosh
 az storage container create --name bosh --account-name ${BOSHSTORAGEACCOUNT}
 az storage container create --name stemcell --account-name ${BOSHSTORAGEACCOUNT}
@@ -39,6 +39,7 @@ ACCOUNTS=$(az storage account list --resource-group ${RESOURCE_GROUP} --query "[
 echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name bosh --account-name
 echo ${ACCOUNTS} |  xargs -n 1 az storage container create --name stemcell --account-name
 echo ${ACCOUNTS} |  xargs -n 1 az storage table create --name stemcells --account-name
+echo "Now generating Config State"
 
 generated_state_path="generated-state/$(basename "$STATE_FILE")"
 DEPLOYMENT_ACCOUNTS=$(echo $ACCOUNTS | awk '{print $1;}')

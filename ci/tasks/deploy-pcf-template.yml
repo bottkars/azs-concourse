@@ -6,7 +6,8 @@ inputs:
  - name: image
  - name: config
  - name: azs-concourse
-
+outputs:
+ - name: generated-state
 params:
   CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
