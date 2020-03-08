@@ -6,8 +6,9 @@ inputs:
  - name: image
  - name: config
  - name: azs-concourse
+
 outputs:
- - name: generated-state
+ - name: generated-state #contains the updated state file
 params:
   CA_CERT: cert/root.pem
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
@@ -30,8 +31,6 @@ params:
   ACCOUNT_NAME: opsmanagerimage
   STATE_FILE: deployed_opsman_vars.yml
 
-outputs:
-- name: generated-state #contains the updated state file
 
 run:
   path: azs-concourse/ci/scripts/validate-pcf-template.sh
