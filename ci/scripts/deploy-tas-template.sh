@@ -67,7 +67,7 @@ echo "make sure that dns entries are correct for you domain"
 echo "checking opsman api ready using the new fqdn ${OPSMAN_URL}, 
 if the . keeps showing, check if ns record for ${OPSMAN_URL} points to ${OPSMAN_PUBLIC_IP}
 as server entries"
-until $(curl --output /dev/null --silent --head --fail -k -X GET "https://${OPSMAN_URL}/api/v0/info"); do
+until $(curl --output /dev/null --silent --head --fail -k -X GET "${OPSMAN_URL}/api/v0/info"); do
     printf '.'
     sleep 5
 done
