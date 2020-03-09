@@ -65,8 +65,7 @@ echo "we will use the following public IP´s for Loadbalancers and Opsman:"
 az network public-ip list -g ${RESOURCE_GROUP} --query '[].[name,ipAddress]' --output tsv
 echo "make sure that dns entries are correct for you domain"
 echo "checking opsman api ready using the new fqdn ${OPSMAN_URL}, 
-if the . keeps showing, check if ns record for ${OPSMAN_URL} points to ${OPSMAN_PUBLIC_IP}
-as server entries"
+if the . keeps showing, check if ns record for ${OPSMAN_URL} points to ${OPSMAN_PUBLIC_IP}"
 until $(curl --output /dev/null --silent --head --fail -k -X GET "${OPSMAN_URL}/api/v0/info"); do
     printf '.'
     sleep 5
