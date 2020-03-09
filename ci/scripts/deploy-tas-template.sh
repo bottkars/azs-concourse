@@ -58,3 +58,18 @@ echo "bosh_storage_account_name: ${BOSHSTORAGEACCOUNT}" >> ${generated_state_pat
 echo "azure_storage_access_key: ${MYSQLSTORAGEACCOUNTKEY}" >> ${generated_state_path}
 echo "azure_account: ${MYSQLSTORAGEACCOUNT}" >> ${generated_state_path}
 echo "blob_store_base_url: ${SUFFIX_STORAGE_ENDPOINT}" >> ${generated_state_path}
+echo "Waiting for opsman ready"
+
+OPSMAN_PUBLIC_IP=$(az network public-ip list -g ${RESOURCE_GROUP} --query "[?name=='OpsManPublicIP'].ipAddress" --output tsv)
+echo "we will use the following public IP´s for Loadbalancers and Opsman:"
+az network public-ip list -g ${RESOURCE_GROUP} --query '[].[name,ipAddress]' --output tsv
+echo "make sure that dns entries are correct for you domain"
+echo "checking opsman api ready using the new fqdn ${OPSMAN_URL}, 
+if the . keeps showing, check if ns record for ${OPSMAN_URL} points to ${OPSMAN_PUBLIC_IP}
+as server entries"
+until $(curl --output /dev/null --silent --head --fail -k -X GET "https://${OPSMAN_URL}/api/v0/info"); do
+    printf '.'
+    sleep 5
+done
+echo "done"
+

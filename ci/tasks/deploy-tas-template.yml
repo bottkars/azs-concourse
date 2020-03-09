@@ -30,6 +30,7 @@ params:
   DESTINATION_CONTAINER: images
   ACCOUNT_NAME: opsmanagerimage
   STATE_FILE: deployed_opsman_vars.yml
+  OPSMAN_URL: ((opsman-url))
 
 
 run:
