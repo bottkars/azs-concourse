@@ -16,6 +16,6 @@ run:
   - "-c"
   - |
     set -eux
-    echo "Azure Stack Automation for PCF"
+    echo "Azure Stack Automation for VMware Tanzu Application Services"
     az 
     az extension list-available --output table

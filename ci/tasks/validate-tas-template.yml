@@ -30,4 +30,4 @@ params:
 
 
 run:
-  path: azs-concourse/ci/scripts/validate-pcf-template.sh
+  path: azs-concourse/ci/scripts/validate-tas-template.sh
