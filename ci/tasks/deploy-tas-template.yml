@@ -33,4 +33,4 @@ params:
 
 
 run:
-  path: azs-concourse/ci/scripts/deploy-pcf-template.sh
+  path: azs-concourse/ci/scripts/deploy-tas-template.sh
