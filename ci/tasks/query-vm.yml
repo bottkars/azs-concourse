@@ -23,5 +23,5 @@ outputs:
 
 
 run:
-  path: azs-concourse/ci/scripts/dquery-vm.sh
+  path: azs-concourse/ci/scripts/query-vm.sh
 
