@@ -50,10 +50,10 @@ printf "\n"
 echo $SERVICE_IP 
 echo "Configuring DNS for ${DNS_DOMAIN} and *.${DNS_DOMAIN} with ${SERVICE_IP} ..."
 az network dns zone create \
-    --resource-group aks-3 \
+    --resource-group ${RESOURCE_GROUP} \
     --name ${DNS_DOMAIN}
 az network dns record-set a add-record \
-    --resource-group aks-3 \
+    --resource-group ${RESOURCE_GROUP} \
     --zone-name ${DNS_DOMAIN} \
     --record-set-name "*" \
     --ipv4-address ${SERVICE_IP}
