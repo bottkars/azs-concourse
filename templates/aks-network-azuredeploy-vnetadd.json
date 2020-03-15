@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "apiProfile": "2019-03-01-hybrid",
+    "parameters": {
+        "VNETName": {
+            "type": "string",
+            "defaultValue": "AKSVnet",
+            "metadata": {
+                "description": "This is the name for the aks VNET"
+            }
+        },
+        "MasterSubnet": {
+            "type": "string",
+            "defaultValue": "MasterSubnet",
+            "metadata": {
+                "description": "the name for the master Subnet"
+            }
+        },
+        "AgentSubnet": {
+            "type": "string",
+            "defaultValue": "AgentSubnet",
+            "metadata": {
+                "description": "the name for the agent subnet"
+            }
+        },
+        "MasterAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.100.0.0/24",
+            "metadata": {
+                "description": "Prefix for Master, defaults to 10.100.0.0/24"
+            }
+        },
+        "AgentAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.200.0.0/24",
+            "metadata": {
+                "description": "Prefix for Agent, defaults to 10.200.0.0/24"
+            }
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+
+        {
+            "name": "[concat(parameters('VNETName'), '/', parameters('MasterSubnet'))]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2018-11-01",
+            "properties": {
+
+                "addressPrefix": "[parameters('MasterAddressPrefix')]"
+
+            }
+
+        },
+        {
+            "name": "[concat(parameters('VNETName'), '/', parameters('AgentSubnet'))]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2018-11-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VNETName'), parameters('MasterSubnet'))]"                
+            ],
+            "properties": {
+
+                "addressPrefix": "[parameters('AgentAddressPrefix')]"
+
+            }
+
+        }
+    ],
+    "outputs": {
+        "vnetresourceID": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNETName'))]"
+        }
+    }
+}

@@ -4,6 +4,8 @@ platform: linux
 
 inputs:
 
+outputs:
+  name: deployment
 params:
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: cert/root.pem
@@ -19,7 +21,7 @@ params:
   RESOURCE_GROUP:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
-
+  QUERY: "*"
 run:
   path: bash
   args:
@@ -47,5 +49,6 @@ run:
     --parameters config/${PARAMETER_FILE} \
     --parameters ${ADDITIONAL_PARAMETERS} \
     --template-uri ${TEMPLATE_URI} \
-    --debug
+    --query ${QUERY} \
+    --debug >> deployment/deployment.json
 
