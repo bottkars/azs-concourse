@@ -22,7 +22,7 @@ params:
   RESOURCE_GROUP:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
-  QUERY: "*"
+  QUERY: "\*"
 run:
   path: bash
   args:
