@@ -14,9 +14,8 @@ az login --service-principal \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 
-ROUTINGTABLE=$(az network route-table list -g ${RESOURCE_GROUP} -o json | jq -r '.[].id')
+ROUTINGTABLE=$(az network route-table list -g ${RESOURCE_GROUP} -o json --query '[].id' --output tsv)
 az network vnet subnet update \
--g RESOURCE_GROUP_NAME_VNET \
 --route-table ${ROUTINGTABLE} \
 --ids "/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_MASTER_SUBNET_NAME}"
 
