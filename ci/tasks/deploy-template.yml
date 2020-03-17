@@ -51,5 +51,5 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --template-uri ${TEMPLATE_URI} \
     --query ${QUERY} \
-    --debug >> deployment/deployment.json
+    >> deployment/deployment.json
 
