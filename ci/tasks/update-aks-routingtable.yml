@@ -1,0 +1,40 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: azs-concourse
+ - name: aks-engine
+ - name: apimodel-json
+outputs:
+ - name: apimodel
+ - name: kubeconfig
+ - name: aks-installation
+
+params:
+  KUBECONFIG_FILE: kubeconfig-$timestamp.json
+  APIMODEL_FILE: apimodel-$timestamp.json
+  INSTALLATION_FILE: installation-$timestamp.zip
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: 
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  RESOURCE_GROUP:
+  LOCATION:
+  AKS_MASTER_SUBNET_NAME: 
+  AKS_VNET_NAME:
+  AKS_VNET_RG:
+  
+
+run:
+  path: azs-concourse/ci/scripts/update-aks-routingtable.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
