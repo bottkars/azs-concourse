@@ -4,17 +4,11 @@ platform: linux
 
 inputs:
  - name: azs-concourse
- - name: aks-engine
- - name: apimodel-json
+
 outputs:
- - name: apimodel
- - name: kubeconfig
- - name: aks-installation
+
 
 params:
-  KUBECONFIG_FILE: kubeconfig-$timestamp.json
-  APIMODEL_FILE: apimodel-$timestamp.json
-  INSTALLATION_FILE: installation-$timestamp.zip
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: 
   ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
