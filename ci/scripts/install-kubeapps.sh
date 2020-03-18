@@ -21,7 +21,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
-cat <<EOF | kubect apply -f - 
+cat <<EOF | kubectl apply -f - 
 apiVersion: v1
 kind: Namespace
 metadata:
