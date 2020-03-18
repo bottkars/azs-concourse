@@ -18,6 +18,7 @@ ROUTINGTABLE=$(az network route-table list -g ${RESOURCE_GROUP} -o json --query 
 az network vnet subnet update \
 --route-table ${ROUTINGTABLE} \
 --ids "\
-/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_MASTER_SUBNET_NAME} \
 /subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_AGENT_0_SUBNET_NAME} \
 "
+# parked subnets for test:
+# /subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_MASTER_SUBNET_NAME} \
