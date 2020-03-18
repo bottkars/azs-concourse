@@ -6,8 +6,8 @@ inputs:
  - name: azs-concourse
  - name: kubeconfig
 # - name: kubectl-release
-
-  
+params:
+  KUBEAPPS_NAMESPACE: kubeapps  
 
 run:
   path: azs-concourse/ci/scripts/install-kubeapps.sh
