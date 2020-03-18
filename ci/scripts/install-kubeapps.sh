@@ -31,8 +31,32 @@ EOF
 
 # kubectl create namespace kubeapps
 helm upgrade --install kubeapps --namespace ${KUBEAPPS_NAMESPACE} bitnami/kubeapps --set useHelm3=true
-kubectl create serviceaccount kubeapps-operator
-kubectl create clusterrolebinding kubeapps-operator --clusterrole=cluster-admin --serviceaccount=default:kubeapps-operator
+# kubectl create serviceaccount kubeapps-operator
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubeapps-operator
+  namespace: default
+EOF
+
+# kubectl create clusterrolebinding kubeapps-operator --clusterrole=cluster-admin --serviceaccount=default:kubeapps-operator
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeapps-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubeapps-operator
+  namespace: default
+EOF
+
 kubectl rollout status deployment.v1.apps/kubeapps --namespace ${KUBEAPPS_NAMESPACE}
 
 
