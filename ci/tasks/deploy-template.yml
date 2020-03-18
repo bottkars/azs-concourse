@@ -3,9 +3,10 @@
 platform: linux
 
 inputs:
-
+  - name: config
+  - name: azs-concourse
 outputs:
-  name: deployment
+  - name: deployment
 params:
   PROFILE: "2019-03-01-hybrid"
   CA_CERT: cert/root.pem
@@ -21,7 +22,7 @@ params:
   RESOURCE_GROUP:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
-  QUERY: "*"
+  QUERY: "[]"
 run:
   path: bash
   args:
@@ -50,5 +51,5 @@ run:
     --parameters ${ADDITIONAL_PARAMETERS} \
     --template-uri ${TEMPLATE_URI} \
     --query ${QUERY} \
-    --debug >> deployment/deployment.json
+    >> deployment/deployment.json
 
