@@ -30,7 +30,7 @@ EOF
 
 
 # kubectl create namespace kubeapps
-helm install kubeapps --namespace ${KUBEAPPS_NAMESPACE} bitnami/kubeapps --set useHelm3=true
+helm upgrade --install kubeapps --namespace ${KUBEAPPS_NAMESPACE} bitnami/kubeapps --set useHelm3=true
 kubectl create serviceaccount kubeapps-operator
 kubectl create clusterrolebinding kubeapps-operator --clusterrole=cluster-admin --serviceaccount=default:kubeapps-operator
 kubectl rollout status deployment.v1.apps/kubeapps --namespace ${KUBEAPPS_NAMESPACE}
