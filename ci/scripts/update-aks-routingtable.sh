@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 az cloud register -n AzureStackUser \
     --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -17,7 +17,6 @@ az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 ROUTINGTABLE=$(az network route-table list -g ${RESOURCE_GROUP} -o json --query '[].id' --output tsv)
 az network vnet subnet update \
 --route-table ${ROUTINGTABLE} \
---ids "\
-/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_AGENT_0_SUBNET_NAME} \
-/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_MASTER_SUBNET_NAME} \
-"
+--ids \
+"/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_AGENT_0_SUBNET_NAME}
+/subscriptions/${AZURE_SUBSCRIPTION_ID}/resourceGroups/${AKS_VNET_RG}/providers/Microsoft.Network/VirtualNetworks/${AKS_VNET_NAME}/subnets/${AKS_MASTER_SUBNET_NAME}"
