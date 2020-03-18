@@ -16,6 +16,9 @@ echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single lite
 TAG=$(cat aks-engine/tag)
 tar xzf aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
 export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
+
+export AKS_ADDITIONAL_APIMODEL=$(echo $AKS_ADDITIONAL_APIMODEL | envsubst '${AKS_VNET_NAME} ${AKS_AGENT_0_SUBNET_NAME} ${AKS_MASTER_SUBNET_NAME} ${AKS_VNET_RG}')
+
 aks-engine-${TAG}-linux-amd64/aks-engine deploy \
 --azure-env AzureStackCloud \
 --location ${LOCATION} \
