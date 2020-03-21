@@ -7,6 +7,7 @@ inputs:
  - name: kubeconfig
  - name: bosh-cli-release
  - name: cf-for-k8s-master
+ - name: yaml2json-release
 outputs:
  - name: cf-values
 params:
