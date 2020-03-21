@@ -23,6 +23,7 @@ params:
   RESOURCE_GROUP:
   LOCATION:
   DNS_DOMAIN:
+  GCR_CRED:
 run:
   path: azs-concourse/ci/scripts/deploy-cf-for-k8s.sh
 
