@@ -14,8 +14,10 @@ az login --service-principal \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat bosh-cli-release/version)
+echo "copying yaml2json"
 cp bosh-cli-release/bosh-cli-${TAG}-linux-amd64 /usr/local/bin/bosh
 cp yaml2json-release/yaml2json_linux_amd64 /usr/local/bin/yaml2json
+chmod 755 /usr/local/bin/yaml2json
 bosh --version
 # KUBECTL_VERSION=$(cat kubectl-release/version)
 KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -32,7 +34,7 @@ kubectl get componentstatuses
 
 echo "installing K14s"
 curl -L https://k14s.io/install.sh | bash
-"echo registry gcr values"
+echo "Creating registry gcr values"
 echo $GCR_CRED | yaml2json > gcr.json
 cf-for-k8s-master/hack/generate-values.sh "${DNS_DOMAIN}" gcr.json  > cf-values/cf-values.yml
 echo "Installing CF..."
