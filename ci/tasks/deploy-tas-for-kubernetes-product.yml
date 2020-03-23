@@ -1,0 +1,34 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: azs-concourse
+ - name: kubeconfig
+ - name: bosh-cli-release
+ - name: tas-for-kubernetes-product
+ - name: yaml2json-release
+outputs:
+ - name: cf-values
+params:
+  CF_CONFIG_FILE: cf-values-$timestamp.yml
+  PROFILE: "2019-03-01-hybrid"
+  CA_CERT: 
+  ENDPOINT_RESOURCE_MANAGER: "https://management.local.azurestack.external"
+  VAULT_DNS:  ".vault.local.azurestack.external"
+  SUFFIX_STORAGE_ENDPOINT: "local.azurestack.external"
+  AZURE_TENANT_ID:
+  AZURE_CLIENT_ID:
+  AZURE_CLIENT_SECRET:
+  AZURE_SUBSCRIPTION_ID:
+  RESOURCE_GROUP:
+  LOCATION:
+  DNS_DOMAIN:
+  GCR_CRED:
+run:
+  path: azs-concourse/ci/scripts/deploy-tas-for-kubernetes-product.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
