@@ -14,10 +14,9 @@ az login --service-principal \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 TAG=$(cat bosh-cli-release/version)
-echo "copying yaml2json"
+echo "copying bosh relase"
 cp bosh-cli-release/bosh-cli-${TAG}-linux-amd64 /usr/local/bin/bosh
-cp yaml2json-release/yaml2json_linux_amd64 /usr/local/bin/yaml2json
-chmod 755 /usr/local/bin/yaml2json
+chmod 755 /usr/local/bin/bosh
 bosh --version
 # KUBECTL_VERSION=$(cat kubectl-release/version)
 KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -38,9 +37,9 @@ echo "Creating registry gcr values"
 echo $GCR_CRED  > gcr.json
 tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_DOMAIN}"  -g gcr.json  > cf-values/cf-values.yml
 echo "Installing TAS for Kubernetes..."
-pushd tas-for-kubernetes
+pushd tas-for-kubernetes-product
 
-bin/install-tas.sh ../cf-values/cf-values.yml || :
+bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
 # " get cf_admin_password from cf-values/cf-values.yml "
 echo "${DNS_DOMAIN}" 
