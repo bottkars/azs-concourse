@@ -25,6 +25,10 @@ params:
   LOCATION:
   DNS_DOMAIN:
   GCR_CRED:
+  YTT_TAS_registry__server: registry.pivotal.io
+  YTT_TAS_registry__username: 
+  YTT_TAS_registry__password: 
+
 run:
   path: azs-concourse/ci/scripts/deploy-tas-for-kubernetes-product.sh
 

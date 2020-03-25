@@ -26,7 +26,7 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
 chmod +x ./kubectl
 cp kubectl /usr/bin
 
-export KUBECONFIG=kubeconfig/kubeconfig-$(cat kubeconfig/version).json
+export KUBECONFIG=$(PWD)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
 
 kubectl cluster-info
 kubectl get nodes
@@ -35,10 +35,13 @@ kubectl get componentstatuses
 echo "installing K14s"
 curl -L https://k14s.io/install.sh | bash
 echo "Creating registry gcr values"
-echo $GCR_CRED | yaml2json > gcr.json
-cf-for-k8s-master/hack/generate-values.sh "${DNS_DOMAIN}" gcr.json  > cf-values/cf-values.yml
-echo "Installing CF..."
-cf-for-k8s-master/bin/install-cf.sh cf-values/cf-values.yml  || :
+echo $GCR_CRED  > gcr.json
+tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_DOMAIN}"  -g gcr.json  > cf-values/cf-values.yml
+echo "Installing TAS for Kubernetes..."
+pushd tas-for-kubernetes
+
+bin/install-tas.sh ../cf-values/cf-values.yml || :
+popd
 # " get cf_admin_password from cf-values/cf-values.yml "
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
