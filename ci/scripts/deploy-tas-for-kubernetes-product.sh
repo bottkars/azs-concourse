@@ -38,6 +38,9 @@ echo $GCR_CRED  > gcr.json
 tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_DOMAIN}"  -g gcr.json  > cf-values/cf-values.yml
 echo "Installing TAS for Kubernetes..."
 pushd tas-for-kubernetes-product
+echo "Tailoring installation"
+rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
+rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
