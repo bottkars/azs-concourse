@@ -7,7 +7,6 @@ inputs:
  - name: kubeconfig
  - name: bosh-cli-release
  - name: tas-for-kubernetes-product
- - name: yaml2json-release
 outputs:
  - name: cf-values
 params:
