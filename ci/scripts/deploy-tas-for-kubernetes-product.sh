@@ -45,6 +45,7 @@ rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemons
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
 # " get cf_admin_password from cf-values/cf-values.yml "
+break
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
 SERVICE_IP=""
@@ -58,6 +59,7 @@ done
 printf "\n"
 echo $SERVICE_IP 
 echo "Configuring DNS for ${DNS_DOMAIN} and *.${DNS_DOMAIN} with ${SERVICE_IP} ..."
+break
 az network dns zone create \
     --resource-group ${RESOURCE_GROUP} \
     --name ${DNS_DOMAIN}
