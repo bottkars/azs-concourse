@@ -25,12 +25,12 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
 chmod +x ./kubectl
 cp kubectl /usr/bin
 
-export KUBECONFIG=$(PWD)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
+export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
 
 kubectl cluster-info
 kubectl get nodes
 kubectl get componentstatuses
-
+apt install -y jq
 echo "installing K14s"
 curl -L https://k14s.io/install.sh | bash
 echo "Creating registry gcr values"
@@ -39,8 +39,8 @@ tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_D
 echo "Installing TAS for Kubernetes..."
 pushd tas-for-kubernetes-product
 echo "Tailoring installation"
-rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
-rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
+# rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
+# rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
