@@ -39,13 +39,12 @@ tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_D
 echo "Installing TAS for Kubernetes..."
 pushd tas-for-kubernetes-product
 echo "Tailoring installation"
-# rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
-# rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
+rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
+rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
 # " get cf_admin_password from cf-values/cf-values.yml "
-break
 echo "${DNS_DOMAIN}" 
 echo "Configuring DNS..."
 SERVICE_IP=""
