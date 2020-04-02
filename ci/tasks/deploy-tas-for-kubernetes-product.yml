@@ -22,12 +22,16 @@ params:
   AZURE_SUBSCRIPTION_ID:
   RESOURCE_GROUP:
   LOCATION:
-  DNS_DOMAIN:
+  SYSTEM_DOMAIN:
   GCR_CRED:
-  YTT_TAS_registry__server: registry.pivotal.io
-  YTT_TAS_registry__username: 
-  YTT_TAS_registry__password: 
-
+  YTT_TAS_system_registry__hostname:
+  YTT_TAS_system_registry__username:
+  YTT_TAS_system_registry__password:
+  YTT_TAS_app_registry__hostname:
+  YTT_TAS_app_registry__repository: cf-workloads
+  YTT_TAS_app_registry__username:
+  YTT_TAS_app_registry__password:
+  YTT_TAS_app_registry__ca:
 run:
   path: azs-concourse/ci/scripts/deploy-tas-for-kubernetes-product.sh
 

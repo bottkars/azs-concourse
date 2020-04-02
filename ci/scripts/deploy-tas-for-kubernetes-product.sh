@@ -35,17 +35,17 @@ echo "installing K14s"
 curl -L https://k14s.io/install.sh | bash
 echo "Creating registry gcr values"
 echo $GCR_CRED  > gcr.json
-tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${DNS_DOMAIN}"  -g gcr.json  > cf-values/cf-values.yml
+tas-for-kubernetes-product/config/cf-for-k8s/hack/generate-values.sh -d "${SYSTEM_DOMAIN}"  > cf-values/cf-values.yml
 echo "Installing TAS for Kubernetes..."
 pushd tas-for-kubernetes-product
 echo "Tailoring installation"
-rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
-rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
+# rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
+# rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
 # " get cf_admin_password from cf-values/cf-values.yml "
-echo "${DNS_DOMAIN}" 
+echo "${SYSTEM_DOMAIN}" 
 echo "Configuring DNS..."
 SERVICE_IP=""
 echo "Waiting for Loadbalancer Service IP"
@@ -57,14 +57,14 @@ do
 done 
 printf "\n"
 echo $SERVICE_IP 
-echo "Configuring DNS for ${DNS_DOMAIN} and *.${DNS_DOMAIN} with ${SERVICE_IP} ..."
+echo "Configuring DNS for ${SYSTEM_DOMAIN} and *.${SYSTEM_DOMAIN} with ${SERVICE_IP} ..."
 break
 az network dns zone create \
     --resource-group ${RESOURCE_GROUP} \
-    --name ${DNS_DOMAIN}
+    --name ${SYSTEM_DOMAIN}
 az network dns record-set a add-record \
     --resource-group ${RESOURCE_GROUP} \
-    --zone-name ${DNS_DOMAIN} \
+    --zone-name ${SYSTEM_DOMAIN} \
     --record-set-name "*" \
     --ipv4-address ${SERVICE_IP}
     
