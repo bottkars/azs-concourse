@@ -40,6 +40,8 @@ pushd tas-for-kubernetes-product
 echo "Tailoring installation"
 # rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
 # rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
+
+sed -i 's+newImage: registry.pivotal.io/tas-for-kubernetes+newImage: registry.pivotal.io/pas-for-kubernetes+g' image_overrides.yml
 bin/generate-values.sh -d "${SYSTEM_DOMAIN}"  > ${OLDPWD}/cf-values/cf-values.yml
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
