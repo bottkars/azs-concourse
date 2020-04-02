@@ -42,6 +42,9 @@ echo "Tailoring installation"
 # rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
 sed -i 's+newImage: registry.pivotal.io/tas-for-kubernetes+newImage: registry.pivotal.io/pas-for-kubernetes+g' image_overrides.yml
+
+sed -i 's+istio_proxyv2_image: "registry.pivotal.io/tas-for-kubernetes/proxyv2-annotated@sha256:f2f4b0fce493dbd2e48a300e06fbeb5cb37e4308a7610aa670f2fe5b1b5d677f"+istio_proxyv2_image: "registry.pivotal.io/pas-for-kubernetes/proxyv2-annotated@sha256:f2f4b0fce493dbd2e48a300e06fbeb5cb37e4308a7610aa670f2fe5b1b5d677f"+g' custom-overlays/values.yml
+
 bin/generate-values.sh -d "${SYSTEM_DOMAIN}"  > ${OLDPWD}/cf-values/cf-values.yml
 bin/install-tas.sh ${OLDPWD}/cf-values/cf-values.yml || :
 popd
