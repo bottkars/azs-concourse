@@ -10,11 +10,6 @@ chmod +x ./kubectl
 cp kubectl /usr/bin
 
 export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
-
-kubectl cluster-info
-kubectl get nodes
-kubectl get componentstatuses
-
 echo "Creating registry Secret"
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
