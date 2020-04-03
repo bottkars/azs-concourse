@@ -41,9 +41,9 @@ echo "Tailoring installation"
 # rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
 # rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
 
-sed -i 's+newImage: registry.pivotal.io+newImage: '${YTT_TAS_system_registry__hostname}'+g' image_overrides.yml
+sed -i 's+registry.pivotal.io+'${YTT_TAS_system_registry__hostname}'+g' image_overrides.yml
 
-sed -i 's+istio_proxyv2_image: "registry.pivotal.io"+istio_proxyv2_image: "'${YTT_TAS_system_registry__hostname}'"+g' custom-overlays/values.yml
+sed -i 's+registry.pivotal.io+'${YTT_TAS_system_registry__hostname}'+g' custom-overlays/values.yml
 
 mv  custom-overlays/replace-loadbalancer-with-clusterip.yaml ../
 
