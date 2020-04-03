@@ -27,7 +27,7 @@ data:
   registry-ca: ${BASE64_CERT}
 EOF
 
-"Creating Registry Daemon Set"
+echo "Creating Registry Daemon Set"
 cat <<EOF | kubectl create -f -
 apiVersion: extensions/v1beta1
 kind: DaemonSet
