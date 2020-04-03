@@ -16,7 +16,7 @@ kubectl get nodes
 kubectl get componentstatuses
 
 echo "Creating registry Secret"
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -28,7 +28,7 @@ data:
 EOF
 
 echo "Creating Registry Daemon Set"
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
