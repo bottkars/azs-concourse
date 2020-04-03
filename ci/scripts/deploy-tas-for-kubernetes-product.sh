@@ -40,10 +40,10 @@ pushd tas-for-kubernetes-product
 echo "Tailoring installation"
 # rm custom-overlays/replace-loadbalancer-with-clusterip.yaml
 # rm config/cf-k8s-networking/config/istio/overlays/node-to-ingressgateway-daemonset.yaml
-
-sed -i 's+registry.pivotal.io+'${YTT_TAS_system_registry__hostname}'+g' image_overrides.yml
-
+echo "replacing image location with ${YTT_TAS_system_registry__hostname}"
+sed -i 's+newImage: registry.pivotal.io+newImage: '${YTT_TAS_system_registry__hostname}'+g' image_overrides.yml
 sed -i 's+registry.pivotal.io+'${YTT_TAS_system_registry__hostname}'+g' custom-overlays/values.yml
+echo "removing loadbalancer override"
 
 mv  custom-overlays/replace-loadbalancer-with-clusterip.yaml ../
 
