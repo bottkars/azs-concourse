@@ -4,6 +4,7 @@ platform: linux
 
 inputs:
  - name: kubeconfig
+ - name: azs-concourse
 
 params:
   CA_CERT: 
