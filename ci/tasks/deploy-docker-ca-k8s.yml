@@ -1,0 +1,17 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: kubeconfig
+
+params:
+  CA_CERT: 
+  REGISTRY_HOSTNAME:
+run:
+  path: azs-concourse/ci/scripts/deploy-docker-ca-k8s.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
