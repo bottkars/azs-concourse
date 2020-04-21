@@ -41,12 +41,12 @@ spec:
       - name: registry-ca
         image: busybox
         command: [ 'sh' ]
-        args: [ '-c', 'cp /home/core/registry-ca /etc/docker/certs.d/${REGISTRY_HOSTNAME}/ca.crt && exec tail -f /dev/null' ]
+        args: [ '-c', 'cp /home/aks/registry-ca /etc/docker/certs.d/${REGISTRY_HOSTNAME}/ca.crt && exec tail -f /dev/null' ]
         volumeMounts:
         - name: etc-docker
           mountPath: /etc/docker/certs.d/${REGISTRY_HOSTNAME}
         - name: ca-cert
-          mountPath: /home/core
+          mountPath: /home/aks
       terminationGracePeriodSeconds: 30
       volumes:
       - name: etc-docker
