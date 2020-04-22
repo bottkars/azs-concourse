@@ -13,11 +13,28 @@ az login --service-principal \
     -p ${AZURE_CLIENT_SECRET} \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
-TAG=$(cat bosh-cli-release/version)
-echo "copying bosh relase"
-cp bosh-cli-release/bosh-cli-${TAG}-linux-amd64 /usr/local/bin/bosh
+# bosh
+echo "copying bosh release"
+cp boshcli-product/*bosh-cli-*-linux-amd64 /usr/local/bin/bosh
 chmod 755 /usr/local/bin/bosh
 bosh --version
+## ytt
+echo "copying ytt release"
+cp ytt-product/*ytt-*-linux-amd64 /usr/local/bin/ytt
+chmod 755 /usr/local/bin/ytt
+ytt version
+## kapp
+echo "copying kapp release"
+cp kapp-product/*kapp-*-linux-amd64 /usr/local/bin/kapp
+chmod 755 /usr/local/bin/kapp
+kapp version
+## kbld
+echo "copying kbld release"
+cp kbld-product/*kbld-*-linux-amd64 /usr/local/bin/kbld
+chmod 755 /usr/local/bin/kbld
+kbld version
+
+
 # KUBECTL_VERSION=$(cat kubectl-release/version)
 KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 echo $KUBECTL_VERSION
@@ -31,8 +48,8 @@ kubectl cluster-info
 kubectl get nodes
 kubectl get componentstatuses
 apt install -y jq
-echo "installing K14s"
-curl -L https://k14s.io/install.sh | bash
+#echo "installing K14s"
+#curl -L https://k14s.io/install.sh | bash
 echo "Creating registry gcr values"
 echo $GCR_CRED  > gcr.json
 echo "Installing TAS for Kubernetes..."
