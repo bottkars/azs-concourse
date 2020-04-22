@@ -1,6 +1,8 @@
 #!/bin/bash
-set -eux
+set -eu
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
+export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
+
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
 --suffix-storage-endpoint ${SUFFIX_STORAGE_ENDPOINT} \
@@ -14,35 +16,39 @@ az login --service-principal \
     --tenant ${AZURE_TENANT_ID}
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 # bosh
-echo "copying bosh release"
+echo "copying boshcli-product"
 cp boshcli-product/*bosh-cli-*-linux-amd64 /usr/local/bin/bosh
 chmod 755 /usr/local/bin/bosh
 bosh --version
 ## ytt
-echo "copying ytt release"
+echo "copying ytt-product"
 cp ytt-product/*ytt-linux-amd64 /usr/local/bin/ytt
 chmod 755 /usr/local/bin/ytt
 ytt version
 ## kapp
-echo "copying kapp release"
+echo "copying kapp-product"
 cp kapp-product/*kapp-linux-amd64 /usr/local/bin/kapp
 chmod 755 /usr/local/bin/kapp
 kapp version
 ## kbld
-echo "copying kbld release"
+echo "copying kbld-product"
 cp kbld-product/*kbld-linux-amd64 /usr/local/bin/kbld
 chmod 755 /usr/local/bin/kbld
 kbld version
 
 
-# KUBECTL_VERSION=$(cat kubectl-release/version)
-KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-echo $KUBECTL_VERSION
-curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-cp kubectl /usr/bin
+echo "copying kubectl-product"
+cp kubectl-product/*kubectl-linux-amd64* /usr/local/bin/kubectl
+chmod 755 /usr/local/bin/kubectl
+kubectl version
 
-export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
+# KUBECTL_VERSION=$(cat kubectl-release/version)
+#KUBECTL_VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+#echo $KUBECTL_VERSION
+#curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+#chmod +x ./kubectl
+#cp kubectl /usr/bin
+
 
 kubectl cluster-info
 kubectl get nodes
