@@ -5,7 +5,10 @@ platform: linux
 inputs:
  - name: azs-concourse
  - name: kubeconfig
- - name: bosh-cli-release
+ - name: boshcli-product
+ - name: ytt-product
+ - name: kbld-product
+ - name: kapp-product
  - name: tas-for-kubernetes-product
 outputs:
  - name: cf-values
