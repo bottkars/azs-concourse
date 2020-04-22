@@ -20,17 +20,17 @@ chmod 755 /usr/local/bin/bosh
 bosh --version
 ## ytt
 echo "copying ytt release"
-cp ytt-product/*ytt-*-linux-amd64 /usr/local/bin/ytt
+cp ytt-product/*ytt-linux-amd64 /usr/local/bin/ytt
 chmod 755 /usr/local/bin/ytt
 ytt version
 ## kapp
 echo "copying kapp release"
-cp kapp-product/*kapp-*-linux-amd64 /usr/local/bin/kapp
+cp kapp-product/*kapp-linux-amd64 /usr/local/bin/kapp
 chmod 755 /usr/local/bin/kapp
 kapp version
 ## kbld
 echo "copying kbld release"
-cp kbld-product/*kbld-*-linux-amd64 /usr/local/bin/kbld
+cp kbld-product/*kbld-linux-amd64 /usr/local/bin/kbld
 chmod 755 /usr/local/bin/kbld
 kbld version
 
