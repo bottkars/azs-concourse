@@ -47,7 +47,7 @@ export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
 kubectl cluster-info
 kubectl get nodes
 kubectl get componentstatuses
-apt install -y jq
+# apt install -y jq
 #echo "installing K14s"
 #curl -L https://k14s.io/install.sh | bash
 echo "Creating registry gcr values"
