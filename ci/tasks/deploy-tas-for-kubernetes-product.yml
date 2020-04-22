@@ -7,6 +7,7 @@ inputs:
  - name: kubeconfig
  - name: boshcli-product
  - name: ytt-product
+ - name: kubectl-product 
  - name: kbld-product
  - name: kapp-product
  - name: tas-for-kubernetes-product
