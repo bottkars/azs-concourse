@@ -10,13 +10,17 @@ outputs:
 
 params:
   GOVC_RESOURCE_POOL: /home_dc/host/home_cluster/Resources/mgmt_pool
+
   GOVC_DATASTORE: vsanDatastore
+  GOVC_DATACENTER: home_dc  
   GOVC_NETWORK: VLAN250
-  address: "100.250.1.130"
-  gateway: "100.250.1.1"
-  netmask: "255.255.255.0"
-  fqdn: pp-dr.home.labbuildr.com
-  dns: "192.168.1.44,192.168.1.1"
+  PPDM_NETWORK: VLAN250
+  PPDM_ADDRESS: "100.250.1.130"
+  PPDM_GATEWAY: "100.250.1.1"
+  PPDM_NETMASK: "255.255.255.0"
+  PPDM_FQDN: pp-dr.home.labbuildr.com
+  PPDM_VMNAME: pp-dr
+  PPDM_DNS: "192.168.1.44"
   
 
 run:
