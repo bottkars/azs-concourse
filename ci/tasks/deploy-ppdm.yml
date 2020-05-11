@@ -15,7 +15,6 @@ params:
   GOVC_USERNAME: Administrator@vsphere.local
   GOVC_RESOURCE_POOL: 
   GOVC_DATASTORE: 
-  GOVC_NETWORK: 
   GOVC_DATACENTER:   
   GOVC_NETWORK: 
   PPDM_NETWORK: 
