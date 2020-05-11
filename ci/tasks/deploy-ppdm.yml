@@ -9,18 +9,22 @@ outputs:
 
 
 params:
-  GOVC_RESOURCE_POOL: /home_dc/host/home_cluster/Resources/mgmt_pool
-
-  GOVC_DATASTORE: vsanDatastore
-  GOVC_DATACENTER: home_dc  
-  GOVC_NETWORK: VLAN250
-  PPDM_NETWORK: VLAN250
-  PPDM_ADDRESS: "100.250.1.130"
-  PPDM_GATEWAY: "100.250.1.1"
-  PPDM_NETMASK: "255.255.255.0"
-  PPDM_FQDN: pp-dr.home.labbuildr.com
-  PPDM_VMNAME: pp-dr
-  PPDM_DNS: "192.168.1.44"
+  GOVC_INSECURE: 
+  GOVC_PASSWORD: 
+  GOVC_URL: 
+  GOVC_USERNAME: Administrator@vsphere.local
+  GOVC_RESOURCE_POOL: 
+  GOVC_DATASTORE: 
+  GOVC_NETWORK: 
+  GOVC_DATACENTER:   
+  GOVC_NETWORK: 
+  PPDM_NETWORK: 
+  PPDM_ADDRESS: 
+  PPDM_GATEWAY: 
+  PPDM_NETMASK: 
+  PPDM_FQDN: 
+  PPDM_VMNAME:
+  PPDM_DNS: 
   
 
 run:
