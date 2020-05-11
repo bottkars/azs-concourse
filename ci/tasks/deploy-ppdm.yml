@@ -1,0 +1,28 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: azs-concourse
+ - name: powerprotect
+outputs:
+
+
+params:
+  GOVC_RESOURCE_POOL: /home_dc/host/home_cluster/Resources/mgmt_pool
+  GOVC_DATASTORE: vsanDatastore
+  GOVC_NETWORK: VLAN250
+  address: "100.250.1.130"
+  gateway: "100.250.1.1"
+  netmask: "255.255.255.0"
+  fqdn: pp-dr.home.labbuildr.com
+  dns: "192.168.1.44,192.168.1.1"
+  
+
+run:
+  path: azs-concourse/ci/scripts/deploy-ppdm.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
