@@ -14,12 +14,11 @@ jq  --arg fqdn "${PPDM_FQDN}" '(.PropertyMapping[] | select(.Key == "vami.fqdn.b
 jq  --arg network "${PPDM_NETWORK}" '(.NetworkMapping[].Name |= $network)' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
 echo "importing template"
 govc import.ova -name ${PPDM_VMNAME}  -options=powerprotect.json powerprotect/dellemc-ppdm-sw-${PPDM_VERSION}.ova
-govc vm.network.change -vm /home_dc/vm/${PPDM_VMNAME} -net=VLAN250 ethernet-0
-
-govc vm.power -on=true  /home_dc/vm/${PPDM_VMNAME}
-
+govc vm.network.change -vm ${PPDM_VMNAME} -net=VLAN250 ethernet-0
+govc vm.power -on=true ${PPDM_VMNAME}
 
 
-govc vm.destroy /home_dc/vm/${PPDM_VMNAME}
+
+# govc vm.destroy /home_dc/vm/${PPDM_VMNAME}
 
 exit 1
