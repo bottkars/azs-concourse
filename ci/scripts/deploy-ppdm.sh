@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 PPDM_VERSION=$(cat powerprotect/version)
 echo "installing jq...."
@@ -16,9 +16,5 @@ echo "importing template"
 govc import.ova -name ${PPDM_VMNAME}  -options=powerprotect.json powerprotect/dellemc-ppdm-sw-${PPDM_VERSION}.ova
 govc vm.network.change -vm ${PPDM_VMNAME} -net=VLAN250 ethernet-0
 govc vm.power -on=true ${PPDM_VMNAME}
+echo "finished powerprotect ${PPDM_VERSION} base install"
 
-
-
-# govc vm.destroy /home_dc/vm/${PPDM_VMNAME}
-
-exit 1
