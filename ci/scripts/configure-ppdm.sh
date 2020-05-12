@@ -6,6 +6,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
 
 ### get api token
 echo "requesting API token"
+exit 1
 
 TOKEN=$(curl -s --request POST \
   --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
