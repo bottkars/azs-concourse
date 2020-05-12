@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+# set -eu
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
@@ -18,7 +18,7 @@ while [[  -z "$TOKEN" ]]; do
         printf "."
     fi    
 done
-
+set -eu
 
 echo 
 echo "retrieving initial appliance configuration"
