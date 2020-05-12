@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -eu
+set -eu
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
@@ -15,9 +15,9 @@ TOKEN=$(curl -k -sS --request POST \
     --retry-max-time 40 \
     --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
     --header 'content-type: application/json' \
-    --data '{"username":"admin","password":"Password123!"}' | jq -r .access_token )
+    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
 
-set -eu
+
 echo "Retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS --request GET \
     --connect-timeout 10 \
