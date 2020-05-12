@@ -26,5 +26,5 @@ until $(curl --fail --output  /dev/null --silent --head  -k -X GET "https://${PP
     printf '.'
     sleep 5
 done
-echo "Appliance Ready for Configuration"
+echo "Appliance https://${PPDM_FQDN}:8443/api/v2 ready for Configuration"
 
