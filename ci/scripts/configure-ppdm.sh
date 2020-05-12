@@ -21,8 +21,8 @@ TOKEN=$(curl -k -sS --request POST \
 echo "Retrieving initial appliance configuration Template"
 curl -k -sS --request GET \
     --header "Authorization: Bearer ${TOKEN}" \
-    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]"
-    
+    --url "https://${PPDM_FQDN}:8443/api/v2/configurations"
+
 CONFIGURATION=$(curl -k -sS --request GET \
     --header "Authorization: Bearer ${TOKEN}" \
     --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]" )
