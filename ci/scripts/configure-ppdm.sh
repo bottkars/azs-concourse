@@ -7,11 +7,20 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
 ### get api token
 echo "requesting API token"
 
-TOKEN=$(curl -s --request POST \
-  --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
-  --header 'content-type: application/json' \
-  --data '{"username":"admin","password":"admin"}' | jq -r .access_token)
+unset TOKEN
+while [[  -z "$TOKEN" ]]; do
+    TOKEN=$(curl -s --request POST \
+    --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
+    --header 'content-type: application/json' \
+    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
+    if [[  -z "$TOKEN" ]]; then
+         sleep 5
+        printf "."
+    fi    
+done
 
+
+echo 
 echo "retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
   --header "Authorization: Bearer ${TOKEN}" \
