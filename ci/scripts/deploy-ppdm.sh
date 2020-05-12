@@ -21,4 +21,10 @@ govc vm.network.change -vm ${PPDM_VMNAME} -net=VLAN250 ethernet-0
 
 govc vm.power -on=true ${PPDM_VMNAME}
 echo "finished powerprotect ${PPDM_VERSION} base install"
+echo "Waiting for API Endpoint to become ready"
+until $(curl --fail --output  /dev/null --silent --head  -k -X GET "https://${PPDM_FQDN}:8443/api/v2/info"); do
+    printf '.'
+    sleep 5
+done
+echo "Appliance Ready for Configuration"
 
