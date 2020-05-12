@@ -4,26 +4,18 @@ platform: linux
 
 inputs:
  - name: azs-concourse
- - name: powerprotect
 outputs:
 
 
 params:
-  GOVC_INSECURE: 
-  GOVC_PASSWORD: 
-  GOVC_URL: 
-  GOVC_USERNAME: Administrator@vsphere.local
-  GOVC_RESOURCE_POOL: 
-  GOVC_DATASTORE: 
-  GOVC_DATACENTER:   
-  GOVC_NETWORK: 
   PPDM_NETWORK: 
   PPDM_ADDRESS: 
   PPDM_GATEWAY: 
   PPDM_NETMASK: 
   PPDM_FQDN: 
   PPDM_VMNAME:
-  PPDM_DNS: 
+  PPDM_DNS:
+  PPDM_PASSWORD: "Password123!"
   
 
 run:
