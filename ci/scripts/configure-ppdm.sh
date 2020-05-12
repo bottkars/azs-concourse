@@ -7,17 +7,16 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
 ### get api token
 echo "requesting API token"
 
-unset TOKEN
-while [[  -z "$TOKEN" ]]; do
-    TOKEN=$(curl -s --request POST \
+TOKEN=$(curl -s --request POST \
+    --connect-timeout 10 \
+    --max-time 10 \
+    --retry 5 \
+    --retry-delay 0 \
+    --retry-max-time 40 \
     --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
     --header 'content-type: application/json' \
-    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
-    if [[  -z "$TOKEN" ]]; then
-         sleep 5
-        printf "."
-    fi    
-done
+    --data '{"username":"admin","password":"Password123!"}' | jq -r .access_token )
+
 set -eu
 echo "Retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
@@ -143,3 +142,7 @@ done
 echo 
 echo "You can now login to the Appliance https://${PPDM_FQDN} with your Username and Password"
 
+#####
+# echo $CONFIGURATION| jq . | jq 'del(._links)'
+# echo $CONFIGURATION| jq . | jq 'del(.osUsers)'
+#
