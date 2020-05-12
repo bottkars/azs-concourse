@@ -59,22 +59,6 @@ curl -k -b cookies.txt --request PUT \
           "'${PPDM_DNS}'"
         ],
         "nslookupSuccess": false
-      },
-      {
-        "ipAddress": [
-          "172.24.0.1"
-        ],
-        "ipAddressFamily": "IPv4",
-        "interfaceName": "brpp0",
-        "netMask": "255.255.255.0"
-      },
-      {
-        "ipAddress": [
-          "172.17.0.1"
-        ],
-        "ipAddressFamily": "IPv4",
-        "interfaceName": "docker0",
-        "netMask": "255.255.0.0"
       }
     ],
     "ntpServers": [
