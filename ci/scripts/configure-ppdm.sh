@@ -11,7 +11,7 @@ TOKEN=$(curl -k -sS --request POST \
     --connect-timeout 10 \
     --max-time 10 \
     --retry 5 \
-    --retry-delay 0 \
+    --retry-delay 5 \
     --retry-max-time 40 \
     --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
     --header 'content-type: application/json' \
@@ -73,15 +73,3 @@ done
 
 echo 
 echo "You can now login to the Appliance https://${PPDM_FQDN} with your Username and Password"
-
-#curl -k -s --request PUT \
-#  --url "https://${PPDM_FQDN}:8443/api/v2/nodes/98937a12-43ed-4efd-8722-9505ff481822" \
-#  --header "content-type: application/json" \
-#  --header "Authorization: Bearer ${TOKEN}" \
-#  --data '{"id":"98937a12-43ed-4efd-8722-9505ff481822","status":"PENDING"}'
-
-
-#curl -k -s \
-#  --url "https://${PPDM_FQDN}:8443/api/v2/nodes/98937a12-43ed-4efd-8722-9505ff481822" \
-#  --header "content-type: application/json" \
-#  --header "Authorization: Bearer ${TOKEN}"
