@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -eux
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
@@ -18,7 +18,7 @@ TOKEN=$(curl -k -sS --request POST \
     --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
 
 
-echo "Retrieving initial appliance configuration"
+echo "Retrieving initial appliance configuration Template"
 CONFIGURATION=$(curl -k -sS --request GET \
     --connect-timeout 10 \
     --max-time 10 \
@@ -29,100 +29,28 @@ CONFIGURATION=$(curl -k -sS --request GET \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]")
 NODE_ID=$(echo $CONFIGURATION | jq -r .nodeId)  
 CONFIGURATION_ID=$(echo $CONFIGURATION | jq -r .id)
-printf "Appliance Config State completes: "
+
+echo "Customizing Appliance Configuration Template"
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg oldpassword changeme --arg password ${PPDM_PASSWORD} '(.osUsers[] | select(.userName == "root").newPassword) |= $password | (.osUsers[] | select(.userName == "root").password) |= $oldpassword')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg oldpassword '@ppAdm1n' --arg password ${PPDM_PASSWORD} '(.osUsers[] | select(.userName == "admin").newPassword) |= $password | (.osUsers[] | select(.userName == "admin").password) |= $oldpassword')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg oldpassword '$upp0rt!' --arg password ${PPDM_PASSWORD} '(.osUsers[] | select(.userName == "support").newPassword) |= $password | (.osUsers[] | select(.userName == "support").password) |= $oldpassword')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg oldpassword 'Ch@ngeme1' --arg password ${PPDM_PASSWORD} '.lockbox.passphrase  |= $oldpassword | .lockbox.newPassphrase  |= $password')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg password ${PPDM_PASSWORD} '.applicationUserPassword |= $password')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg timezone "Europe/Berlin - Central European Time" '.timeZone |= $timezone')
+CONFIGURATION=$(echo $CONFIGURATION | jq --arg ntpservers "192.168.1.1" '.ntpServers |= [$ntpservers]')
+CONFIGURATION=$(echo $CONFIGURATION | jq 'del(._links)')
+printf "Appliance Config State complete: "
 STATE=$(curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")
 echo "${STATE} %"
-#echo "retrieving session cookies"
-#curl --url "https://${PPDM_FQDN}:443" \
-#    --output /dev/null  
-#    --cookie-jar cookies.txt -sk
-#XSRF_TOKEN=$(cat cookies.txt | grep "XSRF-TOKEN" | awk '{printf $7}')
-#CSRF_COOKIE=$(cat cookies.txt | grep "_csrf" | awk '{printf $7}')
-# this is a dirty hack, going to build appliance config from jq merge
-# most likely in form
-# CONFIGURATION=$(echo $CONFIGURATION | jq '(.networks[] | select(.interfaceName == "eth0") | .ipAddressFamily) |= "IPv4"')
-#echo "Posting appliance Configuration using CSRF Cookies"
+
 curl -k -s --request PUT \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}" \
   --header "content-type: application/json" \
   --header "Authorization: Bearer ${TOKEN}" \
-  --data '{
-    "id": "'${CONFIGURATION_ID}'",
-    "nodeId": "'${NODE_ID}'",
-    "networks": [
-      {
-        "fqdn": "'${PPDM_FQDN}'",
-        "ipAddress": [
-          "'${PPDM_ADDRESS}'"
-        ],
-        "ipAddressFamily": "IPv4",
-        "interfaceName": "eth0",
-        "netMask": "'${PPDM_NETMASK}'",
-        "gateway": "'${PPDM_GATEWAY}'",
-        "dnsServers": [
-          "'${PPDM_DNS}'"
-        ],
-        "nslookupSuccess": false
-      },
-      {
-        "ipAddress": [
-          "172.24.0.1"
-        ],
-        "ipAddressFamily": "IPv4",
-        "interfaceName": "brpp0",
-        "netMask": "255.255.255.0"
-      },
-      {
-        "ipAddress": [
-          "172.17.0.1"
-        ],
-        "ipAddressFamily": "IPv4",
-        "interfaceName": "docker0",
-        "netMask": "255.255.0.0"
-      }
-    ],
-    "ntpServers": [
-      "192.168.1.1"
-    ],
-    "timeZone": "Europe/Berlin - Central European Time",
-    "osUsers": [
-      {
-        "userName": "root",
-        "description": "OS root user account",
-        "numberOfDaysToExpire": 59,
-        "password": "changeme",
-        "newPassword": "'${PPDM_PASSWORD}'"
-      },
-      {
-        "userName": "admin",
-        "description": "OS administrator user account",
-        "numberOfDaysToExpire": 59,
-        "password": "@ppAdm1n",
-        "newPassword": "'${PPDM_PASSWORD}'"
-      },
-      {
-        "userName": "support",
-        "description": "OS support user account",
-        "numberOfDaysToExpire": 59,
-        "password": "$upp0rt!",
-        "newPassword": "'${PPDM_PASSWORD}'"
-      }
-    ],
-    "lockbox": {
-      "name": "Lockbox",
-      "lastUpdatedTime": "2020-05-11T18:37:02.576+0000",
-      "passphrase": "Ch@ngeme1",
-      "newPassphrase": "'${PPDM_PASSWORD}'"
-    },
-    "configType": "standalone",
-    "gettingStartedCompleted": false,
-    "autoSupport": false,
-    "integratedStorageSecuritySetupCompleted": false,
-    "applicationUserPassword": "'${PPDM_PASSWORD}'"
-  }'
-
+  --data "$CONFIGURATION"
+  
 
 printf "Appliance Config State: "
 curl -ks  \
@@ -146,7 +74,14 @@ done
 echo 
 echo "You can now login to the Appliance https://${PPDM_FQDN} with your Username and Password"
 
-#####
-# echo $CONFIGURATION| jq . | jq 'del(._links)'
-# echo $CONFIGURATION| jq . | jq 'del(.osUsers)'
-#
+#curl -k -s --request PUT \
+#  --url "https://${PPDM_FQDN}:8443/api/v2/nodes/98937a12-43ed-4efd-8722-9505ff481822" \
+#  --header "content-type: application/json" \
+#  --header "Authorization: Bearer ${TOKEN}" \
+#  --data '{"id":"98937a12-43ed-4efd-8722-9505ff481822","status":"PENDING"}'
+
+
+#curl -k -s \
+#  --url "https://${PPDM_FQDN}:8443/api/v2/nodes/98937a12-43ed-4efd-8722-9505ff481822" \
+#  --header "content-type: application/json" \
+#  --header "Authorization: Bearer ${TOKEN}"
