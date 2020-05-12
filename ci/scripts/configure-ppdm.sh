@@ -27,27 +27,24 @@ CONFIGURATION=$(curl -k -sS \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]")
 NODE_ID=$(echo $CONFIGURATION | jq -r .nodeId)  
 CONFIGURATION_ID=$(echo $CONFIGURATION | jq -r .id)
-printf "Appliance Config State: "
+printf "Appliance Config State completes: "
 STATE=$(curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
-  --fail \
-  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status")
-echo $STATE
-echo "retrieving session cookies"
-curl --url "https://${PPDM_FQDN}:443" \
-    --output /dev/null  
-    --cookie-jar cookies.txt -sk
-XSRF_TOKEN=$(cat cookies.txt | grep "XSRF-TOKEN" | awk '{printf $7}')
-CSRF_COOKIE=$(cat cookies.txt | grep "_csrf" | awk '{printf $7}')
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")
+echo "${STATE} %"
+#echo "retrieving session cookies"
+#curl --url "https://${PPDM_FQDN}:443" \
+#    --output /dev/null  
+#    --cookie-jar cookies.txt -sk
+#XSRF_TOKEN=$(cat cookies.txt | grep "XSRF-TOKEN" | awk '{printf $7}')
+#CSRF_COOKIE=$(cat cookies.txt | grep "_csrf" | awk '{printf $7}')
 # this is a dirty hack, going to build appliance config from jq merge
 # most likely in form
 # CONFIGURATION=$(echo $CONFIGURATION | jq '(.networks[] | select(.interfaceName == "eth0") | .ipAddressFamily) |= "IPv4"')
-echo "Posting appliance Configuration using CSRF Cookies"
-curl -k -s --cookies cookies.txt --request PUT \
+#echo "Posting appliance Configuration using CSRF Cookies"
+curl -k -s --request PUT \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}" \
   --header "content-type: application/json" \
-  --header "XSRF-TOKEN: ${XSRF_TOKEN}" \
-  --header "_csrf: ${CSRF_COOKIE}" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "id": "'${CONFIGURATION_ID}'",
@@ -139,6 +136,9 @@ while [[ "SUCCESS" != $(curl -ks  \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status")  ]]; do
     printf '.'
     sleep 5
+    printf "$(curl -ks  \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")"
 done
 
 echo 
