@@ -6,14 +6,13 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
 
 ### get api token
 echo "requesting API token"
-exit 1
 
 TOKEN=$(curl -s --request POST \
   --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
   --header 'content-type: application/json' \
   --data '{"username":"admin","password":"admin"}' | jq -r .access_token)
-echo "retrieving initial appliance configuration"
 
+echo "retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
   --header "Authorization: Bearer ${TOKEN}" \
   --fail \
@@ -26,7 +25,8 @@ curl https://${PPDM_FQDN}:443  --cookie-jar cookies.txt -sk
 XSRF_TOKEN=$(cat cookies.txt | grep "XSRF-TOKEN" | awk '{printf $7}')
 CSRF_COOKIE=$(cat cookies.txt | grep "_csrf" | awk '{printf $7}')
 # this is a dirty hack, going to build appliance config from jq merge
-curl -k -b cookies.txt --verbose --request PUT \
+echo "Posting appliance Configuration using CSRF Cookies"
+curl -k -b cookies.txt --request PUT \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}" \
   --header "content-type: application/json" \
   --header "XSRF-TOKEN: TTxWzEFj-mb_RmpGa7rAF8IYjjI08mASfLrw" \
@@ -108,7 +108,23 @@ curl -k -b cookies.txt --verbose --request PUT \
     "applicationUserPassword": ":'${PPDM_PASSWORD}'"
   }'
 
-curl -k  \
+
+printf "Appliance Config State: "
+curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
   --fail \
-  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status"
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status"
+
+echo "Waiting for appliance to reach Config State Success"
+
+while [[ "SUCCESS" != $(curl -ks  \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --fail \
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status")  ]]; do
+    printf '.'
+    sleep 5
+done
+
+echo 
+echo "You can now login to the Appliance https://${PPDM_FQDN} with your Username and Password"
+
