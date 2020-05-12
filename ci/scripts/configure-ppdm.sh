@@ -18,9 +18,8 @@ while [[  -z "$TOKEN" ]]; do
         printf "."
     fi    
 done
-set -eux
-exit 1
-echo "retrieving initial appliance configuration"
+set -eu
+echo "Retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
   --header "Authorization: Bearer ${TOKEN}" \
   --fail \
