@@ -7,7 +7,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
 ### get api token
 echo "requesting API token"
 
-TOKEN=$(curl -s --request POST \
+TOKEN=$(curl -k -sS --request POST \
     --connect-timeout 10 \
     --max-time 10 \
     --retry 5 \
@@ -19,9 +19,13 @@ TOKEN=$(curl -s --request POST \
 
 set -eu
 echo "Retrieving initial appliance configuration"
-CONFIGURATION=$(curl -k -sS \
+CONFIGURATION=$(curl -k -sS --request GET \
+    --connect-timeout 10 \
+    --max-time 10 \
+    --retry 5 \
+    --retry-delay 0 \
+    --retry-max-time 40 \
   --header "Authorization: Bearer ${TOKEN}" \
-  --fail \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]")
 NODE_ID=$(echo $CONFIGURATION | jq -r .nodeId)  
 CONFIGURATION_ID=$(echo $CONFIGURATION | jq -r .id)
