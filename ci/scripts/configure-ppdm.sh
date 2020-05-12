@@ -19,7 +19,11 @@ while [[  -z "$TOKEN" ]]; do
     fi    
 done
 set -eu
-
+printf "Appliance Config State: "
+curl -ks  \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --fail \
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status"
 echo 
 echo "retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
