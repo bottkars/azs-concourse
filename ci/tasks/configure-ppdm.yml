@@ -19,7 +19,7 @@ params:
   
 
 run:
-  path: azs-concourse/ci/scripts/deploy-ppdm.sh
+  path: azs-concourse/ci/scripts/configure-ppdm.sh
 
 
 # test with 
