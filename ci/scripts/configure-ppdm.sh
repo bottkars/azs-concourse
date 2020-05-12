@@ -129,13 +129,13 @@ curl -ks  \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status"
 
 echo "Waiting for appliance to reach Config State Success"
-
+echo "% Done: "
 while [[ "SUCCESS" != $(curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
   --fail \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status")  ]]; do
     printf '.'
-    sleep 5
+    sleep 10
     printf "$(curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")"
