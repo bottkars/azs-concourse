@@ -19,25 +19,27 @@ while [[  -z "$TOKEN" ]]; do
     fi    
 done
 set -eu
-printf "Appliance Config State: "
-curl -ks  \
-  --header "Authorization: Bearer ${TOKEN}" \
-  --fail \
-  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status"
-echo 
+
 echo "retrieving initial appliance configuration"
 CONFIGURATION=$(curl -k -sS \
   --header "Authorization: Bearer ${TOKEN}" \
   --fail \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]")
-
 NODE_ID=$(echo $CONFIGURATION | jq -r .nodeId)  
 CONFIGURATION_ID=$(echo $CONFIGURATION | jq -r .id)
+printf "Appliance Config State: "
+STATE=$(curl -ks  \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --fail \
+  --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".status")
+echo $STATE
 echo "retrieving session cookies"
 curl "https://${PPDM_FQDN}:443" --output /dev/null  --cookie-jar cookies.txt -sk
 XSRF_TOKEN=$(cat cookies.txt | grep "XSRF-TOKEN" | awk '{printf $7}')
 CSRF_COOKIE=$(cat cookies.txt | grep "_csrf" | awk '{printf $7}')
 # this is a dirty hack, going to build appliance config from jq merge
+# most likely in form
+# CONFIGURATION=$(echo $CONFIGURATION | jq '(.networks[] | select(.interfaceName == "eth0") | .ipAddressFamily) |= "IPv4"')
 echo "Posting appliance Configuration using CSRF Cookies"
 curl -k -bs cookies.txt --request PUT \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}" \
