@@ -28,3 +28,4 @@ until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/nu
 done
 echo
 echo "Appliance https://${PPDM_FQDN}:8443/api/v2 ready for Configuration"
+

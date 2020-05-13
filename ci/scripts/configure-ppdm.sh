@@ -3,43 +3,7 @@ set -eu
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
-#### hack block
-unset TOKEN
-unset CONFIGURATION
-## getting into dirty hack as there is not really a healtz endpoint to check API UP
-#until [[ ! -z $TOKEN ]]
-#do
-#  echo "retrieving TOKEN, try $i"
-#  TOKEN=$(curl -k -sS --request POST \
-#      --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
-#      --header 'content-type: application/json' \
-#      --data '{"username":"admin","password":"'${PPDM_SETUP_PASSWORD}'"}') 
-#  if   [[ ! -z $TOKEN ]]
-#    then
-#    TOKEN=$(echo $TOKEN | jq -r .access_token )
-#    echo "Validating token by retrieving Appliance Configuration"
-#    CONFIGURATION=$(curl -k -sS --request GET \
-#    --header "Authorization: Bearer ${TOKEN}" \
-#    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" )
-#    if [[ ! -z $CONFIGURATION ]]
-#        then
-#        CONFIGURATION=$(echo $CONFIGURATION | jq -r ".content[0]" )
-#    else
-#        unset TOKEN
-#        echo "Next Try in 10 Seconds"
-#        sleep 10
-#    fi
-#  else
-#    echo "Next Try in 10 Seconds"
-#    sleep 10    
-#  fi 
-#((i++))
-#done
-####
 
-
-
-### get api token
 echo "requesting API token"
 
 TOKEN=$(curl -k -sS --request POST \
