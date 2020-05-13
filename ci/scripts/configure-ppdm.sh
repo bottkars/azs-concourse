@@ -75,11 +75,11 @@ STATE=$(curl -ks  \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")
 echo "${STATE} %"
 
-curl -k -s --request PUT \
+REQUEST=$(curl -k -s --request PUT \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}" \
   --header "content-type: application/json" \
   --header "Authorization: Bearer ${TOKEN}" \
-  --data "$CONFIGURATION"
+  --data "$CONFIGURATION")
   
 
 printf "Appliance Config State: "
