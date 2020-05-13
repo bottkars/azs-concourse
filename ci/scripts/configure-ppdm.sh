@@ -17,7 +17,7 @@ do
   TOKEN=$(curl -k -sS --request POST \
       --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
       --header 'content-type: application/json' \
-      --data '{"username":"admin","password":"Password123!"}') 
+      --data '{"username":"admin","password":"'${PPDM_SETUP_PASSWORD}'"}') 
   if   [[ ! -z $TOKEN ]]
     then
     TOKEN=$(echo $TOKEN | jq -r .access_token )
@@ -40,10 +40,10 @@ do
 ((i++))
 done
 
-TOKEN=$(curl -k -sS --request POST \
-    --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
-    --header 'content-type: application/json' \
-    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
+#TOKEN=$(curl -k -sS --request POST \
+#    --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
+#    --header 'content-type: application/json' \
+#    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
 set +x
 set -eu
 

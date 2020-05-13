@@ -16,6 +16,7 @@ params:
   PPDM_VMNAME:
   PPDM_DNS:
   PPDM_PASSWORD: "Password123!"
+  PPDM_SETUP_PASSWORD: "admin"
   
 
 run:
