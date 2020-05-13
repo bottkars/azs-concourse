@@ -98,6 +98,5 @@ while [[ "SUCCESS" != $(curl -ks  \
   --header "Authorization: Bearer ${TOKEN}" \
   --url "https://${PPDM_FQDN}:8443/api/v2/configurations/${CONFIGURATION_ID}/config-status" | jq -r ".percentageCompleted")%%"
 done
-
-echo 
+printf "\r100%%\n"
 echo "You can now login to the Appliance https://${PPDM_FQDN} with your Username and Password"
