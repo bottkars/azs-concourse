@@ -21,8 +21,8 @@ govc vm.network.change -vm ${PPDM_VMNAME} -net=VLAN250 ethernet-0
 
 govc vm.power -on=true ${PPDM_VMNAME}
 echo "finished DELLEMC PowerProtect ${PPDM_VERSION} base install"
-echo "Waiting for API Endpoint to become ready, this can take up to 10 Minutes"
-until $(curl --output  /dev/null --silent --head  -k -X GET "https://${PPDM_FQDN}:8443/api/v2/info"); do
+echo "Waiting for Appliance Fresh Install to become ready, this can take up to 10 Minutes"
+until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/null "https://${PPDM_FQDN}:443/#/fresh") ]] ; do
     printf '.'
     sleep 5
 done
