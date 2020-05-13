@@ -1,60 +1,62 @@
 #!/bin/bash
-set -x
+set -eu
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
+#### hack block
+unset TOKEN
+unset CONFIGURATION
+## getting into dirty hack as there is not really a healtz endpoint to check API UP
+#until [[ ! -z $TOKEN ]]
+#do
+#  echo "retrieving TOKEN, try $i"
+#  TOKEN=$(curl -k -sS --request POST \
+#      --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
+#      --header 'content-type: application/json' \
+#      --data '{"username":"admin","password":"'${PPDM_SETUP_PASSWORD}'"}') 
+#  if   [[ ! -z $TOKEN ]]
+#    then
+#    TOKEN=$(echo $TOKEN | jq -r .access_token )
+#    echo "Validating token by retrieving Appliance Configuration"
+#    CONFIGURATION=$(curl -k -sS --request GET \
+#    --header "Authorization: Bearer ${TOKEN}" \
+#    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" )
+#    if [[ ! -z $CONFIGURATION ]]
+#        then
+#        CONFIGURATION=$(echo $CONFIGURATION | jq -r ".content[0]" )
+#    else
+#        unset TOKEN
+#        echo "Next Try in 10 Seconds"
+#        sleep 10
+#    fi
+#  else
+#    echo "Next Try in 10 Seconds"
+#    sleep 10    
+#  fi 
+#((i++))
+#done
+####
+
+
 
 ### get api token
 echo "requesting API token"
 
-unset TOKEN
-unset CONFIGURATION
-i=1
-## getting into dirty hack as there is not really a healtz endpoint to check API UP
-until [[ ! -z $TOKEN ]]
-do
-  echo "retrieving TOKEN, try $i"
-  TOKEN=$(curl -k -sS --request POST \
-      --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
-      --header 'content-type: application/json' \
-      --data '{"username":"admin","password":"'${PPDM_SETUP_PASSWORD}'"}') 
-  if   [[ ! -z $TOKEN ]]
-    then
-    TOKEN=$(echo $TOKEN | jq -r .access_token )
-    echo "Validating token by retrieving Appliance Configuration"
-    CONFIGURATION=$(curl -k -sS --request GET \
-    --header "Authorization: Bearer ${TOKEN}" \
-    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" )
-    if [[ ! -z $CONFIGURATION ]]
-        then
-        CONFIGURATION=$(echo $CONFIGURATION | jq -r ".content[0]" )
-    else
-        unset TOKEN
-        echo "Next Try in 10 Seconds"
-        sleep 10
-    fi
-  else
-    echo "Next Try in 10 Seconds"
-    sleep 10    
-  fi 
-((i++))
-done
+TOKEN=$(curl -k -sS --request POST \
+    --connect-timeout 10 \
+    --max-time 10 \
+    --retry 3 \
+    --retry-delay 5 \
+    --retry-max-time 40 \
+    --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
+    --header 'content-type: application/json' \
+    --data '{"username":"admin","password":"'${PPDM_SETUP_PASSWORD}'"}' | jq -r .access_token )
 
-#TOKEN=$(curl -k -sS --request POST \
-#    --url "https://${PPDM_FQDN}:8443/api/v2/login" -k \
-#    --header 'content-type: application/json' \
-#    --data '{"username":"admin","password":"admin"}' | jq -r .access_token )
-set +x
-set -eu
 
 echo "Retrieving initial appliance configuration Template"
-# curl -k -sS --request GET \
-#     --header "Authorization: Bearer ${TOKEN}" \
-#    --url "https://${PPDM_FQDN}:8443/api/v2/configurations"
-
-# CONFIGURATION=$(curl -k -sS --request GET \
-#    --header "Authorization: Bearer ${TOKEN}" \
-#    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]" )
+CONFIGURATION=$(curl -k -sS --request GET \
+    --header "Authorization: Bearer ${TOKEN}" \
+    --url "https://${PPDM_FQDN}:8443/api/v2/configurations" | jq -r ".content[0]" )
 NODE_ID=$(echo $CONFIGURATION | jq -r .nodeId)  
 CONFIGURATION_ID=$(echo $CONFIGURATION | jq -r .id)
 
