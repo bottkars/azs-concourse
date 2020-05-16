@@ -13,6 +13,7 @@ AV_VERSION=$(echo $avamar | jq -r ".version")
 for PACKAGE in UpgradeAvinstaller  ChangeNetworkSettings
 do
     echo "downloading ${PACKAGE} ${AV_RELEASE}"
-    curl -v --disable -epsv -o ${PACKAGE}/${PACKAGE}-${AV_RELEASE}.avp ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.avp
+    echo "from ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.avp"
+    curl --disable-epsv -o ${PACKAGE}/${PACKAGE}-${AV_RELEASE}.avp ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.avp
 done
 
