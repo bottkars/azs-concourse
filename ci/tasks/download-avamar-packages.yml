@@ -6,6 +6,8 @@ inputs:
 
 params:
   avamar: 
+  packages:
+  format: ova
 outputs:
   - name: AvamarUpgrade
   - name: UpgradeAvinstaller
@@ -13,4 +15,4 @@ outputs:
   - name: UpgradeClientPluginCatalog 
   - name: ChangeNetworkSettings
 run:
-  path: azs-concourse/ci/scripts/download-avamar-upgrade.sh
+  path: azs-concourse/ci/scripts/download-avamar-packages.sh
