@@ -8,6 +8,7 @@ params:
   avamar: 
   packages:
   extension: ova
+  AV_LOCATION:
 outputs:
   - name: AvamarUpgrade
   - name: UpgradeAvinstaller
