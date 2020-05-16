@@ -1,0 +1,13 @@
+---
+platform: linux
+
+inputs:
+ - name: azs-concourse
+
+params:
+  avamar: 
+outputs:
+  - name: AvamarUpgrade
+  - name: UpgradeAvinstaller
+run:
+  path: azs-concourse/ci/scripts/download-avamar-upgrade.sh
