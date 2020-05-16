@@ -13,6 +13,6 @@ for PACKAGE in $packages
 do
     echo "downloading ${PACKAGE} ${AV_RELEASE}"
     echo "from ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.${extension}"
-    curl --disable-epsv -o ${PACKAGE}/${PACKAGE}-${AV_RELEASE}.avp ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.${extension}
+    curl --disable-epsv -o ${PACKAGE}/${PACKAGE}-${AV_RELEASE}.${extension} ${AV_BASEURL}/${AV_LOCATION}/${PACKAGE}-${AV_RELEASE}.${extension}
 done
 
