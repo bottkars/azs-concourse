@@ -9,6 +9,7 @@ params:
   packages:
   extension: ova
   AV_LOCATION:
+  AV_RELEASE:
 outputs:
   - name: AvamarUpgrade
   - name: UpgradeAvinstaller
