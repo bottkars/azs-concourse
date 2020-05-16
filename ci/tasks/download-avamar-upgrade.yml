@@ -9,5 +9,8 @@ params:
 outputs:
   - name: AvamarUpgrade
   - name: UpgradeAvinstaller
+  - name: UpgradeClientDownloads
+  - name: UpgradeClientPluginCatalog 
+  - name: ChangeNetworkSettings
 run:
   path: azs-concourse/ci/scripts/download-avamar-upgrade.sh
