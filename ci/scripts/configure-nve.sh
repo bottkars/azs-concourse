@@ -44,13 +44,10 @@ else
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
     localhost 
 fi 
-#sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
-#admin@${NVE_FQDN} \
-#avi-cli --user root --password "changeme" \
-# --monitor localhost   
 
-echo "started configuartion of DELLEMC Networker ${NVE_PACKAGE}"
-echo "Waiting for Networker to become Ready this can take up to 10 Minutes"
+
+echo "started DELLEMC Networker Workflow ${NVE_PACKAGE}"
+echo "Waiting for Networker to become Ready, this can take up to 10 Minutes"
 until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/null "https://${NVE_FQDN}:9000") ]] ; do
     printf '.'
     sleep 5
