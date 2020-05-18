@@ -31,10 +31,10 @@ govc vm.network.change -vm ${NVE_VMNAME} -net=VLAN250 ethernet-0
 govc vm.power -on=true ${NVE_VMNAME}
 echo "finished DELLEMC Networker  ${NVE_VERSION} NVE install"
 echo "Waiting for Appliance Fresh Install to become ready, this can take up to 10 Minutes"
-until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/null "https://${NVE_FQDN}:443/#/fresh") ]] ; do
+until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/null "https://${NVE_FQDN}:443/avi/avigui.html") ]] ; do
     printf '.'
     sleep 5
 done
 echo
-echo "Appliance https://${NVE_FQDN}:8443/api/v2 ready for Configuration"
+echo "Appliance https://${NVE_FQDN}:443/avi/avigui.html is ready for Configuration with root:changeme"
 
