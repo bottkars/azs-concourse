@@ -15,13 +15,12 @@ exit1
 
 if [[ -z ${NVE_DATADOMAIN_HOST} ]]; 
 then
-    echo  "Configuring without DataDomain Host"
+    echo  "Configuring Networker without DataDomain"
 
 # without DD Host
     set -eu
-    sshpass -p "changeme" /usr/bin/ssh -f -o "StrictHostKeyChecking no"  \
-    admin@${NVE_FQDN} \
-    avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
+    govc guest.run -l=admin:Password123! \
+    /usr/bin/avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
     --input root_password_os=${NVE_ROOT_PASSWORD_OS} \
@@ -32,9 +31,8 @@ then
 else
     set -eu
     echo "Configuring With DataDomain"
-    sshpass -p "changeme" /usr/bin/ssh -f  -o "StrictHostKeyChecking no"  \
-    admin@${NVE_FQDN} \
-    avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
+    govc guest.run -l=admin:Password123! \
+    /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
     --input root_password_os=${NVE_ROOT_PASSWORD_OS} \
@@ -50,7 +48,7 @@ else
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
     localhost 
 fi 
-sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
-admin@${NVE_FQDN} \
-avi-cli --user root --password "changeme" \
---monitor localhost   
+#sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
+#admin@${NVE_FQDN} \
+#avi-cli --user root --password "changeme" \
+# --monitor localhost   
