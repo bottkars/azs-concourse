@@ -15,7 +15,7 @@ done
 
 
 
-if [[ -z ${NVE_DATADOMAIN_HOST} ]]; 
+if [[ ${NVE_DATADOMAIN_HOST} == "null" ]]; 
 then
     echo  "Configuring Networker without DataDomain"
 
