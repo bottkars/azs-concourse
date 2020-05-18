@@ -2,10 +2,16 @@
 # set -eu
 
 ### get the SW Version
+until [[ !-z NVE_PACKAGE ]]
+do
 NVE_PACKAGE=$(echo $(govc guest.run -l=admin:changeme \
  /usr/bin/avi-cli --user root --password "changeme" \
  --listbycategory 'SW\ Releases' localhost ) \
  | grep NveConfig | awk  '{print $8}')
+sleep 5
+printf "."
+done
+
 
 
 
