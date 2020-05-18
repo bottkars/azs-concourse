@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -eu
+set -eu
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq sshpass < /dev/null > /dev/null
@@ -8,6 +8,10 @@ exit1
 
 ### get the SW Version
 NVE_PACKAGE=$(sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  admin@${NVE_FQDN} avi-cli --user root --password "changeme" --listbycategory 'SW\ Releases' localhost | grep NveConfig | awk  '{print $1}')
+
+break
+exit1
+
 
 if [[ -z ${NVE_DATADOMAIN_HOST} ]]; 
 then
