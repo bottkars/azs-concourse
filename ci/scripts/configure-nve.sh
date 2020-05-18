@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eu
 
-echo "installing jq...."
-DEBIAN_FRONTEND=noninteractive apt-get install -qq jq sshpass < /dev/null > /dev/null
+# echo "installing jq...."
+# DEBIAN_FRONTEND=noninteractive apt-get install -qq jq sshpass < /dev/null > /dev/null
 exit1
 
 
