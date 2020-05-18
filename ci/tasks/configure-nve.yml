@@ -8,6 +8,7 @@ outputs:
 
 
 params:
+  NVE_FQDN:
   NVE_TIMEZONE: "Europe/Berlin"
   NVE_ADMIN_PASSWORD_OS: "Password123!"
   NVE_ROOT_PASSWORD_OS: "Password123!"
