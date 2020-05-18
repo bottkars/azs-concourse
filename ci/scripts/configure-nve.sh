@@ -1,16 +1,12 @@
 #!/bin/bash
-set -eu
-
-# echo "installing jq...."
-# DEBIAN_FRONTEND=noninteractive apt-get install -qq jq sshpass < /dev/null > /dev/null
-exit1
-
+# set -eu
 
 ### get the SW Version
-NVE_PACKAGE=$(sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  admin@${NVE_FQDN} avi-cli --user root --password "changeme" --listbycategory 'SW\ Releases' localhost | grep NveConfig | awk  '{print $1}')
+NVE_PACKAGE=$(echo $(govc guest.run -l=admin:changeme \
+ /usr/bin/avi-cli --user root --password "changeme" \
+ --listbycategory 'SW\ Releases' localhost ) \
+ | grep NveConfig | awk  '{print $8}')
 
-break
-exit1
 
 
 if [[ -z ${NVE_DATADOMAIN_HOST} ]]; 
@@ -19,7 +15,7 @@ then
 
 # without DD Host
     set -eu
-    govc guest.run -l=admin:Password123! \
+    govc guest.run -l=admin:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -31,7 +27,7 @@ then
 else
     set -eu
     echo "Configuring With DataDomain"
-    govc guest.run -l=admin:Password123! \
+    govc guest.run -l=admin:changeme! \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
