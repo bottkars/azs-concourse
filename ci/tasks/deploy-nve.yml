@@ -1,0 +1,35 @@
+---
+# this simple tasksm get´s running vm´s of an azurestack subscription
+platform: linux
+
+inputs:
+ - name: azs-concourse
+ - name: networker
+outputs:
+
+
+params:
+  GOVC_INSECURE: 
+  GOVC_PASSWORD: 
+  GOVC_URL: 
+  GOVC_USERNAME: Administrator@vsphere.local
+  GOVC_RESOURCE_POOL: 
+  GOVC_DATASTORE: 
+  GOVC_DATACENTER:   
+  GOVC_NETWORK: 
+  NVE_NETWORK: 
+  NVE_ADDRESS: 
+  NVE_GATEWAY: 
+  NVE_NETMASK: 
+  NVE_FQDN: 
+  NVE_VMNAME:
+  NVE_DNS: 
+  
+
+run:
+  path: azs-concourse/ci/scripts/deploy-nve.sh
+
+
+# test with 
+# echo "<preset variable yml>" > vars.yml
+# while IFS=": " read -r field1 field2; do     export $field1=$field2; done < vars.yml
