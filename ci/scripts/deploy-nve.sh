@@ -7,10 +7,9 @@ govc about
 
 echo "installing jq...."
 DEBIAN_FRONTEND=noninteractive apt-get install -qq jq < /dev/null > /dev/null
-govc import.spec netwworker/NVE-${NVE_VERSION}.ova > networker.json
+govc import.spec networker/NVE-${NVE_VERSION}.ova > networker.json
 echo "configuring appliance (vami) settings"
-exit 1
-break
+
 
 jq  --arg address "${NVE_ADDRESS}" '(.PropertyMapping[] | select(.Key == "vami.ip0.brs") | .Value) |= $address' networker.json > "tmp" && mv "tmp" networker.json
 jq  --arg gateway "${NVE_GATEWAY}" '(.PropertyMapping[] | select(.Key == "vami.gateway.brs") | .Value) |= $gateway' networker.json > "tmp" && mv "tmp" networker.json
