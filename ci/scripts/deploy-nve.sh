@@ -19,7 +19,7 @@ jq  '(.PropertyMapping[] | select(.Key == "vami.NTP.NetWorker_Virtual_Edition") 
 jq  '(.PropertyMapping[] | select(.Key == "vami.vCenterFQDN.NetWorker_Virtual_Edition") | .Value) |= env.GOVC_URL' networker.json  > "tmp" && mv "tmp" networker.json
 jq  '(.PropertyMapping[] | select(.Key == "vami.vCenterUsername.NetWorker_Virtual_Edition") | .Value) |= env.GOVC_USERNAME' networker.json  > "tmp" && mv "tmp" networker.json
 jq  '(.PropertyMapping[] | select(.Key == "vami.FQDN.NetWorker_Virtual_Edition") | .Value) |= env.NVE_FQDN' networker.json  > "tmp" && mv "tmp" networker.json
-# jq  '(.NetworkMapping[].Name |= env.NVE_NETWORK)' networker.json  > "tmp" && mv "tmp" networker.json
+jq  '(.NetworkMapping[].Name |= env.NVE_NETWORK)' networker.json  > "tmp" && mv "tmp" networker.json
 # jq  '(.NetworkMapping[].Network |= "ethernet-0")' networker.json  > "tmp" && mv "tmp" networker.json
 # jq  '(.PowerOn |= false)' networker.json  > "tmp" && mv "tmp" networker.json
 jq  '(.InjectOvfEnv |= true)' networker.json  > "tmp" && mv "tmp" networker.json
