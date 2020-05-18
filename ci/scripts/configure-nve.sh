@@ -2,7 +2,7 @@
 # set -eu
 
 ### get the SW Version
-until [[ !-z "${NVE_PACKAGE}" ]]
+until [[ ! -z $NVE_PACKAGE ]]
 do
 NVE_PACKAGE=$(echo $(govc guest.run -l=admin:changeme \
  /usr/bin/avi-cli --user root --password "changeme" \
