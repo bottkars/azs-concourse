@@ -49,9 +49,13 @@ fi
 #avi-cli --user root --password "changeme" \
 # --monitor localhost   
 
-echo "finished DELLEMC Networker  ${NVE_VERSION} NVE install"
-echo "Waiting for NVE avi-installer to bevome ready, this can take up to 5 Minutes"
+echo "started DELLEMC Networker  ${NVE_VERSION} NVE configuration"
+echo "Waiting for Networker to become Ready this can take up to 10 Minutes"
 until [[ 200 == $(curl -k --write-out "%{http_code}\n" --silent --output /dev/null "https://${NVE_FQDN}:9000") ]] ; do
     printf '.'
     sleep 5
 done
+
+echo
+echo "Networker Appliance https://${NVE_FQDN}:9000 is ready !"
+
