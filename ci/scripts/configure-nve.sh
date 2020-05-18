@@ -15,7 +15,7 @@ then
 
 # without DD Host
     set -eu
-    govc guest.run -i=false -l=root:changeme \
+    govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -27,7 +27,7 @@ then
 else
     set -eu
     echo "Configuring With DataDomain"
-    govc guest.run -i=false -l=root:changeme \
+    govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -49,5 +49,3 @@ fi
 #avi-cli --user root --password "changeme" \
 # --monitor localhost   
 
-govc guest.run -i=true -l=admin:Password123! \
- /usr/bin/avi-cli --user root --password Password123! --monitor localhost
