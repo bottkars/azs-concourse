@@ -8,6 +8,11 @@ outputs:
 
 
 params:
+  GOVC_INSECURE: 
+  GOVC_PASSWORD: 
+  GOVC_URL: 
+  GOVC_USERNAME: Administrator@vsphere.local
+  GOVC_VM:
   NVE_FQDN:
   NVE_TIMEZONE: "Europe/Berlin"
   NVE_ADMIN_PASSWORD_OS: "Password123!"
