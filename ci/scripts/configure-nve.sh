@@ -9,11 +9,6 @@ exit1
 ### get the SW Version
 NVE_PACKAGE=$(sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  admin@${NVE_FQDN} avi-cli --user root --password "changeme" --listbycategory 'SW\ Releases' localhost | grep NveConfig | awk  '{print $1}')
 
-sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
-admin@${NVE_FQDN} \
-avi-cli --user root --password "changeme" \
---listbycategory "SW Releases" localhost
-
 if [[ -z ${NVE_DATADOMAIN_HOST} ]]; 
 then
     echo  "Configuring without DataDomain Host"
