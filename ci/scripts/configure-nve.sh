@@ -1,6 +1,6 @@
 #!/bin/bash
 # set -eu
-
+echo "waiting for DELLEMC Networker Workflow NveConfig to be ready"
 ### get the SW Version
 until [[ ! -z $NVE_PACKAGE ]]
 do
@@ -12,9 +12,7 @@ sleep 5
 printf "."
 done
 
-
-
-
+echo
 if [[ ${NVE_DATADOMAIN_HOST} == "null" ]]; 
 then
     echo  "Configuring Networker without DataDomain"
