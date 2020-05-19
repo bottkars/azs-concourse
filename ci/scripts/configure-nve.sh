@@ -27,7 +27,7 @@ then
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
     localhost 
 else
-    set -eux
+    set -eu
     echo "Configuring Networker with DataDomain ${NVE_DATADOMAIN_HOST}"
     govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
