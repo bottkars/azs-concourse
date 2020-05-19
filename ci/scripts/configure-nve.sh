@@ -16,8 +16,6 @@ echo
 if [[ ${NVE_DATADOMAIN_HOST} == "null" ]]; 
 then
     echo  "Configuring Networker without DataDomain"
-
-# without DD Host
     set -eu
     govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
@@ -30,7 +28,7 @@ then
     localhost 
 else
     set -eu
-    echo "Configuring With DataDomain"
+    echo "Configuring Networker with DataDomain ${NVE_DATADOMAIN_HOST}"
     govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
