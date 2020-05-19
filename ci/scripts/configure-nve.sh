@@ -6,7 +6,7 @@ until [[ ! -z $NVE_PACKAGE ]]
 do
 NVE_PACKAGE=$(echo $(govc guest.run -l=admin:changeme \
  /usr/bin/avi-cli --user root --password "changeme" \
- --listbycategory 'SW\ Releases' localhost ) \
+ --listbycategory 'SW\ Releases' localhost 2> /dev/null ) \
  | grep NveConfig | awk  '{print $8}')
 sleep 5
 printf "."
