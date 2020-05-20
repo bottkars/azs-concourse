@@ -19,7 +19,7 @@ if [[ ${NVE_DATADOMAIN_HOST} == "null" ]];
 then
     echo  "Configuring Networker without DataDomain"
     set -eu
-    govc guest.start -i=false -l=root:changeme \
+    START_PID=$(govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -27,13 +27,13 @@ then
     --input snmp_string=${NVE_SNMP_STRING} \
     --input tomcat_keystore_password=${NVE_TOMCAT_KEYSTORE_PASSWORD} \
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
-    localhost 
+    localhost) 
 else
-    set -eux
+    set -eu
     echo "Configuring Networker with DataDomain ${NVE_DATADOMAIN_HOST}"
-    # govc guest.start -i=false -l=root:changeme \
-    sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
-    admin@nve-dr.home.labbuildr.com \
+    #    sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
+    #  admin@nve-dr.home.labbuildr.com \
+    START_PID=$(govc guest.start -i=false -l=root:changeme \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -51,9 +51,9 @@ else
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
     --input install_avpasswd=false \
     --input add_datadomain_config=true \
-    localhost 
+    localhost) 
 fi 
-
+echo $START_PID
 
 echo "started DELLEMC Networker Workflow ${NVE_PACKAGE}"
 echo "Waiting for Networker to become Ready, this can take up to 10 Minutes"
