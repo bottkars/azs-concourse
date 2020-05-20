@@ -1,5 +1,7 @@
 #!/bin/bash
 # set -eu
+DEBIAN_FRONTEND=noninteractive apt-get install -qq sshpass < /dev/null > /dev/null
+
 echo "waiting for DELLEMC Networker Workflow NveConfig to be ready"
 ### get the SW Version
 until [[ ! -z $NVE_PACKAGE ]]
@@ -27,9 +29,11 @@ then
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
     localhost 
 else
-    set -eu
+    set -eux
     echo "Configuring Networker with DataDomain ${NVE_DATADOMAIN_HOST}"
-    govc guest.start -i=false -l=root:changeme \
+    # govc guest.start -i=false -l=root:changeme \
+    sshpass -p "changeme" /usr/bin/ssh -o "StrictHostKeyChecking no"  \
+    admin@nve-dr.home.labbuildr.com \
     /usr/bin/avi-cli --user root --password "changeme" --user root --password "changeme" --install ${NVE_PACKAGE} \
     --input timezone_name="${NVE_TIMEZONE}" \
     --input admin_password_os=${NVE_ADMIN_PASSWORD_OS} \
@@ -37,7 +41,8 @@ else
     --input snmp_string=${NVE_SNMP_STRING} \
     --input datadomain_host=$NVE_DATADOMAIN_HOST \
     --input storage_path=${NVE_STORAGE_PATH} \
-    --input new_ddboost_user=${NVE_DDBOOST_USER} \
+    --input new_ddboost_user=${NVE_NEW_DDBOOST_USER} \
+    --input ddboost_user=${NVE_DDBOOST_USER} \
     --input ddboost_user_pwd=${NVE_DDBOOST_USER_PWD} \
     --input ddboost_user_pwd_cf=${NVE_DDBOOST_USER_PWD_CF} \
     --input datadomain_sysadmin=${NVE_DATADOMAIN_SYSADMIN} \
