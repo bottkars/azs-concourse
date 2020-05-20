@@ -37,13 +37,15 @@ else
     --input snmp_string=${NVE_SNMP_STRING} \
     --input datadomain_host=$NVE_DATADOMAIN_HOST \
     --input storage_path=${NVE_STORAGE_PATH} \
-    --input ddboost_user=${NVE_DDBOOST_USER} \
+    --input new_ddboost_user=${NVE_DDBOOST_USER} \
     --input ddboost_user_pwd=${NVE_DDBOOST_USER_PWD} \
     --input ddboost_user_pwd_cf=${NVE_DDBOOST_USER_PWD_CF} \
     --input datadomain_sysadmin=${NVE_DATADOMAIN_SYSADMIN} \
     --input datadomain_sysadmin_pwd=${NVE_DATADOMAIN_SYSADMIN_PWD} \
     --input tomcat_keystore_password=${NVE_TOMCAT_KEYSTORE_PASSWORD} \
     --input authc_admin_password=${NVE_AUTHC_ADMIN_PASSWORD} \
+    --input install_avpasswd=false \
+    --input add_datadomain_config=true \
     localhost 
 fi 
 
@@ -57,4 +59,6 @@ done
 
 echo
 echo "Networker Appliance https://${NVE_FQDN}:9000 is ready !"
+
+## validate new_ddboost_user over ddboost_user
 
