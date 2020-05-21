@@ -17,5 +17,6 @@ outputs:
   - name: UpgradeClientPluginCatalog 
   - name: ChangeNetworkSettings
   - name: AVE
+  - name: AZURE-AVE
 run:
   path: azs-concourse/ci/scripts/download-avamar-packages.sh
