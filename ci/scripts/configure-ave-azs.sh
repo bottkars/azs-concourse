@@ -37,8 +37,8 @@ function get_setting() {
 }
 custom_data_file="/var/lib/waagent/CustomDataClear"
 settings=$(cat ${custom_data_file})
-
-
+export PATH=/opt/emc-tools/bin:$PATH
+printenv
 AVE_PASSWORD=$(get_setting AVE_PASSWORD)
 AVE_COMMON_PASSWORD=$(get_setting AVE_COMMON_PASSWORD)
 EXTERNAL_HOSTNAME=$(get_setting EXTERNAL_HOSTNAME)
