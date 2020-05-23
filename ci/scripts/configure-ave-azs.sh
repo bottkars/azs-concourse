@@ -1,6 +1,5 @@
-#!/bin/bash
-# set -eu
 #!/usr/bin/env bash
+set -ex
 function retryop()
 {
   retry=0
@@ -40,7 +39,7 @@ custom_data_file="/var/lib/waagent/CustomDataClear"
 settings=$(cat ${custom_data_file})
 
 
-
+AVE_PASSWORD=$(get_setting AVE_PASSWORD)
 AVE_COMMON_PASSWORD=$(get_setting AVE_COMMON_PASSWORD)
 EXTERNAL_HOSTNAME=$(get_setting EXTERNAL_HOSTNAME)
 
