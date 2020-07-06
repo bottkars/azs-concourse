@@ -14,6 +14,7 @@ jq  '(.PropertyMapping[] | select(.Key == "vami.gateway.brs") | .Value) |= env.P
 jq  '(.PropertyMapping[] | select(.Key == "vami.netmask0.brs") | .Value) |= env.PPDM_NETMASK' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
 jq  '(.PropertyMapping[] | select(.Key == "vami.DNS.brs") | .Value) |= env.PPDM_DNS' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
 jq  '(.PropertyMapping[] | select(.Key == "vami.fqdn.brs") | .Value) |= env.PPDM_FQDN' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
+jq  '(.DiskProvisioning |= "thin")' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
 jq  '(.NetworkMapping[].Name |= env.PPDM_NETWORK)' powerprotect.json  > "tmp" && mv "tmp" powerprotect.json
 echo "importing powerprotect ${PPDM_VERSION} template"
 govc import.ova -name ${PPDM_VMNAME}  -options=powerprotect.json powerprotect/dellemc-ppdm-sw-${PPDM_VERSION}.ova
