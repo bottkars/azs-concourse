@@ -17,7 +17,7 @@ fi
 URI="${BASEURI}/${ASDK_VERSION}"
 echo "Downloading AzureStackDevelopmentKit Files from $URI, this may take a wile"
 curl "$URI/AzureStackDevelopmentKit.exe" --silent --output cloudbuilder/AzureStackDevelopmentKit.exe
-file cloudbuilder/AzureStackDevelopmentKit.exe
+# file cloudbuilder/AzureStackDevelopmentKit.exe
 aws --endpoint-url "${endpoint}" s3 cp ./cloudbuilder/AzureStackDevelopmentKit.exe s3://${bucket}/${ASDK_VERSION}/AzureStackDevelopmentKit.exe
 i=1
 response=200
