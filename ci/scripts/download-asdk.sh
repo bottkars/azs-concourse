@@ -12,7 +12,7 @@ then
     ASDK_VERSION="${ASDK_VERSION}"
 else
     echo "using ${ASDK_BUILD}-build Version"	
-    ASDK_VERSION="ASDK_1.${ASDK_VERSION}.0.${ASDK_BUILD}"
+    ASDK_VERSION="ASDK_1.${ASDK_VERSION}.${ASDK_BUILD}"
 fi
 URI="${BASEURI}/${ASDK_VERSION}"
 echo "Downloading AzureStackDevelopmentKit Files from $URI, this may take a wile"
