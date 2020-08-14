@@ -6,7 +6,7 @@ inputs:
  - name: azs-concourse
 
 params:
-  BASEURI: https://azurestack.azureedge.net/asdk
+  BASEURI: https://azurestackhub.azureedge.net/PR/download
   access_key_id: 
   endpoint:
   region_name:
