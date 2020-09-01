@@ -41,7 +41,7 @@ run:
     set -eux 
     az account set --subscription ${AZURE_SUBSCRIPTION_ID}
     az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
-    az group deployment create \
+    az deployment group create \
     --mode incremental \
     --resource-group ${RESOURCE_GROUP} \
     --parameters config/${PARAMETER_FILE} \

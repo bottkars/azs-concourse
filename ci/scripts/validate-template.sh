@@ -14,7 +14,7 @@ az login --service-principal \
 set -eux 
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
-az group deployment validate \
+az deployment group validate \
   --mode incremental \
   --resource-group ${RESOURCE_GROUP} \
   --parameters ${PARAMETER_FILE} \

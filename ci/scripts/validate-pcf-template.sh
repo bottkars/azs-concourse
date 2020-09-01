@@ -18,7 +18,7 @@ OPSMAN_VHD=$(basename $SOURCE_URI)
 IMAGE_URI=https://${ACCOUNT_NAME}.blob.${SUFFIX_STORAGE_ENDPOINT}/${DESTINATION_CONTAINER}/${OPSMAN_VHD}
 # opsManVHD will be overwritten to the actual source
 az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
-az group deployment validate \
+az deployment group validate \
   --mode incremental \
   --resource-group ${RESOURCE_GROUP} \
   --parameters config/${PARAMETER_FILE} \
