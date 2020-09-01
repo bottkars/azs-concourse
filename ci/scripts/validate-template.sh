@@ -17,7 +17,7 @@ az group create --name ${RESOURCE_GROUP} --location ${LOCATION}
 az group deployment validate \
   --mode incremental \
   --resource-group ${RESOURCE_GROUP} \
-  --parameters config/${PARAMETER_FILE} \
+  --parameters ${PARAMETER_FILE} \
   --parameters ${ADDITIONAL_PARAMETERS} \
   --template-uri ${TEMPLATE_URI} \
   --parameter location=${LOCATION}
