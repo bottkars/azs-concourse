@@ -20,8 +20,7 @@ az deployment group create \
   --parameters ${PARAMETER_FILE} \
   --parameters ${ADDITIONAL_PARAMETERS} \
   --template-uri ${TEMPLATE_URI} \
-  --query ${QUERY} #\
-#    >> deployment.json
+   >> deployment/deployment.json
 
 
 
