@@ -23,5 +23,6 @@ params:
   LOCATION:
   ADDITIONAL_PARAMETERS: "{}"
   QUERY: "[]"
+  DEPLOYMENT_FILE: deployment-$timestamp.json
 run:
   path: azs-concourse/ci/scripts/deploy-template.sh

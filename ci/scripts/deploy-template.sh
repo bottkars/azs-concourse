@@ -22,5 +22,9 @@ az deployment group create \
   --template-uri ${TEMPLATE_URI} \
    >> deployment/deployment.json
 
+timestamp="$(date '+%Y%m%d.%-H%M.%S+%Z')"
+export timestamp
 
+DEPLOYMENT_OUTPUT_FILE="$(echo "$DEPLOYMENT_FILE" | envsubst '$timestamp')"
+cp deployment/deployment.json deployment/"$DEPLOYMENT_OUTPUT_FILE"
 
