@@ -24,4 +24,4 @@ params:
   ADDITIONAL_PARAMETERS: "{}"
   QUERY: "[]"
 run:
-  path: azs-concourse/ci/scripts/deploy-tas-template.sh
+  path: azs-concourse/ci/scripts/deploy-template.sh
