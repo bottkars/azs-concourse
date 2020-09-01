@@ -20,7 +20,6 @@ az deployment group validate \
   --parameters ${PARAMETER_FILE} \
   --parameters ${ADDITIONAL_PARAMETERS} \
   --template-uri ${TEMPLATE_URI} \
-  --parameter location=${LOCATION} \
   --debug
 
 
