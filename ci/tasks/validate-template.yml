@@ -23,6 +23,6 @@ params:
   LOCATION:
 
 run:
-  path: azs-concourse/ci/scripts/validate-arm-template.sh
+  path: azs-concourse/ci/scripts/validate-template.sh
     
 
