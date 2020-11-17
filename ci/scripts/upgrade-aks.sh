@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eu
+figlet AzureStackHub Automation
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 TAG=$(cat aks-engine/tag)
 tar xzf aks-engine/aks-engine-${TAG}-linux-amd64.tar.gz
