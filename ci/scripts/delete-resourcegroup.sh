@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eu
+figlet azs-concourse
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH}
 az cloud register -n AzureStackUser \
 --endpoint-resource-manager ${ENDPOINT_RESOURCE_MANAGER} \
@@ -12,8 +13,8 @@ az login --service-principal \
   -u ${AZURE_CLIENT_ID} \
   -p ${AZURE_CLIENT_SECRET} \
   --tenant ${AZURE_TENANT_ID}
-set -x
-set +eu
+# set -x
+# set +eu
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
 IFS=', ' read -r -a array <<< "${RESOURCE_GROUP}"
 for GROUP_NAME in "${array[@]}"
