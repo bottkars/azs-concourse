@@ -1,6 +1,5 @@
 #!/bin/bash
 set -eu
-figlet AzureStackHub Automation
 echo "${CA_CERT}" >> ${AZURE_CLI_CA_PATH} # beware in "" for keep as single literal
 export KUBECONFIG=$(pwd)/kubeconfig/kubeconfig-$(cat kubeconfig/version).json
 

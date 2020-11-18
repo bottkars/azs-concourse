@@ -1,6 +1,5 @@
 #!/bin/bash
 set -eu
-figlet AzureStackHub Automation
 
 DEPLOYMENT=$(\
 az deployment group create \
