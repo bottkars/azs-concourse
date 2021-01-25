@@ -3,10 +3,10 @@
     for i in $( seq $FROM $TO )
       do
         build=$(printf "%02d" $i)
-        url="https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${build}/AzureStackDevelopmentKit.exe"
+        url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
             echo "URL exists: $url"
-            RELEASE=https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${build}
+            RELEASE=https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/
             break
         else
             echo "URL does not exist: $url"
