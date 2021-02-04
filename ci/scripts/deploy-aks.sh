@@ -18,6 +18,7 @@ aks-engine-${TAG}-linux-amd64/aks-engine deploy \
 --subscription-id ${AZURE_SUBSCRIPTION_ID} \
 --set ${AKS_ADDITIONAL_APIMODEL}orchestratorProfile.orchestratorRelease=${AKS_ORCHESTRATOR_RELEASE},\
 orchestratorProfile.orchestratorVersion=${AKS_ORCHESTRATOR_VERSION},\
+orchestratorProfile.orchestratorType=${AKS_ORCHESTRATOR_TYPE},\
 customCloudProfile.portalURL=https://portal.${SUFFIX_STORAGE_ENDPOINT},\
 linuxProfile.ssh.publicKeys[0].keyData="${SSH_PUBLIC_KEY}",\
 masterProfile.dnsPrefix=${AKS_MASTER_DNS_PREFIX},\
