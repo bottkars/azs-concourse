@@ -7,7 +7,7 @@ export SSL_CERT_FILE=${AZURE_CLI_CA_PATH}
 
 export AKS_ADDITIONAL_APIMODEL=$(echo $AKS_ADDITIONAL_APIMODEL | envsubst '${AKS_VNET_NAME} ${AKS_AGENT_0_SUBNET_NAME} ${AKS_MASTER_SUBNET_NAME} ${AKS_VNET_RG}')
 
-cat apimodel-json/kubernetes-azurestack.json | jq '.properties.orchestratorProfile.kubernetesConfig.addons[0] |= {"name": "kubernetes-dashboard", "enabled" :"true"}'  > apimodel-json/kubernetes.json 
+cat apimodel-json/kubernetes-azurestack.json | jq '.properties.orchestratorProfile.kubernetesConfig.addons[0] |= {"name": "kubernetes-dashboard", "enabled": true}'  > apimodel-json/kubernetes.json 
 
 aks-engine-${TAG}-linux-amd64/aks-engine deploy \
 --azure-env AzureStackCloud \
