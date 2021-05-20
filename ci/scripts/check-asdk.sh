@@ -2,7 +2,7 @@
     set -e
     for i in $( seq $FROM $TO )
       do
-        typeset -LZ minor
+        typeset -lz minor
         minor=$i
         build=$(printf "%02d" $minor)
         printf "checking Build $build "
