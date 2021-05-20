@@ -2,8 +2,9 @@
     set -e
     for i in $( seq $FROM $TO )
       do
-        i=${i##(0)}
-        build=$(printf "%02d" $i)
+        minor=${i##(0)}
+        build=$(printf "%02d" $minor)
+        printf "checking Build $build"
         url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
             echo "URL exists: $url"
