@@ -2,7 +2,7 @@
     set -e
     for i in $( seq $FROM $TO )
       do
-        minor=expr $i + 0 
+        minor==$(bc<<<$i) 
         build=$(printf "%02d" $minor)
         printf "checking Build $build "
         url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
