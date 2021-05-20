@@ -1,4 +1,5 @@
 #!/bin/bash
+    FROM=${FROM##+(0)}
     set -e
     for i in $( seq $FROM $TO )
       do
