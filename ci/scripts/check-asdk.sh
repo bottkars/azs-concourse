@@ -1,8 +1,7 @@
 #!/bin/bash
     set -e
-    for i in $( seq $FROM $TO )
+    for i in $( seq 0 $TO )
       do
-        typeset -lz minor
         minor=$i
         build=$(printf "%02d" $minor)
         printf "checking Build $build "
