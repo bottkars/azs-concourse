@@ -1,9 +1,8 @@
 #!/bin/bash
     set -e
-    for i in $( seq 0 $TO )
+    for i in $( seq $FROM $TO )
       do
-        minor=$i
-        build=$(printf "%02d" $minor)
+        build=$i
         printf "checking Build $build "
         url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
