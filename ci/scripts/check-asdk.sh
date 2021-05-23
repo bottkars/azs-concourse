@@ -4,7 +4,7 @@
       do
         build=$i
         printf "checking Build $build "
-        url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
+        url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.28.${build}/AzureStackDevelopmentKit.exe"
         if curl --output /dev/null --silent --head --fail "$url"; then
             echo "URL exists: $url"
             RELEASE=https://azurestack.azureedge.net/asdk${ASDK_VERSION}-${build}
@@ -15,7 +15,7 @@
       done
     if [[ -z "${RELEASE}" ]]
     then
-        url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.0.${build}/AzureStackDevelopmentKit.exe"
+        url="https://azurestackhub.azureedge.net/PR/download/ASDK_1.${ASDK_VERSION}.28.${build}/AzureStackDevelopmentKit.exe"
         echo "trying without build number from $url"
         if curl --output /dev/null --silent --head --fail "$url"
         then
@@ -28,7 +28,7 @@
             echo "No new Release found"
          fi   
     else
-      RELEASEFILE=asdk-release/asdk-1.${ASDK_VERSION}.0.${build}.yml
+      RELEASEFILE=asdk-release/asdk-1.${ASDK_VERSION}.28.${build}.yml
       echo "RELEASE: $ASDK_VERSION" >> ${RELEASEFILE}
       echo "BUILD: ${build}" >> ${RELEASEFILE}
       cat ${RELEASEFILE}
