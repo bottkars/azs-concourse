@@ -28,7 +28,7 @@
             echo "No new Release found"
          fi   
     else
-      RELEASEFILE=asdk-release/asdk-1.${ASDK_VERSION}.28.${build}.yml
+      RELEASEFILE=asdk-release/asdk-1.${ASDK_VERSION}.0.${build}.yml
       echo "RELEASE: $ASDK_VERSION" >> ${RELEASEFILE}
       echo "BUILD: ${build}" >> ${RELEASEFILE}
       cat ${RELEASEFILE}
